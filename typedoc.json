@@ -1,0 +1,31 @@
+{
+  "entryPoints": [
+    "src/index.ts",
+  ],
+  "readme": "none",
+  "excludePrivate": true,
+  "sort": [
+    "kind"
+  ],
+  "plugin": [
+    "typedoc-plugin-markdown"
+  ],
+  "groupOrder": [
+    "Classes",
+    "Functions",
+    "Enumerations",
+    "Interfaces",
+    "Properties",
+    "Constructors",
+    "Methods"
+  ],
+  // "hideInPageTOC": true,
+  "hideBreadcrumbs": true,
+  // "hidePageTitle": true,
+  "disableSources": true,
+  "allReflectionsHaveOwnDocument": true,
+  "theme": "markdown",
+  "media": "book/media/",
+  "gitRemote": "public",
+  "out": "./docs"
+}

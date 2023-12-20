@@ -1,0 +1,37 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "@typescript-eslint",
+        "prettier"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+        "arrow-parens": [
+            "error",
+            "always"
+        ],
+        "prettier/prettier": [
+            "error",
+            {
+                "trailingComma": "all"
+            },
+            {
+                "usePrettierrc": true,
+                "arrowParens": "always"
+            }
+        ],
+        "no-unused-vars": "off", // disable the base rule as it can report incorrect errors https://typescript-eslint.io/rules/no-unused-vars/#how-to-use
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+                "argsIgnorePattern": "^_",
+                "varsIgnorePattern": "^_"
+            }
+        ]
+    }
+}

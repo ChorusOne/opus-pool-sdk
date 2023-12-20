@@ -1,0 +1,28 @@
+name: Node.js CI
+
+on: [push]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+            - name: Use Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '20.x'
+            - run: npm ci
+            - name: Start Hardhat Node
+              run: |
+                  npx hardhat node &
+                  echo "Hardhat_PID=$!" > hardhat_pid.env
+            - name: Run Tests
+              run: npm test
+            - name: Stop Hardhat Node
+              if: always()
+              run: |
+                  if [ -f hardhat_pid.env ]; then
+                    source hardhat_pid.env
+                    kill $Hardhat_PID || true
+                  fi

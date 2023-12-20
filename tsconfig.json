@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "module": "ES2020",
+        "resolveJsonModule": true,
+        "moduleResolution": "node",
+        "target": "ES2020",
+        "declaration": true,
+        "declarationMap": true,
+        "strict": true,
+        "esModuleInterop": true,
+        "rootDir": "./",
+        "skipLibCheck": true,
+        "types": [
+            "hardhat/config",
+            "@nomicfoundation/hardhat-ethers",
+            "@nomicfoundation/hardhat-toolbox-viem",
+            "@nomicfoundation/hardhat-viem",
+            "jest",
+        ],
+    },
+    "include": [
+        "src/**/*.ts",
+    ],
+    // "files": [
+    //     "hardhat.config.cjs"
+    // ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
+    ]
+}

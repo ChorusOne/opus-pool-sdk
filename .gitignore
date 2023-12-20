@@ -1,0 +1,8 @@
+node_modules
+*.lock
+dist
+.npmrc
+cache
+docs/*
+book/docs/media
+_book/
