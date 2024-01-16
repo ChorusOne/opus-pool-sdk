@@ -4,7 +4,7 @@ import { Networks } from '../types/enums';
 
 // Represents a single request to a graphql backend
 export interface GraphQLRequest {
-    type: string;
+    type: 'api' | 'graph';
     op: string;
     query: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,7 +45,7 @@ export class StakewiseConnector {
                 });
 
                 this.baseAPI = 'https://holesky-api.stakewise.io/graphql';
-                this.baseGraph = 'https://holesky-graph.stakewise.io/subgraphs/name/stakewise/stakewise';
+                this.baseGraph = 'https://holesky-graph.stakewise.io/subgraphs/name/stakewise/stakewise1';
                 // Stakewise keeper contract
                 this.keeper = '0xB580799Bf7d62721D1a523f0FDF2f5Ed7BA4e259';
                 break;
@@ -56,7 +56,7 @@ export class StakewiseConnector {
                 });
 
                 this.baseAPI = 'https://mainnet-api.stakewise.io/graphql';
-                this.baseGraph = 'https://mainnet-graph.stakewise.io/subgraphs/name/stakewise/stakewise';
+                this.baseGraph = 'https://mainnet-graph.stakewise.io/subgraphs/name/stakewise/stakewise1';
                 this.eth = createPublicClient({
                     chain: mainnet,
                     transport: transport,
@@ -66,7 +66,7 @@ export class StakewiseConnector {
                 break;
             case Networks.Hardhat:
                 this.baseAPI = 'https://holesky-api.stakewise.io/graphql';
-                this.baseGraph = 'https://holesky-graph.stakewise.io/subgraphs/name/stakewise/stakewise';
+                this.baseGraph = 'https://holesky-graph.stakewise.io/subgraphs/name/stakewise/stakewise1';
                 this.eth = createPublicClient({
                     chain: hardhat,
                     transport: http(),
