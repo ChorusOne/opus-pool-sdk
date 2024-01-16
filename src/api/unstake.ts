@@ -1,4 +1,4 @@
-import { Hex, encodeFunctionData } from 'viem';
+import { Hex, encodeFunctionData, parseGwei } from 'viem';
 import { Networks, OpusPool, StakingTypeEnum } from '..';
 import { StakingTransactionData } from '../types/stake';
 import { keeperABI } from '../internal/contracts/keeperAbi';
@@ -22,8 +22,7 @@ export default async function unstake(
         args: [request.amount],
     });
 
-    const maxFeePerGas = pool.connector.maxFeePerGas;
-    const maxPriorityFeePerGas = pool.connector.maxPriorityFeePerGas;
+    const { maxFeePerGas, maxPriorityFeePerGas } = await pool.connector.eth.estimateFeesPerGas();
     let tx: Hex;
     let gas: bigint;
 
@@ -82,7 +81,7 @@ export default async function unstake(
         type: StakingTypeEnum.Unstake,
         transaction: tx,
         gasEstimation: BigInt((Number(gas) * gasDenominator) | 0),
-        maxFeePerGas,
-        maxPriorityFeePerGas,
+        maxFeePerGas: maxFeePerGas || pool.connector.maxFeePerGas,
+        maxPriorityFeePerGas: maxPriorityFeePerGas || pool.connector.maxPriorityFeePerGas,
     };
 }

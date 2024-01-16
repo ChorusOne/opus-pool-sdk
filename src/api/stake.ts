@@ -5,11 +5,9 @@ import { Hex, encodeFunctionData, zeroAddress } from 'viem';
 
 export default async function stake(
     pool: OpusPool,
-    request: { vault: Hex; amount: bigint, referrer?: Hex; },
+    request: { vault: Hex; amount: bigint; referrer?: Hex },
 ): Promise<StakingTransactionData> {
-    // These parameters may differ per network
-    const maxFeePerGas = pool.connector.maxFeePerGas;
-    const maxPriorityFeePerGas = pool.connector.maxPriorityFeePerGas;
+    const { maxFeePerGas, maxPriorityFeePerGas } = await pool.connector.eth.estimateFeesPerGas();
 
     // Encode transaction into hex form
     const tx: Hex = encodeFunctionData({
@@ -40,7 +38,7 @@ export default async function stake(
         transaction: tx,
         amount: request.amount,
         gasEstimation: BigInt((Number(gas) * gasDenominator) | 0),
-        maxFeePerGas,
-        maxPriorityFeePerGas,
+        maxFeePerGas: maxFeePerGas || pool.connector.maxFeePerGas,
+        maxPriorityFeePerGas: maxPriorityFeePerGas || pool.connector.maxPriorityFeePerGas,
     };
 }
