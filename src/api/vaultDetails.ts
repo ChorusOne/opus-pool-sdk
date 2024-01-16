@@ -7,15 +7,14 @@ import { Hex } from 'viem';
 
 
 interface StakewiseDailySnapshot {
-  rewardPerAsset: string
+    weeklyApy: string;
 }
 
 interface VaultProperties {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  vaultData: any,
-  apy: number,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    vaultData: any;
+    apy: number;
 }
-
 
 // Some properties don't change often, so we load them on a first request only
 const cachedVaultProperties = new Map<string, VaultProperties>();
@@ -32,80 +31,84 @@ async function extractVaultProperties(connector: StakewiseConnector, vault: Hex)
   dateBeforeYesterday.setDate(dateBeforeYesterday.getDate() - 8);
   today.setDate(today.getDate());
 
-  const vars_getSnapshot = {
-    where: {
-      date_gte: parseInt((dateBeforeYesterday.getTime() / 1000).toFixed(0)),
-      vault_: { id: vault.toLowerCase() },
-    },
-    whereFirstSnapshots: {
-      date_lt: parseInt((today.getTime() / 1000).toFixed(0)),
-      vault_: { id: vault.toLowerCase() },
-    },
-  };
+    const vars_getSnapshot = {
+        dateFrom: String(parseInt((dateBeforeYesterday.getTime() / 1000).toFixed(0))),
+        vaultAddress: vault.toLowerCase(),
+    };
 
-  const maybeVault = connector.graphqlRequest({
-    type: 'graph',
-    op: 'Vault',
-    query: `
-query Vault($address: ID!) 
-{ 
-    vault(id: $address) { 
-      address: id 
-      performance: score 
-      admin 
-      isErc20 
-      imageUrl 
-      verified 
-      capacity
-      createdAt
-      tokenName
-      feePercent
-      totalAssets
-      displayName
-      description
-      whitelister
-      keysManager
-      tokenSymbol
-      feeRecipient 
-      validatorsRoot
-      avgRewardPerAsset
-    } privateVaultAccounts( where: { vault: $address } ) 
-    { createdAt address }}`,
-    variables: vars_getVault,
-    onSuccess: function (value: Response): Response {
-      return value
-    },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onError: function (reason: any): PromiseLike<never> {
-      throw new Error(`Failed to get vault from Stakewise: ${reason}`);
-    }
-  });
+    const maybeVault = connector.graphqlRequest({
+        type: 'graph',
+        op: 'Vault',
+        query: `
+        query Vault($address: ID!) {
+          vault(id: $address) {
+            address: id
+            performance: score
+            admin
+            isErc20
+            imageUrl
+            capacity
+            mevEscrow
+            isPrivate
+            createdAt
+            mevEscrow
+            tokenName
+            feePercent
+            totalAssets
+            displayName
+            description
+            whitelister
+            keysManager
+            tokenSymbol
+            feeRecipient
+            validatorsRoot
+            weeklyApy
+          }
+          privateVaultAccounts(
+            where: { vault: $address }
+          ) {
+            createdAt
+            address
+          }
+        }`,
+        variables: vars_getVault,
+        onSuccess: function (value: Response): Response {
+            return value;
+        },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onError: function (reason: any): PromiseLike<never> {
+            throw new Error(`Failed to get vault from Stakewise: ${reason}`);
+        },
+    });
 
-  const maybeSnapshots = connector.graphqlRequest({
-    type: 'graph',
-    op: 'DaySnapshots',
-    query: `
-    query DaySnapshots(
-        $where: DaySnapshot_filter
-        $whereFirstSnapshots: DaySnapshot_filter
-      ) {
-        daySnapshots(where: $where) {
-          date totalAssets rewardPerAsset
+    const maybeSnapshots = connector.graphqlRequest({
+        type: 'api',
+        op: 'Snapshots',
+        query: `
+        query Snapshots($vaultAddress: String!  $dateFrom: DateAsTimestamp!) {
+        vaultSnapshots(
+          vaultAddress: $vaultAddress
+          dateFrom: $dateFrom
+        ) {
+          date,
+          weeklyApy
+          totalAssets
         }
-        firstSnapshots: daySnapshots(where: $whereFirstSnapshots, first: 1) {
-          date totalAssets rewardPerAsset
+        firstSnapshots: vaultSnapshots(vaultAddress: $vaultAddress, first: 1) {
+          date
+          totalAssets
+          weeklyApy
+          }
         }
-      }
-    `,
-    variables: vars_getSnapshot,
-    onSuccess: function (value: Response): Response {
-      return value
-    },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onError: function (reason: any): PromiseLike<never> {
-      throw new Error(`Failed to get vault from Stakewise: ${reason}`);
-    }
-  });
+      `,
+        variables: vars_getSnapshot,
+        onSuccess: function (value) {
+            return value;
+        },
+        onError: function (reason) {
+            throw new Error(`Failed to get vault from Stakewise: ${reason}`);
+        },
+    });
 
   const detailGraphResponses = await Promise.all([
     maybeVault,
@@ -125,18 +128,18 @@ query Vault($address: ID!)
   const vaultData = detailGraphDatas[0];
   const snapshotsData = detailGraphDatas[1];
 
-  // Stakewise uses 7d APY, but at very start of the vault
-  let aggregateApy = 0.0;
-  let apyPoints = 0;
-  snapshotsData.data.daySnapshots.forEach((snapshot: StakewiseDailySnapshot) => {
-    const apy = (Number(snapshot.rewardPerAsset)  || 0) * 365 * 100;
-    if (apy > 0) {
-      aggregateApy += apy;
-      apyPoints += 1;
-    }
-  });
-  // some days might be missing, so we extrapolate here
-  const apy: number = aggregateApy / (7.0 / (apyPoints / 7.0));
+    // Stakewise uses 7d APY, but at very start of the vault
+    let aggregateApy = 0.0;
+    let apyPoints = 0;
+    snapshotsData.data.vaultSnapshots.forEach((snapshot: StakewiseDailySnapshot) => {
+        const apy = (Number(snapshot.weeklyApy) || 0) * 365 * 100;
+        if (apy > 0) {
+            aggregateApy += apy;
+            apyPoints += 1;
+        }
+    });
+    // some days might be missing, so we extrapolate here
+    const apy: number = aggregateApy / (7.0 / (apyPoints / 7.0));
 
   return {vaultData, apy}
 }

@@ -18,7 +18,7 @@ async function extractVaultUserRewards(
     const responseRewards = await connector.graphqlRequest({
         type: 'api',
         op: 'UserRewards',
-        query: `query UserRewards($user: String!, $vaultAddress: String!, $dateFrom: date_as_timestamp!) { userRewards(user: $user, vaultAddress: $vaultAddress, dateFrom: $dateFrom) { date, sumRewards, }}`,
+        query: `query UserRewards($user: String!, $vaultAddress: String!, $dateFrom: DateAsTimestamp!) { userRewards(user: $user, vaultAddress: $vaultAddress, dateFrom: $dateFrom) { date, sumRewards, }}`,
         variables: vars_getRewards,
         onSuccess: function (value: Response): Response {
             return value;
