@@ -6,7 +6,7 @@ import { StakingTypeEnum } from './enums';
  */
 export interface StakingTransactionData {
     /**
-     * @const "Stake" or "Unstake"
+     * @const "Stake" or "Unstake" or "Mint"
      */
     type: StakingTypeEnum;
 
