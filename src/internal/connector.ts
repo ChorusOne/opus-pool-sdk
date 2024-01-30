@@ -26,6 +26,12 @@ export class StakewiseConnector {
     eth: PublicClient;
     /** Stakewise keeper contract address */
     keeper: Hex;
+    /** Stakewise price oracle contract address */
+    priceOracle: Hex;
+    /** Stakewise mint token config contract address */
+    mintTokenConfig: Hex;
+    /** Stakewise mint token controller contract address */
+    mintTokenController: Hex;
     /** Gas max fee */
     maxFeePerGas: bigint;
     /** Gas max priority fee */
@@ -48,6 +54,9 @@ export class StakewiseConnector {
                 this.baseGraph = 'https://holesky-graph.stakewise.io/subgraphs/name/stakewise/stakewise1';
                 // Stakewise keeper contract
                 this.keeper = '0xB580799Bf7d62721D1a523f0FDF2f5Ed7BA4e259';
+                this.priceOracle = '0xe31FAf135A6047Cbe595F91B4b6802cDB9B46E2b';
+                this.mintTokenConfig = '0x4483965Ed85cd5e67f2a7a0EB462aCcC37b23D72';
+                this.mintTokenController = '0x7BbC1733ee018f103A9a9052a18fA9273255Cf36';
                 break;
             case Networks.Ethereum:
                 this.eth = createPublicClient({
@@ -63,6 +72,9 @@ export class StakewiseConnector {
                 });
                 // Stakewise keeper contract
                 this.keeper = '0x6B5815467da09DaA7DC83Db21c9239d98Bb487b5';
+                this.priceOracle = '0x8023518b2192FB5384DAdc596765B3dD1cdFe471';
+                this.mintTokenConfig = '0xE8822246F8864DA92015813A39ae776087Fb1Cd5';
+                this.mintTokenController = '0x2A261e60FB14586B474C208b1B7AC6D0f5000306';
                 break;
             case Networks.Hardhat:
                 this.baseAPI = 'https://holesky-api.stakewise.io/graphql';
@@ -73,6 +85,9 @@ export class StakewiseConnector {
                 });
                 // Stakewise keeper contract
                 this.keeper = '0xB580799Bf7d62721D1a523f0FDF2f5Ed7BA4e259';
+                this.priceOracle = '0xe31FAf135A6047Cbe595F91B4b6802cDB9B46E2b';
+                this.mintTokenConfig = '0x4483965Ed85cd5e67f2a7a0EB462aCcC37b23D72';
+                this.mintTokenController = '0x7BbC1733ee018f103A9a9052a18fA9273255Cf36';
                 break;
             default:
                 throw new Error(`Invalid Opus-Pool network passed: ${network}`);
