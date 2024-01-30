@@ -10,7 +10,7 @@ A transaction for either stake or unstake
 
 **`Const`**
 
-"Stake" or "Unstake"
+"Stake" or "Unstake" or "Mint"
 
 ___
 
@@ -41,6 +41,16 @@ ___
 **`Const`**
 
 Amount of the ETH staked or unstaked
+
+___
+
+### referrer
+
+• `Optional` **referrer**: \`0x$\{string}\`
+
+**`Const`**
+
+Referrer who was responsible for the deposit action
 
 ___
 

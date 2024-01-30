@@ -7,6 +7,8 @@
 ## Functions
 
 - [getDefaultVaults](functions/getDefaultVaults.md)
+- [getHealthFactor](functions/getHealthFactor.md)
+- [getMaxMint](functions/getMaxMint.md)
 
 ## Enumerations
 
