@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
     build:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-latest-16-cores
 
         steps:
             - uses: actions/checkout@v4
@@ -15,10 +15,16 @@ jobs:
             - run: npm ci
             - name: Start Hardhat Node
               run: |
-                  npx hardhat node &
+                  npx hardhat node > hardhat.log 2>&1 &
                   echo "Hardhat_PID=$!" > hardhat_pid.env
             - name: Run Tests
-              run: npm test
+              run: |
+                  RESULT=0
+                  npm test || RESULT=$?
+                  if [ $RESULT -ne 0 ]; then
+                    cat hardhat.log
+                    exit $RESULT
+                  fi
             - name: Stop Hardhat Node
               if: always()
               run: |
