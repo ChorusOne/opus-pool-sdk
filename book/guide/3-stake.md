@@ -1,8 +1,9 @@
 # 3. Staking Functionality
 
--   [The Form Component](#the-form-component)
--   [Writing the Staking Transaction Function](#writing-the-staking-transaction-function)
--   [Next Steps](#next-steps)
+- [3. Staking Functionality](#3-staking-functionality)
+  - [The Form Component](#the-form-component)
+  - [Writing the Staking Transaction Function](#writing-the-staking-transaction-function)
+  - [Next Steps](#next-steps)
 
 To incorporate staking functionality into your application, we'll begin by creating a simple form. This form will consist of an input field for the amount to be staked and a button to submit the transaction. Below is a basic implementation of this form in React:
 
@@ -95,7 +96,7 @@ const stake = async ({
 >
 > The actual fee paid is determined by the network, based on the current demand for block space and the priority of the transaction. Fortunately, the Opus pool SDK provides gas estimation, simplifying the process.
 
-Each parameter in the `StakeTransactionData` object returned by `buildStakeTransaction` serves a specific purpose:
+Each parameter in the `TransactionDataReturnType` object returned by `buildStakeTransaction` serves a specific purpose:
 
 -   **`type`**: Indicates the transaction type, either "Stake" or "Unstake".
     It always will be "Stake" in this case
