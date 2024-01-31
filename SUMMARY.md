@@ -10,7 +10,8 @@
 -   [3. Staking Functionality](book/guide/3-stake.md)
 -   [4. Unstaking Functionality](book/guide/4-unstake.md)
 -   [5. Transactions History](book/guide/5-transactions-history.md)
--   [6 Rewards History](book/guide/6-rewards-history.md)
+-   [6. Rewards History](book/guide/6-rewards-history.md)
+-   [7. Minting Functionality](book/guide/7-mint-os-token.md)
 
 ## API Docs
 
@@ -21,10 +22,13 @@
 
     -   [Networks](book/docs/enums/Networks.md)
     -   [StakingTypeEnum](book/docs/enums/StakingTypeEnum.md)
+    -   [OsTokenPositionHealth](book/docs/enums/OsTokenPositionHealth.md)
 
 -   Interfaces
 
-    -   [StakingTransactionData](book/docs/interfaces/StakingTransactionData.md)
+    -   [StakeTransactionData](book/docs/interfaces/StakingTransactionData.md)
+    -   [UnstakeTransactionData](book/docs/interfaces/UnstakeTransactionData.md)
+    -   [MintTransactionData](book/docs/interfaces/MintTransactionData.md)
     -   [VaultDetails](book/docs/interfaces/VaultDetails.md)
     -   [VaultTransaction](book/docs/interfaces/VaultTransaction.md)
     -   [RewardsDataPoint](book/docs/interfaces/RewardsDataPoint.md)
