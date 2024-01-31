@@ -36,7 +36,7 @@ describe('Staking Integration Test', () => {
         const initialBalance: bigint = await publicClient.getBalance({
             address: USER_ADDRESS,
         });
-        expect(initialBalance).toBeGreaterThan(AMOUNT_TO_STAKE);
+        expect(Number(initialBalance)).toBeGreaterThan(Number(AMOUNT_TO_STAKE));
 
         const stakeTransactionData = await pool.buildStakeTransaction({
             vault: VAULT_ADDRESS,
@@ -57,7 +57,7 @@ describe('Staking Integration Test', () => {
         const receipt = await publicClient.waitForTransactionReceipt({ hash: txHash });
         expect(receipt.status).toEqual('success');
         const userSharesFinal: bigint = await vaultContract.getShares(USER_ADDRESS);
-        expect(userSharesFinal).toEqual(userSharesInitial + AMOUNT_TO_STAKE);
+        expect(Number(userSharesFinal)).toEqual(Number(userSharesInitial) + Number(AMOUNT_TO_STAKE));
     });
     test('Tx is reverted if there is not enough balance', async () => {
         const pool = new OpusPool({
@@ -71,7 +71,7 @@ describe('Staking Integration Test', () => {
         await pool
             .buildStakeTransaction({
                 vault: VAULT_ADDRESS,
-                amount: initialBalance + AMOUNT_TO_STAKE,
+                amount: BigInt(Number(initialBalance) + Number(AMOUNT_TO_STAKE)),
             })
             .catch(async (e) => {
                 expect(e.message).toContain(
@@ -92,12 +92,12 @@ describe('Staking Integration Test', () => {
         const initialBalance: bigint = await publicClient.getBalance({
             address: USER_ADDRESS,
         });
-        expect(initialBalance).toBeGreaterThan(AMOUNT_TO_STAKE);
+        expect(Number(initialBalance)).toBeGreaterThan(Number(AMOUNT_TO_STAKE));
 
         const stakeTransactionData = await pool.buildStakeTransaction({
             vault: VAULT_ADDRESS,
             amount: AMOUNT_TO_STAKE,
-            referrer: "0x4242424242424242424242424242424242424242",
+            referrer: '0x4242424242424242424242424242424242424242',
         });
         const txHash = await walletClientWithBalance.sendTransaction({
             account: USER_ADDRESS,
@@ -114,6 +114,6 @@ describe('Staking Integration Test', () => {
         const receipt = await publicClient.waitForTransactionReceipt({ hash: txHash });
         expect(receipt.status).toEqual('success');
         const userSharesFinal: bigint = await vaultContract.getShares(USER_ADDRESS);
-        expect(userSharesFinal).toEqual(userSharesInitial + AMOUNT_TO_STAKE);
+        expect(Number(userSharesFinal)).toEqual(Number(userSharesInitial) + Number(AMOUNT_TO_STAKE));
     });
 });

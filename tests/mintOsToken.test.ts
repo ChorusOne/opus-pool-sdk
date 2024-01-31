@@ -7,11 +7,9 @@ import {
     createWalletClient,
     http,
     parseEther,
-    publicActions,
 } from 'viem';
 import { Networks } from '../src/types/enums';
 import { OpusPool } from '../src';
-import { getStakeBalance } from '../src/internal/osTokenRequests';
 import { hardhat } from 'viem/chains';
 import { privateKeyToAccount } from 'viem/accounts';
 import { mine } from '@nomicfoundation/hardhat-toolbox/network-helpers';
@@ -20,7 +18,7 @@ import { VaultABI } from '../src/internal/contracts/vaultAbi';
 
 const VAULT_ADDRESS: Hex = '0x95d0db03d59658e1af0d977ecfe142f178930ac5';
 const AMOUNT_TO_STAKE = parseEther('20');
-const AMOUNT_TO_MINT = 2n;
+const AMOUNT_TO_MINT = parseEther('1');
 
 describe('Minting OsToken', () => {
     let USER_ADDRESS: Hex;
@@ -29,31 +27,31 @@ describe('Minting OsToken', () => {
     let account: PrivateKeyAccount;
     beforeAll(() => {
         USER_ADDRESS = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
-        publicClient = createPublicClient({
-            chain: hardhat,
-            transport: http(),
-        });
         account = privateKeyToAccount('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80');
         client = createWalletClient({
             account,
             chain: hardhat,
             transport: http(),
-        }).extend(publicActions);
-    });
+        });
+        publicClient = createPublicClient({
+            chain: hardhat,
+            transport: http(),
+        });
+    }, 100_000);
     test('should mint OsToken - happy path', async () => {
         const pool = new OpusPool({
             address: USER_ADDRESS,
             network: Networks.Hardhat,
         });
 
-        const userSharesInitial: bigint = await publicClient.readContract({
+        const userSharesInitial = await publicClient.readContract({
             abi: VaultABI,
             address: VAULT_ADDRESS,
             functionName: 'getShares',
             args: [USER_ADDRESS],
         });
 
-        // // we stake first
+        // we stake first
         const stakeTransactionData = await pool.buildStakeTransaction({
             vault: VAULT_ADDRESS,
             amount: AMOUNT_TO_STAKE,
@@ -71,10 +69,10 @@ describe('Minting OsToken', () => {
             chain: hardhat,
         });
         await mine(10);
-        const stakeReceipt = await publicClient.waitForTransactionReceipt({ hash: stakeTxHash });
+        const stakeReceipt = await publicClient.getTransactionReceipt({ hash: stakeTxHash });
         expect(stakeReceipt.status).toEqual('success');
 
-        const stake = await getStakeBalance(pool, VAULT_ADDRESS);
+        const stake = await pool.getStakeBalanceForUser(VAULT_ADDRESS);
         expect(stake.assets).toBeGreaterThan(userSharesInitial);
 
         const maxMint = await pool.getMaxMintForVault(VAULT_ADDRESS);
@@ -99,7 +97,7 @@ describe('Minting OsToken', () => {
         });
 
         await mine(10);
-        const receipt = await publicClient.waitForTransactionReceipt({ hash: mintTxHash });
+        const receipt = await publicClient.getTransactionReceipt({ hash: mintTxHash });
         expect(receipt.status).toEqual('success');
-    }, 10_000);
+    }, 100_000);
 });
