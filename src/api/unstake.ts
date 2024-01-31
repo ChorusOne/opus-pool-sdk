@@ -1,13 +1,13 @@
-import { Hex, encodeFunctionData, parseGwei } from 'viem';
-import { Networks, OpusPool, StakingTypeEnum } from '..';
-import { StakingTransactionData } from '../types/stake';
+import { Hex, encodeFunctionData } from 'viem';
+import { Networks, OpusPool } from '..';
 import { keeperABI } from '../internal/contracts/keeperAbi';
 import { VaultABI } from '../internal/contracts/vaultAbi';
+import { UnstakeTransactionData } from '../types/unstake';
 
 export default async function unstake(
     pool: OpusPool,
     request: { vault: Hex; amount: bigint },
-): Promise<StakingTransactionData> {
+): Promise<UnstakeTransactionData> {
     const isCollateralized: boolean = await pool.connector.eth.readContract({
         abi: keeperABI,
         address: pool.connector.keeper,
@@ -78,7 +78,6 @@ export default async function unstake(
     const gasDenominator = 3.5;
 
     return {
-        type: StakingTypeEnum.Unstake,
         transaction: tx,
         gasEstimation: BigInt((Number(gas) * gasDenominator) | 0),
         maxFeePerGas: maxFeePerGas || pool.connector.maxFeePerGas,

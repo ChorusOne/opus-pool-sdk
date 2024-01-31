@@ -1,9 +1,8 @@
 import { Hex } from 'viem';
 import type { VaultDetails } from './types/vault';
 import type { VaultTransaction } from './types/transaction';
-import type { StakingTransactionData } from './types/stake';
 import type { RewardsDataPoint } from './types/rewards';
-import { Networks, OsTokenPositionHealth, StakingTypeEnum } from './types/enums';
+import { Networks, OsTokenPositionHealth } from './types/enums';
 import vaultDetails from './api/vaultDetails';
 import { StakewiseConnector } from './internal/connector';
 import transactionsHistory from './api/transactionsHistory';
@@ -12,25 +11,21 @@ import stake from './api/stake';
 import unstake from './api/unstake';
 import { getDefaultVaults } from './internal/defaultVaults';
 import { mintOsToken } from './api/mintOsToken';
-import {
-    getBaseData,
-    getHealthFactor,
-    getMaxMint,
-    getOsTokenPosition,
-    getStakeBalance,
-} from './internal/osTokenRequests';
-import { OsTokenPositionReturnType } from './types/osTokenRequests';
+import { getHealthFactor, getMaxMint, getOsTokenPosition, getStakeBalance } from './internal/osTokenRequests';
+import { OsTokenPositionReturnType, StakeBalanceReturnType } from './types/osTokenRequests';
+import { MintTransactionData } from './types/mint';
+import { UnstakeTransactionData } from './types/unstake';
+import { StakeTransactionData } from './types/stake';
 
 export {
     getDefaultVaults,
-    getHealthFactor,
-    getMaxMint,
+    MintTransactionData,
     Networks,
-    StakingTypeEnum,
-    VaultDetails,
-    StakingTransactionData,
-    VaultTransaction,
     RewardsDataPoint,
+    StakeTransactionData,
+    UnstakeTransactionData,
+    VaultDetails,
+    VaultTransaction,
 };
 
 /**
@@ -92,9 +87,17 @@ export class OpusPool {
      * @param params - params for request
      * @param params.vault - A vault address
      * @param params.amount - Amount of Eth to deposit, denominated in gwei
-     * @returns `StakingTransactionData` for transaction to sign and broadcast
+     * @param params.referrer - Address of the referrer. Optional.
+     * 
+     * @returns {StakeTransactionData} - `StakeTransactionData` 
+     * @returns {Hex} - `StakeTransactionData.transaction` - Transaction to sign and broadcast
+     * @returns {bigint} - `StakeTransactionData.amount` - Amount of Eth to deposit, denominated in gwei
+     * @returns {bigint} - `StakeTransactionData.gasEstimation` - Gas estimation in wei
+     * @returns {bigint} - `StakeTransactionData.maxPriorityFeePerGas` - Max priority fee per gas to use for network
+     * @returns {bigint} - `StakeTransactionData.maxFeePerGas` - Max fee per gas to use for network
+     
      */
-    async buildStakeTransaction(params: Parameters<typeof stake>[1]): Promise<StakingTransactionData> {
+    async buildStakeTransaction(params: Parameters<typeof stake>[1]): Promise<StakeTransactionData> {
         return stake(this, params);
     }
 
@@ -109,9 +112,9 @@ export class OpusPool {
      * @param params - params for request
      * @param params.vault - A vault address
      * @param params.amount - Amount of Eth to deposit, denominated in gwei
-     * @returns `StakingTransactionData` for transaction to sign and broadcast
+     * @returns `UnstakeTransactionData` for transaction to sign and broadcast
      */
-    async buildUnstakeTransaction(params: Parameters<typeof unstake>[1]): Promise<StakingTransactionData> {
+    async buildUnstakeTransaction(params: Parameters<typeof unstake>[1]): Promise<UnstakeTransactionData> {
         return unstake(this, params);
     }
 
@@ -138,60 +141,58 @@ export class OpusPool {
      * @param params.referrer - Address of the referrer. Optional.
      * @returns `MintTransactionData` for transaction to sign and broadcast
      */
-    async buildMintTransaction(params: Parameters<typeof mintOsToken>[1]): Promise<StakingTransactionData> {
+    async buildMintTransaction(params: Parameters<typeof mintOsToken>[1]): Promise<MintTransactionData> {
         return mintOsToken(this, params);
     }
 
     /**
      * Retrieves maximum amount of osTokens that can be minted by the user
      *
-     * @param vault_address - A vault address
-     * @returns Amount of osTokens that can be minted
+     * @param vault - A vault address
+     * @returns Max amount of osTokens that can be minted
      */
-    async getMaxMintForVault(vault_address: Hex): Promise<bigint> {
-        return getMaxMint(this, vault_address);
+    async getMaxMintForVault(vault: Hex): Promise<bigint> {
+        return getMaxMint(this, vault);
     }
 
     /**
      * Retrieves health factor for the user
      *
      * @param mintedAssets - Amount of osTokens minted by the user
-     * @param stakedAssets - Amount of osTokens staked by the user
-     * @returns Health factor for the user
+     * @param stakedAssets - Amount of ETH staked by the user
+     * @returns Position Health (enum)
      */
     async getHealthFactorForUser(mintedAssets: bigint, stakedAssets: bigint): Promise<OsTokenPositionHealth> {
         return getHealthFactor(this, mintedAssets, stakedAssets);
     }
 
     /**
-     * Retrieves base data for the pool
-     *
-     * @returns Base data for the pool
-     */
-
-    async getPoolBaseData(): Promise<{ ltvPercent: bigint; thresholdPercent: bigint }> {
-        return getBaseData(this);
-    }
-
-    /**
      * Retrieves stake balance for user in the vault
      *
-     * @param vault_address - A vault address
-     * @returns shares -  for the user
-     * @returns assets - staked amount for the user
+     * @param vault - A vault address
+
+     * @returns {StakeBalanceReturnType} 
+     * @returns {bigint} - `StakeBalanceReturnType.assets` - Balance in ETH
+     * @returns {bigint} - `StakeBalanceReturnType.shares` - Balance in vault tokens
      */
-    async getStakeBalanceForUser(vault_address: Hex): Promise<{ assets: bigint; shares: bigint }> {
-        return getStakeBalance(this, vault_address);
+    async getStakeBalanceForUser(vault: Hex): Promise<StakeBalanceReturnType> {
+        return getStakeBalance(this, vault);
     }
 
     /**
      * Retrieves osToken position for the vault
      *
-     * @param vault_address - A vault address
-     * @returns osToken position for the user
+     * @param vault - A vault address
+     * @returns {OsTokenPositionReturnType}
+     * @returns {object} - `OsTokenPositionReturnType.minted`
+     * @returns {bigint} - `OsTokenPositionReturnType.minted.assets` - Balance in ETH
+     * @returns {bigint} - `OsTokenPositionReturnType.minted.shares` - Balance
+     * @returns {bigint} - `OsTokenPositionReturnType.minted.fee` - Usage fee amount
+     * @returns {bigint} - `OsTokenPositionReturnType.health` - Position Health (enum)
+     * @returns {bigint} - `OsTokenPositionReturnType.protocolFeePercent` - Usage fee percent
      */
 
-    async getOsTokenPositionForVault(vault_address: Hex): Promise<OsTokenPositionReturnType> {
-        return getOsTokenPosition(this, vault_address);
+    async getOsTokenPositionForVault(vault: Hex): Promise<OsTokenPositionReturnType> {
+        return getOsTokenPosition(this, vault);
     }
 }

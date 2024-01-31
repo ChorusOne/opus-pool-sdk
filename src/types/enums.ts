@@ -5,12 +5,6 @@ export enum Networks {
     Hardhat = 'hardhat',
 }
 
-export enum StakingTypeEnum {
-    Stake = 'Stake',
-    Unstake = 'Unstake',
-    Mint = 'Mint',
-}
-
 export enum VaultActionType {
     Redeemed = 'Redeemed',
     Migrated = 'Migrated',

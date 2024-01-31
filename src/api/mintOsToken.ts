@@ -1,6 +1,8 @@
 import { Hex, encodeFunctionData, zeroAddress } from 'viem';
-import { Networks, OpusPool, StakingTransactionData, StakingTypeEnum } from '..';
 import { VaultABI } from '../internal/contracts/vaultAbi';
+import { Networks } from '../types/enums';
+import { OpusPool } from '..';
+import { MintTransactionData } from '../types/mint';
 
 export const mintOsToken = async (
     pool: OpusPool,
@@ -9,7 +11,7 @@ export const mintOsToken = async (
         vault: Hex;
         referrer?: Hex;
     },
-): Promise<StakingTransactionData> => {
+): Promise<MintTransactionData> => {
     const { maxFeePerGas, maxPriorityFeePerGas } = await pool.connector.eth.estimateFeesPerGas();
     const tx: Hex = encodeFunctionData({
         abi: VaultABI,
@@ -33,9 +35,7 @@ export const mintOsToken = async (
     const gasDenominator = 2.5;
 
     return {
-        type: StakingTypeEnum.Mint,
         transaction: tx,
-        amount: request.shares,
         gasEstimation: BigInt((Number(gas) * gasDenominator) | 0),
         maxFeePerGas: maxFeePerGas || pool.connector.maxFeePerGas,
         maxPriorityFeePerGas: maxPriorityFeePerGas || pool.connector.maxPriorityFeePerGas,
