@@ -21,7 +21,6 @@
 -   Enums
 
     -   [Networks](book/docs/enums/Networks.md)
-    -   [StakingTypeEnum](book/docs/enums/StakingTypeEnum.md)
     -   [OsTokenPositionHealth](book/docs/enums/OsTokenPositionHealth.md)
 
 -   Interfaces

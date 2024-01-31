@@ -4,7 +4,6 @@ export enum Networks {
     /** @ignore */
     Hardhat = 'hardhat',
 }
-
 export enum VaultActionType {
     Redeemed = 'Redeemed',
     Migrated = 'Migrated',

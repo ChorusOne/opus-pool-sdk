@@ -11,6 +11,7 @@
 ## Enumerations
 
 - [Networks](enums/Networks.md)
+- [OsTokenPositionHealth](enums/OsTokenPositionHealth.md)
 
 ## Interfaces
 

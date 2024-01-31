@@ -21,6 +21,7 @@ export {
     getDefaultVaults,
     MintTransactionData,
     Networks,
+    OsTokenPositionHealth,
     RewardsDataPoint,
     StakeTransactionData,
     UnstakeTransactionData,

@@ -231,7 +231,7 @@ ___
 
 ### getHealthFactorForUser
 
-▸ **getHealthFactorForUser**(`mintedAssets`, `stakedAssets`): `Promise`\<`OsTokenPositionHealth`\>
+▸ **getHealthFactorForUser**(`mintedAssets`, `stakedAssets`): `Promise`\<[`OsTokenPositionHealth`](../enums/OsTokenPositionHealth.md)\>
 
 Retrieves health factor for the user
 
@@ -244,7 +244,7 @@ Retrieves health factor for the user
 
 #### Returns
 
-`Promise`\<`OsTokenPositionHealth`\>
+`Promise`\<[`OsTokenPositionHealth`](../enums/OsTokenPositionHealth.md)\>
 
 Position Health (enum)
 
