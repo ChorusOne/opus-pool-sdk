@@ -1,42 +1,52 @@
-import { ethers, viem } from 'hardhat';
-import VaultAbi from '../src/internal/contracts/abi/VaultAbi.json';
 import { OpusPool } from '../src';
 import { Networks } from '../src/types/enums';
-import { Hex, PublicClient, WalletClient, parseEther } from 'viem';
+import {
+    Hex,
+    PrivateKeyAccount,
+    PublicClient,
+    WalletClient,
+    createPublicClient,
+    createWalletClient,
+    http,
+    parseEther,
+} from 'viem';
 import { expect, test, beforeAll } from '@jest/globals';
 import { hardhat } from 'viem/chains';
 import { mine } from '@nomicfoundation/hardhat-toolbox/network-helpers';
+import { privateKeyToAccount } from 'viem/accounts';
 
 const VAULT_ADDRESS: Hex = '0xd68AF28AeE9536144d4B9B6C0904CAf7E794B3D3';
 const AMOUNT_TO_STAKE = parseEther('2');
 
 describe('Staking Integration Test', () => {
     let USER_ADDRESS: Hex;
-    let USER_ADDRESS_NOT_ENOUGH_BALANCE: Hex;
-    let vaultContract: any;
     let walletClientWithBalance: WalletClient;
-    let walletClientNoBalance: WalletClient;
     let publicClient: PublicClient;
-    beforeAll(async () => {
-        const [userWithBalance, userNoBalance] = await viem.getWalletClients();
-        walletClientWithBalance = userWithBalance;
-        walletClientNoBalance = userNoBalance;
-        USER_ADDRESS = userWithBalance.account.address;
-        USER_ADDRESS_NOT_ENOUGH_BALANCE = userNoBalance.account.address;
-        publicClient = await viem.getPublicClient();
-        vaultContract = await ethers.getContractAt(VaultAbi, VAULT_ADDRESS);
-    }, 100_000);
+    let account: PrivateKeyAccount;
+    beforeAll(() => {
+        USER_ADDRESS = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
+        account = privateKeyToAccount('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80');
+        walletClientWithBalance = createWalletClient({
+            account,
+            chain: hardhat,
+            transport: http(),
+        });
+        publicClient = createPublicClient({
+            chain: hardhat,
+            transport: http(),
+        });
+    });
     test('User can stake if there is enough balance', async () => {
         const pool = new OpusPool({
             address: USER_ADDRESS,
             network: Networks.Hardhat,
         });
 
-        const userSharesInitial: bigint = await vaultContract.getShares(USER_ADDRESS);
+        const { assets: initialAssets } = await pool.getStakeBalanceForUser(VAULT_ADDRESS);
         const initialBalance: bigint = await publicClient.getBalance({
             address: USER_ADDRESS,
         });
-        expect(Number(initialBalance)).toBeGreaterThan(Number(AMOUNT_TO_STAKE));
+        expect(initialBalance).toBeGreaterThan(AMOUNT_TO_STAKE);
 
         const stakeTransactionData = await pool.buildStakeTransaction({
             vault: VAULT_ADDRESS,
@@ -54,14 +64,15 @@ describe('Staking Integration Test', () => {
             chain: hardhat,
         });
         await mine(10);
-        const receipt = await publicClient.waitForTransactionReceipt({ hash: txHash });
+        const receipt = await publicClient.getTransactionReceipt({ hash: txHash });
         expect(receipt.status).toEqual('success');
-        const userSharesFinal: bigint = await vaultContract.getShares(USER_ADDRESS);
-        expect(Number(userSharesFinal)).toEqual(Number(userSharesInitial) + Number(AMOUNT_TO_STAKE));
+
+        const { assets: assetsAfterStaking } = await pool.getStakeBalanceForUser(VAULT_ADDRESS);
+        expect(assetsAfterStaking).toEqual(initialAssets + AMOUNT_TO_STAKE);
     });
     test('Tx is reverted if there is not enough balance', async () => {
         const pool = new OpusPool({
-            address: USER_ADDRESS_NOT_ENOUGH_BALANCE,
+            address: USER_ADDRESS,
             network: Networks.Holesky,
         });
         const initialBalance: bigint = await publicClient.getBalance({
@@ -71,7 +82,7 @@ describe('Staking Integration Test', () => {
         await pool
             .buildStakeTransaction({
                 vault: VAULT_ADDRESS,
-                amount: BigInt(Number(initialBalance) + Number(AMOUNT_TO_STAKE)),
+                amount: initialBalance + AMOUNT_TO_STAKE,
             })
             .catch(async (e) => {
                 expect(e.message).toContain(
@@ -88,11 +99,11 @@ describe('Staking Integration Test', () => {
             network: Networks.Hardhat,
         });
 
-        const userSharesInitial: bigint = await vaultContract.getShares(USER_ADDRESS);
+        const { assets: initialAssets } = await pool.getStakeBalanceForUser(VAULT_ADDRESS);
         const initialBalance: bigint = await publicClient.getBalance({
             address: USER_ADDRESS,
         });
-        expect(Number(initialBalance)).toBeGreaterThan(Number(AMOUNT_TO_STAKE));
+        expect(initialBalance).toBeGreaterThan(AMOUNT_TO_STAKE);
 
         const stakeTransactionData = await pool.buildStakeTransaction({
             vault: VAULT_ADDRESS,
@@ -113,7 +124,8 @@ describe('Staking Integration Test', () => {
         await mine(10);
         const receipt = await publicClient.waitForTransactionReceipt({ hash: txHash });
         expect(receipt.status).toEqual('success');
-        const userSharesFinal: bigint = await vaultContract.getShares(USER_ADDRESS);
-        expect(Number(userSharesFinal)).toEqual(Number(userSharesInitial) + Number(AMOUNT_TO_STAKE));
+
+        const { assets: assetsAfterStaking } = await pool.getStakeBalanceForUser(VAULT_ADDRESS);
+        expect(assetsAfterStaking).toEqual(initialAssets + AMOUNT_TO_STAKE);
     });
 });

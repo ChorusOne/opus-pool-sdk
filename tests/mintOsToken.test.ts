@@ -37,7 +37,7 @@ describe('Minting OsToken', () => {
             chain: hardhat,
             transport: http(),
         });
-    }, 100_000);
+    });
     test('should mint OsToken - happy path', async () => {
         const pool = new OpusPool({
             address: USER_ADDRESS,

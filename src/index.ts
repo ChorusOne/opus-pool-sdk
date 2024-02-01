@@ -11,7 +11,13 @@ import stake from './api/stake';
 import unstake from './api/unstake';
 import { getDefaultVaults } from './internal/defaultVaults';
 import { mintOsToken } from './api/mintOsToken';
-import { getHealthFactor, getMaxMint, getOsTokenPosition, getStakeBalance } from './internal/osTokenRequests';
+import {
+    getHealthFactor,
+    getMaxMint,
+    getMaxWithdraw,
+    getOsTokenPosition,
+    getStakeBalance,
+} from './internal/osTokenRequests';
 import { OsTokenPositionReturnType, StakeBalanceReturnType } from './types/osTokenRequests';
 import { MintTransactionData } from './types/mint';
 import { UnstakeTransactionData } from './types/unstake';
@@ -195,5 +201,15 @@ export class OpusPool {
 
     async getOsTokenPositionForVault(vault: Hex): Promise<OsTokenPositionReturnType> {
         return getOsTokenPosition(this, vault);
+    }
+
+    /**
+     * Retrieves the max amount of ETH that can be unstaked
+     * @param vault - A vault address
+     * @returns Max amount of ETH that can be unstaked
+     */
+
+    async getMaxUnstakeForUserForVault(vault: Hex): Promise<bigint> {
+        return getMaxWithdraw(this, vault);
     }
 }
