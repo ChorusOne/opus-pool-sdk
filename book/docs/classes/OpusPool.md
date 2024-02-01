@@ -24,6 +24,7 @@ Pooling solution
 - [getHealthFactorForUser](OpusPool.md#gethealthfactorforuser)
 - [getStakeBalanceForUser](OpusPool.md#getstakebalanceforuser)
 - [getOsTokenPositionForVault](OpusPool.md#getostokenpositionforvault)
+- [getMaxUnstakeForUserForVault](OpusPool.md#getmaxunstakeforuserforvault)
 
 ## Properties
 
@@ -299,3 +300,23 @@ Retrieves osToken position for the vault
 - `OsTokenPositionReturnType.health` - Position Health (enum)
 
 - `OsTokenPositionReturnType.protocolFeePercent` - Usage fee percent
+
+___
+
+### getMaxUnstakeForUserForVault
+
+▸ **getMaxUnstakeForUserForVault**(`vault`): `Promise`\<`bigint`\>
+
+Retrieves the max amount of ETH that can be unstaked
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `vault` | \`0x$\{string}\` | A vault address |
+
+#### Returns
+
+`Promise`\<`bigint`\>
+
+Max amount of ETH that can be unstaked
