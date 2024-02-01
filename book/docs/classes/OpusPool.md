@@ -19,6 +19,11 @@ Pooling solution
 - [buildStakeTransaction](OpusPool.md#buildstaketransaction)
 - [buildUnstakeTransaction](OpusPool.md#buildunstaketransaction)
 - [getRewardsHistory](OpusPool.md#getrewardshistory)
+- [buildMintTransaction](OpusPool.md#buildminttransaction)
+- [getMaxMintForVault](OpusPool.md#getmaxmintforvault)
+- [getHealthFactorForUser](OpusPool.md#gethealthfactorforuser)
+- [getStakeBalanceForUser](OpusPool.md#getstakebalanceforuser)
+- [getOsTokenPositionForVault](OpusPool.md#getostokenpositionforvault)
 
 ## Properties
 
@@ -95,7 +100,7 @@ ___
 
 ### buildStakeTransaction
 
-▸ **buildStakeTransaction**(`params`): `Promise`\<[`StakingTransactionData`](../interfaces/StakingTransactionData.md)\>
+▸ **buildStakeTransaction**(`params`): `Promise`\<[`StakeTransactionData`](../interfaces/StakeTransactionData.md)\>
 
 Generates stake transaction to deposit into chosen Vault
 
@@ -111,18 +116,29 @@ up to the code integrating SDK.
 | `params` | `Object` | params for request |
 | `params.vault` | \`0x$\{string}\` | A vault address |
 | `params.amount` | `bigint` | Amount of Eth to deposit, denominated in gwei |
+| `params.referrer?` | \`0x$\{string}\` | Address of the referrer. Optional. |
 
 #### Returns
 
-`Promise`\<[`StakingTransactionData`](../interfaces/StakingTransactionData.md)\>
+`Promise`\<[`StakeTransactionData`](../interfaces/StakeTransactionData.md)\>
 
-`StakingTransactionData` for transaction to sign and broadcast
+- `StakeTransactionData`
+
+- `StakeTransactionData.transaction` - Transaction to sign and broadcast
+
+- `StakeTransactionData.amount` - Amount of Eth to deposit, denominated in gwei
+
+- `StakeTransactionData.gasEstimation` - Gas estimation in wei
+
+- `StakeTransactionData.maxPriorityFeePerGas` - Max priority fee per gas to use for network
+
+- `StakeTransactionData.maxFeePerGas` - Max fee per gas to use for network
 
 ___
 
 ### buildUnstakeTransaction
 
-▸ **buildUnstakeTransaction**(`params`): `Promise`\<[`StakingTransactionData`](../interfaces/StakingTransactionData.md)\>
+▸ **buildUnstakeTransaction**(`params`): `Promise`\<[`UnstakeTransactionData`](../interfaces/UnstakeTransactionData.md)\>
 
 Generates unstake transaction to withdraw from chosen Vault.
 
@@ -141,9 +157,9 @@ up to the code integrating SDK.
 
 #### Returns
 
-`Promise`\<[`StakingTransactionData`](../interfaces/StakingTransactionData.md)\>
+`Promise`\<[`UnstakeTransactionData`](../interfaces/UnstakeTransactionData.md)\>
 
-`StakingTransactionData` for transaction to sign and broadcast
+`UnstakeTransactionData` for transaction to sign and broadcast
 
 ___
 
@@ -167,3 +183,119 @@ Retrieves rewards history for customer, earned via specific Vaults
 `Promise`\<[`RewardsDataPoint`](../interfaces/RewardsDataPoint.md)[]\>
 
 Array of daily rewards amount data points
+
+___
+
+### buildMintTransaction
+
+▸ **buildMintTransaction**(`params`): `Promise`\<[`MintTransactionData`](../interfaces/MintTransactionData.md)\>
+
+Generates mint transaction to mint osTokens from chosen Vault.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `params` | `Object` | params for request |
+| `params.shares` | `bigint` | Amount of osTokens to mint |
+| `params.vault` | \`0x$\{string}\` | A vault address |
+| `params.referrer?` | \`0x$\{string}\` | Address of the referrer. Optional. |
+
+#### Returns
+
+`Promise`\<[`MintTransactionData`](../interfaces/MintTransactionData.md)\>
+
+`MintTransactionData` for transaction to sign and broadcast
+
+___
+
+### getMaxMintForVault
+
+▸ **getMaxMintForVault**(`vault`): `Promise`\<`bigint`\>
+
+Retrieves maximum amount of osTokens that can be minted by the user
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `vault` | \`0x$\{string}\` | A vault address |
+
+#### Returns
+
+`Promise`\<`bigint`\>
+
+Max amount of osTokens that can be minted
+
+___
+
+### getHealthFactorForUser
+
+▸ **getHealthFactorForUser**(`mintedAssets`, `stakedAssets`): `Promise`\<[`OsTokenPositionHealth`](../enums/OsTokenPositionHealth.md)\>
+
+Retrieves health factor for the user
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `mintedAssets` | `bigint` | Amount of osTokens minted by the user |
+| `stakedAssets` | `bigint` | Amount of ETH staked by the user |
+
+#### Returns
+
+`Promise`\<[`OsTokenPositionHealth`](../enums/OsTokenPositionHealth.md)\>
+
+Position Health (enum)
+
+___
+
+### getStakeBalanceForUser
+
+▸ **getStakeBalanceForUser**(`vault`): `Promise`\<`StakeBalanceReturnType`\>
+
+Retrieves stake balance for user in the vault
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `vault` | \`0x$\{string}\` | A vault address |
+
+#### Returns
+
+`Promise`\<`StakeBalanceReturnType`\>
+
+- `StakeBalanceReturnType.assets` - Balance in ETH
+
+- `StakeBalanceReturnType.shares` - Balance in vault tokens
+
+___
+
+### getOsTokenPositionForVault
+
+▸ **getOsTokenPositionForVault**(`vault`): `Promise`\<`OsTokenPositionReturnType`\>
+
+Retrieves osToken position for the vault
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `vault` | \`0x$\{string}\` | A vault address |
+
+#### Returns
+
+`Promise`\<`OsTokenPositionReturnType`\>
+
+- `OsTokenPositionReturnType.minted`
+
+- `OsTokenPositionReturnType.minted.assets` - Balance in ETH
+
+- `OsTokenPositionReturnType.minted.shares` - Balance
+
+- `OsTokenPositionReturnType.minted.fee` - Usage fee amount
+
+- `OsTokenPositionReturnType.health` - Position Health (enum)
+
+- `OsTokenPositionReturnType.protocolFeePercent` - Usage fee percent

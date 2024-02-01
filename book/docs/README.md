@@ -11,11 +11,13 @@
 ## Enumerations
 
 - [Networks](enums/Networks.md)
-- [StakingTypeEnum](enums/StakingTypeEnum.md)
+- [OsTokenPositionHealth](enums/OsTokenPositionHealth.md)
 
 ## Interfaces
 
-- [VaultDetails](interfaces/VaultDetails.md)
-- [StakingTransactionData](interfaces/StakingTransactionData.md)
-- [VaultTransaction](interfaces/VaultTransaction.md)
+- [MintTransactionData](interfaces/MintTransactionData.md)
 - [RewardsDataPoint](interfaces/RewardsDataPoint.md)
+- [StakeTransactionData](interfaces/StakeTransactionData.md)
+- [UnstakeTransactionData](interfaces/UnstakeTransactionData.md)
+- [VaultDetails](interfaces/VaultDetails.md)
+- [VaultTransaction](interfaces/VaultTransaction.md)

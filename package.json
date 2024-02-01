@@ -57,6 +57,7 @@
     "dependencies": {
         "@openzeppelin/contracts": "^5.0.1",
         "async-lock": "^1.4.0",
+        "decimal.js": "^10.4.3",
         "viem": "^1.19.7"
     },
     "types": "./dist/src/index.d.ts",

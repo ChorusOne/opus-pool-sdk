@@ -1,15 +1,15 @@
 import { Hex } from 'viem';
-import { StakingTypeEnum } from './enums';
 
 /**
- * A transaction for either stake or unstake
+ * A transaction for staking ETH
+ * @typedef {Object} StakeTransactionData
+ * @property {Hex} transaction - Hex-encoded transaction call data
+ * @property {bigint} gasEstimation - Gas estimation
+ * @property {bigint} amount - Amount of the ETH staked or unstaked
+ * @property {bigint} maxPriorityFeePerGas - Max priority fee per gas to use for network
+ * @property {bigint} maxFeePerGas - Max fee per gas to use for network
  */
-export interface StakingTransactionData {
-    /**
-     * @const "Stake" or "Unstake"
-     */
-    type: StakingTypeEnum;
-
+export interface StakeTransactionData {
     /**
      * @const Hex-encoded transaction call data
      */
@@ -23,12 +23,7 @@ export interface StakingTransactionData {
     /**
      * @const Amount of the ETH staked or unstaked
      */
-    amount?: bigint;
-
-    /**
-     * @const Referrer who was responsible for the deposit action
-     */
-    referrer?: Hex;
+    amount: bigint;
 
     /**
      * @const Max priority fee per gas to use for network

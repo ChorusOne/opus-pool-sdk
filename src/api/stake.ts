@@ -1,12 +1,12 @@
-import { OpusPool, StakingTypeEnum } from '..';
-import { StakingTransactionData } from '../types/stake';
+import { OpusPool } from '..';
 import { VaultABI } from '../internal/contracts/vaultAbi';
 import { Hex, encodeFunctionData, zeroAddress } from 'viem';
+import { StakeTransactionData } from '../types/stake';
 
 export default async function stake(
     pool: OpusPool,
     request: { vault: Hex; amount: bigint; referrer?: Hex },
-): Promise<StakingTransactionData> {
+): Promise<StakeTransactionData> {
     const { maxFeePerGas, maxPriorityFeePerGas } = await pool.connector.eth.estimateFeesPerGas();
 
     // Encode transaction into hex form
@@ -34,7 +34,6 @@ export default async function stake(
     const gasDenominator = 2.5;
 
     return {
-        type: StakingTypeEnum.Stake,
         transaction: tx,
         amount: request.amount,
         gasEstimation: BigInt((Number(gas) * gasDenominator) | 0),

@@ -1,24 +1,12 @@
-# Interface: StakingTransactionData
+# Interface: StakeTransactionData
 
-A transaction for either stake or unstake
+A transaction for staking ETH
 
 ## Properties
-
-### type
-
-• **type**: [`StakingTypeEnum`](../enums/StakingTypeEnum.md)
-
-**`Const`**
-
-"Stake" or "Unstake"
-
-___
 
 ### transaction
 
 • **transaction**: \`0x$\{string}\`
-
-**`Const`**
 
 Hex-encoded transaction call data
 
@@ -28,17 +16,13 @@ ___
 
 • **gasEstimation**: `bigint`
 
-**`Const`**
-
 Gas estimation
 
 ___
 
 ### amount
 
-• `Optional` **amount**: `bigint`
-
-**`Const`**
+• **amount**: `bigint`
 
 Amount of the ETH staked or unstaked
 
@@ -48,8 +32,6 @@ ___
 
 • **maxPriorityFeePerGas**: `bigint`
 
-**`Const`**
-
 Max priority fee per gas to use for network
 
 ___
@@ -57,7 +39,5 @@ ___
 ### maxFeePerGas
 
 • **maxFeePerGas**: `bigint`
-
-**`Const`**
 
 Max fee per gas to use for network
