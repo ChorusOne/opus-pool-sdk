@@ -23,7 +23,7 @@ export enum VaultActionType {
  * - `Healthy`: value of minted osETH does not exceed 90% of the staked ETH value a staker has in the Vault.
  * - `Risky`: value of minted osETH exceeds 91% of the staked ETH value a staker has in the Vault but remains below 92%.
  *
- * More details: https://docs.stakewise.io/protocol-overview-in-depth/oseth#position-health
+ * Please reffer to the official [documentation](https://docs.stakewise.io/protocol-overview-in-depth/oseth#position-health) for more details.
  */
 export enum OsTokenPositionHealth {
     Unhealthy,
