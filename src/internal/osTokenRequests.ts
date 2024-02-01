@@ -1,4 +1,4 @@
-import { Hex } from 'viem';
+import { Hex, parseEther } from 'viem';
 import { OpusPool } from '..';
 import { MintTokenConfigAbi } from './contracts/mintTokenConfigAbi';
 import { PriceOracleAbi } from './contracts/priceOracleAbi';
@@ -112,17 +112,6 @@ export const getBaseData = async (pool: OpusPool): Promise<OsTokenDataReturnType
     };
 };
 
-export const getAssetsFromShares = async (pool: OpusPool, vaultAddress: Hex, shares: bigint): Promise<bigint> => {
-    const publicClient = pool.connector.eth;
-    const assets = (await publicClient.readContract({
-        abi: MintTokenControllerAbi,
-        address: pool.connector.mintTokenController,
-        functionName: 'convertToAssets',
-        args: [shares],
-    })) as bigint;
-    return assets || 0n;
-};
-
 export const getStakeBalance = async (pool: OpusPool, vaultAddress: Hex): Promise<StakeBalanceReturnType> => {
     const publicClient = pool.connector.eth;
     const shares = (await publicClient.readContract({
@@ -132,7 +121,12 @@ export const getStakeBalance = async (pool: OpusPool, vaultAddress: Hex): Promis
         args: [pool.userAccount],
     })) as bigint;
 
-    const assets = await getAssetsFromShares(pool, vaultAddress, shares);
+    const assets = (await publicClient.readContract({
+        abi: VaultABI,
+        address: vaultAddress,
+        functionName: 'convertToAssets',
+        args: [shares],
+    })) as bigint;
 
     return {
         shares: shares || 0n,
@@ -165,7 +159,12 @@ export const getOsTokenPosition = async (pool: OpusPool, vaultAddress: Hex): Pro
     });
 
     const [mintedAssets, feePercent] = await Promise.all([
-        getAssetsFromShares(pool, vaultAddress, mintedShares),
+        pool.connector.eth.readContract({
+            abi: MintTokenControllerAbi,
+            address: pool.connector.mintTokenController,
+            functionName: 'convertToAssets',
+            args: [mintedShares],
+        }) as Promise<bigint>,
         pool.connector.eth.readContract({
             abi: MintTokenControllerAbi,
             functionName: 'feePercent',
@@ -186,4 +185,25 @@ export const getOsTokenPosition = async (pool: OpusPool, vaultAddress: Hex): Pro
         health,
         protocolFeePercent,
     };
+};
+
+export const getMaxWithdraw = async (pool: OpusPool, vault: Hex): Promise<bigint> => {
+    const min = parseEther('0.00001');
+    const { ltvPercent } = await getBaseData(pool);
+    const { assets } = await getStakeBalance(pool, vault);
+    const { minted } = await getOsTokenPosition(pool, vault);
+    if (ltvPercent <= 0 || assets < min) {
+        return 0n;
+    }
+    const avgRewardPerSecond = (await pool.connector.eth.readContract({
+        abi: MintTokenControllerAbi,
+        functionName: 'avgRewardPerSecond',
+        address: pool.connector.mintTokenController,
+    })) as bigint;
+    const secondsInHour = 60n * 60n;
+    const gap = (avgRewardPerSecond * secondsInHour * minted.assets) / 1000000000000000000n;
+    const lockedAssets = ((minted.assets + gap) * 10_000n) / ltvPercent;
+    const maxWithdrawAssets = assets - lockedAssets;
+
+    return maxWithdrawAssets > min ? maxWithdrawAssets : 0n;
 };
