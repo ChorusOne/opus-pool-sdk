@@ -28,10 +28,8 @@
         "doc:opuspool": "typedoc  --options typedoc.json"
     },
     "devDependencies": {
-        "@nomicfoundation/hardhat-ethers": "^3.0.5",
         "@nomicfoundation/hardhat-toolbox": "^4.0.0",
         "@nomicfoundation/hardhat-toolbox-viem": "^2.0.0",
-        "@nomicfoundation/hardhat-viem": "^1.0.1",
         "@types/async-lock": "^1.4.2",
         "@types/chai": "^4.3.11",
         "@types/jest": "^29.4.0",
