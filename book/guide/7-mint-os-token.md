@@ -20,7 +20,7 @@ if (maxMint < amountToMint) {
 const { health } = await pool.getHealthFactorForVault(vaultAddress);
 await pool.getOsTokenPositionForVault(vaultAddress);
 
-if (health !== VaultHealth.Healthy) {
+if (health !== OsTokenPositionHealth.Healthy) {
     // the vault is not healthy, the user cannot mint
     return;
 }
@@ -64,3 +64,11 @@ await walletClient.sendTransaction({
     maxFeePerGas: mintTx.maxFeePerGas,
 });
 ```
+
+## Next Steps
+
+In this section, we focused on the core functionality of our application, which is submitting a minting transaction. To continue exploring the functionality of our application, you can proceed to the next section: [Unstaking Functionality][unstake].
+
+Continue to [unstaking functionality][unstake]
+
+[unstake]: ./4-unstake.md
