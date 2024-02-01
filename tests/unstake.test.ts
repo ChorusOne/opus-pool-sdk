@@ -1,14 +1,19 @@
-import { ethers, viem } from 'hardhat';
-import VaultAbi from '../src/internal/contracts/abi/VaultAbi.json';
 import { OpusPool } from '../src';
 import { Networks } from '../src/types/enums';
-import { Hex, PublicClient, WalletClient, parseEther } from 'viem';
+import {
+    Hex,
+    PrivateKeyAccount,
+    PublicClient,
+    WalletClient,
+    createPublicClient,
+    createWalletClient,
+    http,
+    parseEther,
+} from 'viem';
 import { expect, test, beforeAll } from '@jest/globals';
 import { hardhat } from 'viem/chains';
 import { mine } from '@nomicfoundation/hardhat-toolbox/network-helpers';
-import { Contract } from 'ethers';
-import KeeperAbi from '../src/internal/contracts/abi/KeeperAbi.json';
-import { VaultABI } from '../src/internal/contracts/vaultAbi';
+import { privateKeyToAccount } from 'viem/accounts';
 
 const VAULT_ADDRESS: Hex = '0xd68AF28AeE9536144d4B9B6C0904CAf7E794B3D3';
 const AMOUNT_TO_STAKE = parseEther('5');
@@ -17,25 +22,30 @@ const AMOUNT_TO_UNSTAKE_TOO_MUCH = parseEther('500');
 
 describe('Unstaking Integration Test', () => {
     let USER_ADDRESS: Hex;
-    let vaultContract: Contract;
-    let keeperContract: Contract;
     let walletClientWithBalance: WalletClient;
     let publicClient: PublicClient;
-    beforeAll(async () => {
-        const [userWithBalance] = await viem.getWalletClients();
-        walletClientWithBalance = userWithBalance;
-        USER_ADDRESS = userWithBalance.account.address;
-        publicClient = await viem.getPublicClient();
-        vaultContract = await ethers.getContractAt(VaultAbi, VAULT_ADDRESS);
-        keeperContract = await ethers.getContractAt(KeeperAbi, '0xB580799Bf7d62721D1a523f0FDF2f5Ed7BA4e259');
-    }, 100_000);
-    test('User can unstake if there are enough shares', async () => {
+    let account: PrivateKeyAccount;
+    beforeAll(() => {
+        USER_ADDRESS = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
+        account = privateKeyToAccount('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80');
+        walletClientWithBalance = createWalletClient({
+            account,
+            chain: hardhat,
+            transport: http(),
+        });
+        publicClient = createPublicClient({
+            chain: hardhat,
+            transport: http(),
+        });
+    });
+    test('User can unstake after staking successfully', async () => {
         const pool = new OpusPool({
             address: USER_ADDRESS,
             network: Networks.Hardhat,
         });
 
-        const userSharesInitial: bigint = await vaultContract.getShares(USER_ADDRESS);
+        const initialMaxWithdraw = await pool.getMaxUnstakeForUserForVault(VAULT_ADDRESS);
+        const { assets: initialAssets } = await pool.getStakeBalanceForUser(VAULT_ADDRESS);
 
         // first stake
         const stakeTransactionData = await pool.buildStakeTransaction({
@@ -55,10 +65,14 @@ describe('Unstaking Integration Test', () => {
         });
 
         await mine(10);
-        const stakeReceipt = await publicClient.waitForTransactionReceipt({ hash: stakeHash });
+        const stakeReceipt = await publicClient.getTransactionReceipt({ hash: stakeHash });
         expect(stakeReceipt.status).toEqual('success');
-        const userSharesAfterStake: bigint = await vaultContract.getShares(USER_ADDRESS);
-        expect(userSharesAfterStake).toEqual(userSharesInitial + AMOUNT_TO_STAKE);
+
+        const maxWithdrawAfterStake = await pool.getMaxUnstakeForUserForVault(VAULT_ADDRESS);
+        expect(maxWithdrawAfterStake).toEqual(initialMaxWithdraw + AMOUNT_TO_STAKE);
+        const { assets: assetsAfterStaking } = await pool.getStakeBalanceForUser(VAULT_ADDRESS);
+
+        expect(assetsAfterStaking).toEqual(initialAssets + AMOUNT_TO_STAKE);
 
         // then unstake
         const unstakeTransactionData = await pool.buildUnstakeTransaction({
@@ -78,26 +92,19 @@ describe('Unstaking Integration Test', () => {
         });
 
         await mine(10);
-        const unstakeReceipt = await publicClient.waitForTransactionReceipt({ hash: unstakeHash });
+        const unstakeReceipt = await publicClient.getTransactionReceipt({ hash: unstakeHash });
         expect(unstakeReceipt.status).toEqual('success');
-        const userSharesFinal: bigint = await vaultContract.getShares(USER_ADDRESS);
 
-        expect(userSharesFinal).toEqual(userSharesInitial + AMOUNT_TO_STAKE - AMOUNT_TO_UNSTAKE);
-        const assets: bigint = await pool.connector.eth.readContract({
-            abi: VaultABI,
-            address: VAULT_ADDRESS,
-            functionName: 'convertToAssets',
-            args: [userSharesFinal],
-        });
-        expect(assets).toEqual(AMOUNT_TO_STAKE - AMOUNT_TO_UNSTAKE);
+        const { assets: assetsAfterUnstaking } = await pool.getStakeBalanceForUser(VAULT_ADDRESS);
+        expect(assetsAfterUnstaking).toEqual(assetsAfterStaking - AMOUNT_TO_UNSTAKE);
     });
 
-    test('User can not unstake if there are not enough shares', async () => {
+    test('User can not unstake if there are not enough assets', async () => {
         const pool = new OpusPool({
             address: USER_ADDRESS,
             network: Networks.Hardhat,
         });
-        const userSharesInitial: bigint = await vaultContract.getShares(USER_ADDRESS);
+        const { assets: initialAssets } = await pool.getStakeBalanceForUser(VAULT_ADDRESS);
 
         // first stake
         const stakeTransactionData = await pool.buildStakeTransaction({
@@ -117,10 +124,10 @@ describe('Unstaking Integration Test', () => {
         });
 
         await mine(10);
-        const stakeReceipt = await publicClient.waitForTransactionReceipt({ hash: stakeHash });
+        const stakeReceipt = await publicClient.getTransactionReceipt({ hash: stakeHash });
         expect(stakeReceipt.status).toEqual('success');
-        const userSharesAfterStake: bigint = await vaultContract.getShares(USER_ADDRESS);
-        expect(userSharesAfterStake).toEqual(userSharesInitial + AMOUNT_TO_STAKE);
+        const { assets: assetsAfterStaking } = await await pool.getStakeBalanceForUser(VAULT_ADDRESS);
+        expect(assetsAfterStaking).toEqual(initialAssets + AMOUNT_TO_STAKE);
 
         // then unstake
         const unstakeTransactionData = await pool.buildUnstakeTransaction({
