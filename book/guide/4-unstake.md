@@ -1,17 +1,47 @@
 # 4. Unstaking Functionality
 
-The functionality for unstaking is similar to the staking process, with a few key differences. The primary change is in the amount you pass to the function, which in this case is the amount of funds you want to unstake and is upper-bounded by the user's balance in the vault (the balance field in the `VaultDetails` object).
+Let's say the `amountToUnstake = 10 ETH`
 
-To initiate an unstake transaction, you'll use the `buildUnstakeTransaction` method from the Opus pool SDK. Here's how it works:
+In order to unstake, there can be 2 scenarios:
+
+1. The user only staked and did not mint any shares.
+2. The user staked and minted shares.
+
+In the first scenario, the unstaking process is straightforward. These are the steps:
+
+1. determine the maximum amount the user can unstake by calling the `getMaxWithdraw` method on the OpusPool instance.
 
 ```typescript
-const stakeRes = await pool.buildUnstakeTransaction({
-    vault,
-    amount,
+const maxWithdraw = await pool.getMaxWithdraw(vaultAddress);
+```
+
+The user can unstake up to the `maxWithdraw` amount, i.e. `amountToUnstake <= maxWithdraw` and `0 < maxWithdraw`
+
+2. get all the information needed to send the transaction to the blockchain by calling the `buildUnstakeTransaction` method on the OpusPool instance.
+
+```typescript
+const unstakeTx = await pool.buildUnstakeTransaction({
+    vaultAddress,
+    amount: amountToUnstake,
 });
 ```
 
-This method returns an object similar to `buildStakeTransaction` method, but with its type property set to `Unstake`.
+3. send the transaction to the blockchain.
+
+```typescript
+await walletClient.sendTransaction({
+    account: userAddress,
+    to: vaultAddress,
+    data: unstakeTx.transaction,
+    type: 'eip1559',
+    gas: unstakeTx.gasEstimation,
+    maxPriorityFeePerGas: unstakeTx.maxPriorityFeePerGas,
+    maxFeePerGas: unstakeTx.maxFeePerGas,
+    // Note: The value field is not set, as the user is not sending out ETH but instead receiving assets back
+});
+```
+
+> In the second scenario, the user will need to burn the minted shares in order tobe able to unstake the whole staked amount. The steps are similar to the first scenario, with the addition of burning the shares before unstaking. You can learn more about the burning process [here][burn].
 
 > ℹ️ For simplicity, we will use the same form as we did for staking. Please refer to the [Stake chapter][stake-chapter] for more details on the form setup and handling.
 
@@ -34,6 +64,12 @@ const unstake = async ({
     amount: bigint;
 }): Promise<Hex> => {
     const pool = new OpusPool({ network, address: userAddress });
+    const maxWithdraw = await pool.getMaxWithdraw(vaultAddress);
+
+    if (maxWithdraw === 0 || maxWithdraw < amountToUnstake) {
+        // the user is trying to unstake more than they can
+        return;
+    }
 
     const stakeRes = await pool.buildUnstakeTransaction({
         vault,
@@ -49,19 +85,11 @@ const unstake = async ({
         gas: gasEstimation,
         maxPriorityFeePerGas,
         maxFeePerGas,
-        // Note: The value field is not set, as the user is not sending out ETH but instead receiving assets back
     });
 };
 ```
 
 When unstaking, we set the value field in the `sendTransaction` method to 0, which is the default. We do this because the user is not sending out ETH but instead receiving assets back.
-
-Before attempting to unstake, it's important to validate that the user has sufficient funds in the vault. You can do this by using the [`getVaultDetails`][get-vault-details-chapter] method from the pool SDK. Here's a brief example:
-
-```typescript
-const [vaultDetails] = await pool.getVaultDetails([vault]); // Note: vault is the only item in the array, as we can unstake only from one vault at a time
-const vaultBalance = vaultDetails.balance; // The maximum amount of funds the user can unstake
-```
 
 ## Next Steps
 
@@ -73,3 +101,4 @@ In this section, we learned about the functionality for unstaking in the Opus po
 [stake-chapter]: ./3-stake.md
 [unstake-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/master/src/hooks/useUnstakeMutation.ts#L40
 [transactions-history]: ./5-transactions-history.md
+[burn]: ./8-burn-os-token.md
