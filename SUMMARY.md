@@ -9,9 +9,10 @@
 -   [2. Fetching Vault Details](book/guide/2-vault-details.md)
 -   [3. Staking Functionality](book/guide/3-stake.md)
 -   [4. Minting Functionality](book/guide/7-mint-os-token.md)
--   [5. Unstaking Functionality](book/guide/4-unstake.md)
--   [6. Transactions History](book/guide/5-transactions-history.md)
--   [7. Rewards History](book/guide/6-rewards-history.md)
+-   [5. Burning Functionality](book/guide/8-burn-os-token.md)
+-   [6. Unstaking Functionality](book/guide/4-unstake.md)
+-   [7. Transactions History](book/guide/5-transactions-history.md)
+-   [8. Rewards History](book/guide/6-rewards-history.md)
 
 ## API Docs
 

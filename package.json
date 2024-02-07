@@ -23,7 +23,7 @@
         "build": "tsc",
         "lint": "eslint --fix --ext .ts,.tsx",
         "clean": "rimraf dist",
-        "test": "jest",
+        "test": "jest --verbose",
         "doc": "typedoc --options typedoc.json --hideInPageTOC",
         "doc:opuspool": "typedoc  --options typedoc.json"
     },
