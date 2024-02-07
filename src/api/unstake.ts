@@ -18,7 +18,7 @@ export default async function unstake(
     const shares: bigint = await pool.connector.eth.readContract({
         abi: VaultABI,
         address: request.vault,
-        functionName: 'convertToAssets',
+        functionName: 'convertToShares',
         args: [request.amount],
     });
 
