@@ -23,6 +23,7 @@ jobs:
                   npm test || RESULT=$?
                   if [ $RESULT -ne 0 ]; then
                     echo "Tests failed with exit code $RESULT"
+                    echo "Hardhat log:" && cat hardhat.log
                     exit $RESULT
                   fi
             - name: Stop Hardhat Node
