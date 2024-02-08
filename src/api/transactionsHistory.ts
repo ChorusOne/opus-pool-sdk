@@ -46,7 +46,7 @@ async function extractTransactionsHistory(
             vault: vault,
             when: new Date(parseInt(createdAt) * 1000),
             type: action.actionType,
-            amount: BigInt(action.assets),
+            amount: action.assets ? BigInt(action.assets) : 0n, // some txs don't have assets, e.g. ExitQueueEntered
             hash: action.id,
         });
     });
