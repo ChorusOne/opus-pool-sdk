@@ -1,8 +1,9 @@
 # 5. Transactions History
 
--   [Initializing the Pool and Fetching Transaction History](#initializing-the-pool-and-fetching-transaction-history)
--   [Displaying Transaction History](#displaying-transaction-history)
--   [Next Steps](#next-steps)
+-   [5. Transactions History](#5-transactions-history)
+    -   [Initializing the Pool and Fetching Transaction History](#initializing-the-pool-and-fetching-transaction-history)
+    -   [Displaying Transaction History](#displaying-transaction-history)
+    -   [Next Steps](#next-steps)
 
 In this chapter, we'll explore how to fetch and display the transaction history of vaults using the Opus SDK. The SDK provides the `getTransactionsHistory` method, which returns up to 1000 stake or unstake transactions of the current user associated with a given array of vaults.
 
@@ -103,4 +104,4 @@ In this section, we learned how to fetch transaction history using the `getTrans
 
 [get-transactions-history-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/master/src/hooks/useTransactions.ts#L21
 [get-transactions-history-ui]: https://github.com/ChorusOne/opus-pool-demo/blob/master/src/components/Interactions.tsx#L52
-[rewards-history]: ./6-rewards-history.md
+[rewards-history]: ./8-rewards-history.md
