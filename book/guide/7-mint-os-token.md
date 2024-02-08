@@ -67,8 +67,8 @@ await walletClient.sendTransaction({
 
 ## Next Steps
 
-In this section, we focused on the core functionality of our application, which is submitting a minting transaction. To continue exploring the functionality of our application, you can proceed to the next section: [Unstaking Functionality][unstake].
+In this section, we focused on the core functionality of our application, which is submitting a minting transaction. To continue exploring the functionality of our application, you can proceed to the next section: [burning Functionality][burn].
 
-Continue to [unstaking functionality][unstake]
+Continue to [burning functionality][burn]
 
-[unstake]: ./4-unstake.md
+[burn]: ./8-burn-os-token.md

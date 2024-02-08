@@ -15,6 +15,7 @@
 
 ## Interfaces
 
+- [BurnTransactionData](interfaces/BurnTransactionData.md)
 - [MintTransactionData](interfaces/MintTransactionData.md)
 - [RewardsDataPoint](interfaces/RewardsDataPoint.md)
 - [StakeTransactionData](interfaces/StakeTransactionData.md)
