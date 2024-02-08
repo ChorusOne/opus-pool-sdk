@@ -7,6 +7,7 @@ import vaultDetails from './api/vaultDetails';
 import { StakewiseConnector } from './internal/connector';
 import transactionsHistory from './api/transactionsHistory';
 import rewardsHistory from './api/rewardsHistory';
+import burn from './api/burn';
 import stake from './api/stake';
 import unstake from './api/unstake';
 import { getDefaultVaults } from './internal/defaultVaults';
@@ -22,9 +23,11 @@ import { OsTokenPositionReturnType, StakeBalanceReturnType } from './types/osTok
 import { MintTransactionData } from './types/mint';
 import { UnstakeTransactionData } from './types/unstake';
 import { StakeTransactionData } from './types/stake';
+import { BurnTransactionData } from './types/burn';
 
 export {
     getDefaultVaults,
+    BurnTransactionData,
     MintTransactionData,
     Networks,
     OsTokenPositionHealth,
@@ -211,5 +214,17 @@ export class OpusPool {
 
     async getMaxUnstakeForUserForVault(vault: Hex): Promise<bigint> {
         return getMaxWithdraw(this, vault);
+    }
+
+    /**
+     * Generates burn transaction to burn osTokens from chosen Vault.
+     *
+     * @param params - params for request
+     * @param params.shares - Amount of osTokens to burn
+     * @param params.vault - A vault address
+     * @returns `BurnTransactionData` for transaction to sign and broadcast
+     */
+    async buildBurnTransaction(params: Parameters<typeof burn>[1]): Promise<BurnTransactionData> {
+        return burn(this, params);
     }
 }
