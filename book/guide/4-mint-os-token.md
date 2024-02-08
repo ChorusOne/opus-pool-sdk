@@ -71,4 +71,4 @@ In this section, we focused on the core functionality of our application, which 
 
 Continue to [burning functionality][burn]
 
-[burn]: ./8-burn-os-token.md
+[burn]: ./5-burn-os-token.md

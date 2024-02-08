@@ -8,11 +8,11 @@
 -   [1. Installation and Setup](book/guide/1-installation.md)
 -   [2. Fetching Vault Details](book/guide/2-vault-details.md)
 -   [3. Staking Functionality](book/guide/3-stake.md)
--   [4. Minting Functionality](book/guide/7-mint-os-token.md)
--   [5. Burning Functionality](book/guide/8-burn-os-token.md)
--   [6. Unstaking Functionality](book/guide/4-unstake.md)
--   [7. Transactions History](book/guide/5-transactions-history.md)
--   [8. Rewards History](book/guide/6-rewards-history.md)
+-   [4. Minting Functionality](book/guide/4-mint-os-token.md)
+-   [5. Burning Functionality](book/guide/5-burn-os-token.md)
+-   [6. Unstaking Functionality](book/guide/6-unstake.md)
+-   [7. Transactions History](book/guide/7-transactions-history.md)
+-   [8. Rewards History](book/guide/8-rewards-history.md)
 
 ## API Docs
 

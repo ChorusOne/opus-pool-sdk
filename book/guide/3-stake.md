@@ -114,4 +114,4 @@ Continue to [minting os token functionality][mint]
 
 [stake-ui]: https://github.com/ChorusOne/opus-pool-demo/blob/master/src/components/FormComponent.tsx#L8
 [stake-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/master/src/hooks/useStakeMutation.ts#L40
-[mint]: ./7-mint-os-token.md
+[mint]: ./4-mint-os-token.md

@@ -48,4 +48,4 @@ await walletClient.sendTransaction({
 In this section, we focused on the core functionality of our application, which is submitting a burning transaction. To continue exploring the functionality of our application, you can proceed to the next section: [Unstaking Functionality][unstake].
 
 [stake]: ./3-stake.md
-[unstake]: ./4-unstake.md
+[unstake]: ./6-unstake.md

@@ -100,5 +100,5 @@ In this section, we learned about the functionality for unstaking in the Opus po
 [get-vault-details-chapter]: ./2-vault-details.md
 [stake-chapter]: ./3-stake.md
 [unstake-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/master/src/hooks/useUnstakeMutation.ts#L40
-[transactions-history]: ./5-transactions-history.md
-[burn]: ./8-burn-os-token.md
+[transactions-history]: ./7-transactions-history.md
+[burn]: ./5-burn-os-token.md
