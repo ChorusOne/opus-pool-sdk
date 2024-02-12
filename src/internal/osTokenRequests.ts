@@ -135,56 +135,75 @@ export const getStakeBalance = async (pool: OpusPool, vaultAddress: Hex): Promis
 };
 
 export const getOsTokenPosition = async (pool: OpusPool, vaultAddress: Hex): Promise<OsTokenPositionReturnType> => {
-    const gqlMintedSharesResult = await pool.connector.graphqlRequest({
-        op: 'OsTokenPositions',
-        type: 'graph',
-        query: `
-        query OsTokenPositions($address: Bytes, $vaultAddress: String) { osTokenPositions(where: { address: $address, vault: $vaultAddress }) { shares }}
-        `,
-        variables: {
-            vaultAddress,
-            address: pool.userAccount,
-        },
-        onSuccess: (value: Response) => value,
-        onError: (reason: any) => Promise.reject(reason),
-    });
-    const gqlMintedSharesJson = await gqlMintedSharesResult.json();
-    const gqlMintedShares = BigInt(gqlMintedSharesJson.data?.osTokenPositions[0]?.shares || 0);
+    try {
+        const gqlMintedSharesResult = await pool.connector.graphqlRequest({
+            op: 'OsTokenPositions',
+            type: 'graph',
+            query: `
+            query OsTokenPositions($address: Bytes, $vaultAddress: String) { osTokenPositions(where: { address: $address, vault: $vaultAddress }) { shares }}
+            `,
+            variables: {
+                vaultAddress,
+                address: pool.userAccount,
+            },
+            onSuccess: (value: Response) => value,
+            onError: (reason: any) => Promise.reject(reason),
+        });
+        if (!gqlMintedSharesResult.ok) {
+            throw new Error('Invalid response from Stakewise');
+        }
+        const gqlMintedSharesJson = await gqlMintedSharesResult.json();
 
-    const mintedShares = await pool.connector.eth.readContract({
-        abi: VaultABI,
-        functionName: 'osTokenPositions',
-        address: vaultAddress,
-        args: [pool.userAccount],
-    });
+        if (gqlMintedSharesJson.errors && gqlMintedSharesJson.errors.length) {
+            throw new Error(gqlMintedSharesJson.errors[0].message);
+        }
 
-    const [mintedAssets, feePercent] = await Promise.all([
-        pool.connector.eth.readContract({
-            abi: MintTokenControllerAbi,
-            address: pool.connector.mintTokenController,
-            functionName: 'convertToAssets',
-            args: [mintedShares],
-        }) as Promise<bigint>,
-        pool.connector.eth.readContract({
-            abi: MintTokenControllerAbi,
-            functionName: 'feePercent',
-            address: pool.connector.mintTokenController,
-        }) as Promise<bigint>,
-    ]);
-    const protocolFeePercent = feePercent / 100n;
-    const { assets } = await getStakeBalance(pool, vaultAddress);
+        if (
+            !gqlMintedSharesJson.data ||
+            !gqlMintedSharesJson.data.osTokenPositions ||
+            gqlMintedSharesJson.data.osTokenPositions.length === 0
+        ) {
+            throw new Error('Minted shares data is incomplete');
+        }
+        const gqlMintedShares = BigInt(gqlMintedSharesJson.data.osTokenPositions[0]?.shares || 0);
 
-    const health = await pool.getHealthFactorForUser(mintedAssets, assets);
+        const mintedShares = await pool.connector.eth.readContract({
+            abi: VaultABI,
+            functionName: 'osTokenPositions',
+            address: vaultAddress,
+            args: [pool.userAccount],
+        });
 
-    return {
-        minted: {
-            assets: mintedAssets,
-            shares: mintedShares,
-            fee: mintedShares - gqlMintedShares,
-        },
-        health,
-        protocolFeePercent,
-    };
+        const [mintedAssets, feePercent] = await Promise.all([
+            pool.connector.eth.readContract({
+                abi: MintTokenControllerAbi,
+                address: pool.connector.mintTokenController,
+                functionName: 'convertToAssets',
+                args: [mintedShares],
+            }) as Promise<bigint>,
+            pool.connector.eth.readContract({
+                abi: MintTokenControllerAbi,
+                functionName: 'feePercent',
+                address: pool.connector.mintTokenController,
+            }) as Promise<bigint>,
+        ]);
+        const protocolFeePercent = feePercent / 100n;
+        const { assets } = await getStakeBalance(pool, vaultAddress);
+
+        const health = await pool.getHealthFactorForUser(mintedAssets, assets);
+
+        return {
+            minted: {
+                assets: mintedAssets,
+                shares: mintedShares,
+                fee: mintedShares - gqlMintedShares,
+            },
+            health,
+            protocolFeePercent,
+        };
+    } catch (error) {
+        throw new Error(`Error retrieving osToken positions: ${error instanceof Error ? error.message : error}`);
+    }
 };
 
 export const getMaxWithdraw = async (pool: OpusPool, vault: Hex): Promise<bigint> => {

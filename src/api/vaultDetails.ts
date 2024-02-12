@@ -4,11 +4,6 @@ import type { VaultDetails } from '../types/vault';
 import { VaultABI } from '../internal/contracts/vaultAbi';
 import { default as AsyncLock } from 'async-lock';
 import { Hex } from 'viem';
-
-interface StakewiseDailySnapshot {
-    weeklyApy: string;
-}
-
 interface VaultProperties {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vaultData: any;
@@ -29,59 +24,67 @@ async function extractVaultProperties(connector: StakewiseConnector, vault: Hex)
     dateBeforeYesterday.setDate(dateBeforeYesterday.getDate() - 8);
     today.setDate(today.getDate());
 
-    const maybeVault = connector.graphqlRequest({
-        type: 'graph',
-        op: 'Vault',
-        query: `
-        query Vault($address: ID!) {
-          vault(id: $address) {
-            address: id
-            performance: score
-            admin
-            isErc20
-            imageUrl
-            capacity
-            mevEscrow
-            isPrivate
-            createdAt
-            mevEscrow
-            tokenName
-            feePercent
-            totalAssets
-            displayName
-            description
-            whitelister
-            keysManager
-            tokenSymbol
-            feeRecipient
-            validatorsRoot
-            weeklyApy
-          }
-          privateVaultAccounts(
-            where: { vault: $address }
-          ) {
-            createdAt
-            address
-          }
-        }`,
-        variables: vars_getVault,
-        onSuccess: function (value: Response): Response {
-            return value;
-        },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        onError: function (reason: any): PromiseLike<never> {
-            throw new Error(`Failed to get vault from Stakewise: ${reason}`);
-        },
-    });
+    try {
+        const responseVault = await connector.graphqlRequest({
+            type: 'graph',
+            op: 'Vault',
+            query: `
+            query Vault($address: ID!) {
+              vault(id: $address) {
+                address: id
+                performance: score
+                admin
+                isErc20
+                imageUrl
+                capacity
+                mevEscrow
+                isPrivate
+                createdAt
+                mevEscrow
+                tokenName
+                feePercent
+                totalAssets
+                displayName
+                description
+                whitelister
+                keysManager
+                tokenSymbol
+                feeRecipient
+                validatorsRoot
+                weeklyApy
+              }
+              privateVaultAccounts(
+                where: { vault: $address }
+              ) {
+                createdAt
+                address
+              }
+            }`,
+            variables: vars_getVault,
+            onSuccess: function (value: Response): Response {
+                return value;
+            },
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            onError: function (reason: any): PromiseLike<never> {
+                throw new Error(`Failed to get vault from Stakewise: ${reason}`);
+            },
+        });
+        if (!responseVault.ok) {
+            throw new Error('Invalid response from Stakewise');
+        }
+        const vaultData = await responseVault.json();
 
-    const responseVault = await maybeVault;
+        if (vaultData.errors && vaultData.errors.length > 0) {
+            throw new Error(vaultData.errors[0].message);
+        }
 
-    if (responseVault.status != 200) {
-        throw new Error('Invalid response code from Stakewise');
+        if (!vaultData.data || !vaultData.data.vault) {
+            throw new Error('Vault data is missing or incomplete');
+        }
+        return { vaultData: vaultData.data };
+    } catch (error) {
+        throw new Error(`Error retrieving vault data: ${error instanceof Error ? error.message : error}`);
     }
-
-    const vaultData = await responseVault.json();
-    return { vaultData };
 }
 
 // Get latest balance and cached properties
@@ -126,11 +129,11 @@ async function extractVaultDetails(
 
     return {
         address: vault,
-        name: vaultData.data.vault.displayName,
-        description: vaultData.data.vault.description,
-        logoUrl: vaultData.data.vault.imageUrl,
-        tvl: BigInt(vaultData.data.vault.totalAssets),
-        apy: vaultData.data.vault.weeklyApy,
+        name: vaultData.vault.displayName,
+        description: vaultData.vault.description,
+        logoUrl: vaultData.vault.imageUrl,
+        tvl: BigInt(vaultData.vault.totalAssets),
+        apy: vaultData.vault.weeklyApy > 0 ? vaultData.vault.weeklyApy : '0',
         balance: assets,
     };
 }
