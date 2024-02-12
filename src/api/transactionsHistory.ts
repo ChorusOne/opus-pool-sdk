@@ -19,7 +19,7 @@ async function extractTransactionsHistory(
         skip: 0,
     };
     try {
-        const responseActions = await connector.graphqlRequest({
+        const actionsData = await connector.graphqlRequest({
             type: 'graph',
             op: 'AllocatorActions',
             query: `
@@ -29,23 +29,17 @@ async function extractTransactionsHistory(
             { id assets createdAt actionType }}
         `,
             variables: vars_getActions,
-            onSuccess: function (value: Response): Response {
-                return value;
-            },
+            onSuccess: (value: { data: any }) => value,
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onError: function (reason: any): PromiseLike<never> {
                 throw new Error(`Failed to get vault from Stakewise: ${reason}`);
             },
         });
 
-        const actionsData = await responseActions.json();
-
-        if (actionsData.errors && actionsData.errors.length) {
-            throw new Error(actionsData.errors[0].message);
-        }
-
-        if (!actionsData.data || !actionsData.data.allocatorActions || actionsData.data.allocatorActions.length === 0) {
-            throw new Error('Transaction data is missing or incomplete');
+        if (!actionsData.data.allocatorActions || actionsData.data.allocatorActions.length === 0) {
+            throw new Error(
+                `Transaction data is missing the allocatorActions field or the field is empty ${actionsData.data.allocatorActions}`,
+            );
         }
         const interactions: VaultTransaction[] = [];
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

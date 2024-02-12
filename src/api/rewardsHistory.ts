@@ -16,30 +16,22 @@ async function extractVaultUserRewards(
         dateFrom: Math.floor(dateFrom.getTime() / 1000).toString(),
     };
     try {
-        const responseRewards = await connector.graphqlRequest({
+        const rewardsData = await connector.graphqlRequest({
             type: 'api',
             op: 'UserRewards',
             query: `query UserRewards($user: String!, $vaultAddress: String!, $dateFrom: DateAsTimestamp!) { userRewards(user: $user, vaultAddress: $vaultAddress, dateFrom: $dateFrom) { date, sumRewards, }}`,
             variables: vars_getRewards,
-            onSuccess: function (value: Response): Response {
-                return value;
-            },
+            onSuccess: (value: { data: any }) => value,
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onError: function (reason: any): PromiseLike<never> {
                 throw new Error(`Failed to get rewards from Stakewise: ${reason}`);
             },
         });
-        if (!responseRewards.ok) {
-            throw new Error('Invalid response from Stakewise');
-        }
-        const rewardsData = await responseRewards.json();
 
-        if (rewardsData.errors && rewardsData.errors.length) {
-            throw new Error(rewardsData.errors[0].message);
-        }
-
-        if (!rewardsData.data || !rewardsData.data.userRewards || rewardsData.data.userRewards.length === 0) {
-            throw new Error('Rewards data is missing or incomplete');
+        if (!rewardsData.data.userRewards || rewardsData.data.userRewards.length === 0) {
+            throw new Error(
+                `Rewards data is missing the userRewards field or the field is empty ${rewardsData.data.userRewards}`,
+            );
         }
         const dataPoints: RewardsDataPoint[] = [];
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

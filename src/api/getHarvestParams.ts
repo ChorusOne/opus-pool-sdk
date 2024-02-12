@@ -3,7 +3,7 @@ import { StakewiseConnector } from '../internal/connector';
 
 export const getHarvestParams = async (connector: StakewiseConnector, vault: Hex) => {
     try {
-        const harvestResponse = await connector.graphqlRequest({
+        const harvestData = await connector.graphqlRequest({
             type: 'graph',
             op: 'HarvestParams',
             query: `
@@ -19,22 +19,14 @@ export const getHarvestParams = async (connector: StakewiseConnector, vault: Hex
             variables: {
                 address: vault.toLowerCase(),
             },
-            onSuccess: function (value: Response) {
-                return value;
-            },
+            onSuccess: (value: { data: any }) => value,
             onError: function (reason: any): PromiseLike<never> {
                 throw new Error(`Failed to get harvest from Stakewise: ${reason}`);
             },
         });
-        if (!harvestResponse.ok) {
-            throw new Error('Invalid response from Stakewise');
-        }
-        const harvestData = await harvestResponse.json();
-        if (harvestData.errors && harvestData.errors.length) {
-            throw new Error(harvestData.errors[0].message);
-        }
-        if (!harvestData.data || !harvestData.data.harvestParams) {
-            throw new Error('Vault data is missing or incomplete');
+
+        if (!harvestData.data.harvestParams) {
+            throw new Error('Vault data is missing the harvestParams field');
         }
         return harvestData.data.harvestParams;
     } catch (error) {

@@ -136,7 +136,7 @@ export const getStakeBalance = async (pool: OpusPool, vaultAddress: Hex): Promis
 
 export const getOsTokenPosition = async (pool: OpusPool, vaultAddress: Hex): Promise<OsTokenPositionReturnType> => {
     try {
-        const gqlMintedSharesResult = await pool.connector.graphqlRequest({
+        const gqlMintedSharesJson = await pool.connector.graphqlRequest({
             op: 'OsTokenPositions',
             type: 'graph',
             query: `
@@ -146,24 +146,14 @@ export const getOsTokenPosition = async (pool: OpusPool, vaultAddress: Hex): Pro
                 vaultAddress,
                 address: pool.userAccount,
             },
-            onSuccess: (value: Response) => value,
+            onSuccess: (value: { data: any }) => value,
             onError: (reason: any) => Promise.reject(reason),
         });
-        if (!gqlMintedSharesResult.ok) {
-            throw new Error('Invalid response from Stakewise');
-        }
-        const gqlMintedSharesJson = await gqlMintedSharesResult.json();
 
-        if (gqlMintedSharesJson.errors && gqlMintedSharesJson.errors.length) {
-            throw new Error(gqlMintedSharesJson.errors[0].message);
-        }
-
-        if (
-            !gqlMintedSharesJson.data ||
-            !gqlMintedSharesJson.data.osTokenPositions ||
-            gqlMintedSharesJson.data.osTokenPositions.length === 0
-        ) {
-            throw new Error('Minted shares data is incomplete');
+        if (!gqlMintedSharesJson.data.osTokenPositions || gqlMintedSharesJson.data.osTokenPositions.length === 0) {
+            throw new Error(
+                `Minted shares data is missing the osTokenPositions field or the field is empty ${gqlMintedSharesJson.data.osTokenPositions}`,
+            );
         }
         const gqlMintedShares = BigInt(gqlMintedSharesJson.data.osTokenPositions[0]?.shares || 0);
 

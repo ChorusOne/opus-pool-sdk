@@ -25,7 +25,7 @@ async function extractVaultProperties(connector: StakewiseConnector, vault: Hex)
     today.setDate(today.getDate());
 
     try {
-        const responseVault = await connector.graphqlRequest({
+        const vaultData = await connector.graphqlRequest({
             type: 'graph',
             op: 'Vault',
             query: `
@@ -61,25 +61,15 @@ async function extractVaultProperties(connector: StakewiseConnector, vault: Hex)
               }
             }`,
             variables: vars_getVault,
-            onSuccess: function (value: Response): Response {
-                return value;
-            },
+            onSuccess: (value: { data: any }) => value,
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onError: function (reason: any): PromiseLike<never> {
                 throw new Error(`Failed to get vault from Stakewise: ${reason}`);
             },
         });
-        if (!responseVault.ok) {
-            throw new Error('Invalid response from Stakewise');
-        }
-        const vaultData = await responseVault.json();
 
-        if (vaultData.errors && vaultData.errors.length > 0) {
-            throw new Error(vaultData.errors[0].message);
-        }
-
-        if (!vaultData.data || !vaultData.data.vault) {
-            throw new Error('Vault data is missing or incomplete');
+        if (!vaultData.data.vault) {
+            throw new Error(`Vault data is missing the vault field ${vaultData.data}`);
         }
         return { vaultData: vaultData.data };
     } catch (error) {

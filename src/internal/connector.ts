@@ -9,7 +9,7 @@ export interface GraphQLRequest {
     query: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     variables: any;
-    onSuccess: (value: Response) => Response;
+    onSuccess: (value: { data: any }) => { data: any };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (reason: any) => PromiseLike<never>;
 }
@@ -95,7 +95,7 @@ export class StakewiseConnector {
     }
 
     // Perform graphQL request
-    graphqlRequest = (request: GraphQLRequest): Promise<Response> => {
+    graphqlRequest = (request: GraphQLRequest): Promise<{ data: any }> => {
         const body: string = JSON.stringify({
             operationName: request.op,
             query: request.query.trim(),
@@ -123,6 +123,21 @@ export class StakewiseConnector {
         }
 
         const endpoint = `${uri}?opName=${request.op}`;
-        return fetch(endpoint, params).then(request.onSuccess).catch(request.onError);
+        return fetch(endpoint, params)
+            .then(async (response) => {
+                if (!response.ok) {
+                    throw new Error('Invalid response from Stakewise');
+                }
+                const responseData = await response.json();
+
+                if (responseData.errors && responseData.errors.length) {
+                    throw new Error(responseData.errors[0].message);
+                }
+                if (!responseData.data) {
+                    throw new Error('Response from Stakewise is missing data');
+                }
+                return request.onSuccess(responseData);
+            })
+            .catch(request.onError);
     };
 }
