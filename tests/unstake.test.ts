@@ -20,6 +20,21 @@ const AMOUNT_TO_STAKE = parseEther('5');
 const AMOUNT_TO_UNSTAKE = parseEther('4');
 const AMOUNT_TO_UNSTAKE_TOO_MUCH = parseEther('500');
 
+const originalFetch = global.fetch;
+
+const mockFetch = jest.fn().mockImplementation((input, init) => {
+    if (input === 'https://holesky-graph.stakewise.io/subgraphs/name/stakewise/stakewise?opName=OsTokenPositions') {
+        return Promise.resolve({
+            ok: true,
+            json: () => Promise.resolve({ data: { osTokenPositions: [{ shares: '0' }] } }), // No minted shares
+        });
+    } else {
+        return originalFetch(input, init); // Fallback to the original fetch for other URLs
+    }
+});
+
+global.fetch = mockFetch;
+
 describe('Unstaking Integration Test', () => {
     let USER_ADDRESS: Hex;
     let walletClientWithBalance: WalletClient;
