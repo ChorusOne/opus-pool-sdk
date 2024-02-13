@@ -15,21 +15,17 @@ async function extractVaultUserRewards(
         user: allocatorAddress.toLowerCase(),
         dateFrom: Math.floor(dateFrom.getTime() / 1000).toString(),
     };
-    const responseRewards = await connector.graphqlRequest({
+
+    const rewardsData = await connector.graphqlRequest({
         type: 'api',
         op: 'UserRewards',
         query: `query UserRewards($user: String!, $vaultAddress: String!, $dateFrom: DateAsTimestamp!) { userRewards(user: $user, vaultAddress: $vaultAddress, dateFrom: $dateFrom) { date, sumRewards, }}`,
         variables: vars_getRewards,
-        onSuccess: function (value: Response): Response {
-            return value;
-        },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        onError: function (reason: any): PromiseLike<never> {
-            throw new Error(`Failed to get rewards from Stakewise: ${reason}`);
-        },
     });
 
-    const rewardsData = await responseRewards.json();
+    if (!rewardsData.data.userRewards || rewardsData.data.userRewards.length === 0) {
+        throw new Error(`Rewards data is missing the userRewards field or the field is empty`);
+    }
     const dataPoints: RewardsDataPoint[] = [];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     rewardsData.data.userRewards.forEach((reward: any) => {
@@ -56,17 +52,14 @@ export default async function rewardsHistory(
     },
 ): Promise<Array<RewardsDataPoint>> {
     let vaultRewards: RewardsDataPoint[] = [];
-    try {
-        vaultRewards = await extractVaultUserRewards(
-            pool.connector,
-            request.vault,
-            pool.userAccount,
-            request.from,
-            request.to,
-        );
-    } catch (error) {
-        throw new Error(`Failed to get rewards: ${error}`);
-    }
+
+    vaultRewards = await extractVaultUserRewards(
+        pool.connector,
+        request.vault,
+        pool.userAccount,
+        request.from,
+        request.to,
+    );
 
     return vaultRewards;
 }

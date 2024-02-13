@@ -2,29 +2,26 @@ import { Hex } from 'viem';
 import { StakewiseConnector } from '../internal/connector';
 
 export const getHarvestParams = async (connector: StakewiseConnector, vault: Hex) => {
-    const harvestResponse = await connector.graphqlRequest({
+    const harvestData = await connector.graphqlRequest({
         type: 'graph',
         op: 'HarvestParams',
         query: `
-        query HarvestParams($address: ID!) {
-        harvestParams: vault(id: $address) {
-            proof
-            rewardsRoot
-            reward: proofReward
-            unlockedMevReward: proofUnlockedMevReward
-          }
-        }
-        `,
+            query HarvestParams($address: ID!) {
+            harvestParams: vault(id: $address) {
+                proof
+                rewardsRoot
+                reward: proofReward
+                unlockedMevReward: proofUnlockedMevReward
+              }
+            }
+            `,
         variables: {
             address: vault.toLowerCase(),
         },
-        onSuccess: function (value: Response) {
-            return value;
-        },
-        onError: function (reason: any): PromiseLike<never> {
-            throw new Error(`Failed to get harvest from Stakewise: ${reason}`);
-        },
     });
-    const harvestData = await harvestResponse.json();
+
+    if (!harvestData.data.harvestParams) {
+        throw new Error('Vault data is missing the harvestParams field');
+    }
     return harvestData.data.harvestParams;
 };

@@ -22,9 +22,9 @@ const AMOUNT_TO_MINT = parseEther('15');
 const originalFetch = global.fetch;
 let callCount = 0; // Track the number of calls to the specific URL
 
-// on first call, there are no minted shares
-// make the second call after minting AMOUNT_TO_MINT shares
-// make the third call after burning all shares
+// on first call, there are no minted shares (shares: 0)
+// make the second call after minting AMOUNT_TO_MINT shares (shares: minted_amount)
+// make the third call after burning all shares (shares: minted_amount - burned_amount)
 const mockFetch = jest.fn().mockImplementation((input, init) => {
     if (input === 'https://holesky-graph.stakewise.io/subgraphs/name/stakewise/stakewise?opName=OsTokenPositions') {
         callCount += 1; // Increment call count for the specific URL

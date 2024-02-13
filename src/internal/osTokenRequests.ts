@@ -135,21 +135,22 @@ export const getStakeBalance = async (pool: OpusPool, vaultAddress: Hex): Promis
 };
 
 export const getOsTokenPosition = async (pool: OpusPool, vaultAddress: Hex): Promise<OsTokenPositionReturnType> => {
-    const gqlMintedSharesResult = await pool.connector.graphqlRequest({
+    const gqlMintedSharesJson = await pool.connector.graphqlRequest({
         op: 'OsTokenPositions',
         type: 'graph',
         query: `
-        query OsTokenPositions($address: Bytes, $vaultAddress: String) { osTokenPositions(where: { address: $address, vault: $vaultAddress }) { shares }}
-        `,
+            query OsTokenPositions($address: Bytes, $vaultAddress: String) { osTokenPositions(where: { address: $address, vault: $vaultAddress }) { shares }}
+            `,
         variables: {
             vaultAddress,
             address: pool.userAccount,
         },
-        onSuccess: (value: Response) => value,
-        onError: (reason: any) => Promise.reject(reason),
     });
-    const gqlMintedSharesJson = await gqlMintedSharesResult.json();
-    const gqlMintedShares = BigInt(gqlMintedSharesJson.data?.osTokenPositions[0]?.shares || 0);
+
+    if (!gqlMintedSharesJson.data.osTokenPositions || gqlMintedSharesJson.data.osTokenPositions.length === 0) {
+        throw new Error(`Minted shares data is missing the osTokenPositions field or the field is empty`);
+    }
+    const gqlMintedShares = BigInt(gqlMintedSharesJson.data.osTokenPositions[0]?.shares || 0);
 
     const mintedShares = await pool.connector.eth.readContract({
         abi: VaultABI,

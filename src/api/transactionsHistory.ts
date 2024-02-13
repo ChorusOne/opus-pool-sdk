@@ -18,26 +18,22 @@ async function extractTransactionsHistory(
         first: 1000,
         skip: 0,
     };
-    const responseActions = await connector.graphqlRequest({
+
+    const actionsData = await connector.graphqlRequest({
         type: 'graph',
         op: 'AllocatorActions',
         query: `
-    query AllocatorActions( $skip: Int! $first: Int! $where: AllocatorAction_filter) 
-        { 
-        allocatorActions( skip: $skip, first: $first, orderBy: createdAt, orderDirection: desc, where: $where, ) 
-        { id assets createdAt actionType }}
-    `,
+        query AllocatorActions( $skip: Int! $first: Int! $where: AllocatorAction_filter) 
+            { 
+            allocatorActions( skip: $skip, first: $first, orderBy: createdAt, orderDirection: desc, where: $where, ) 
+            { id assets createdAt actionType }}
+        `,
         variables: vars_getActions,
-        onSuccess: function (value: Response): Response {
-            return value;
-        },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        onError: function (reason: any): PromiseLike<never> {
-            throw new Error(`Failed to get vault from Stakewise: ${reason}`);
-        },
     });
 
-    const actionsData = await responseActions.json();
+    if (!actionsData.data.allocatorActions || actionsData.data.allocatorActions.length === 0) {
+        throw new Error(`Transaction data is missing the allocatorActions field or the field is empty`);
+    }
     const interactions: VaultTransaction[] = [];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     actionsData.data.allocatorActions.forEach((action: any) => {

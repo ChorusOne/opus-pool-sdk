@@ -20,6 +20,21 @@ const VAULT_ADDRESS: Hex = '0x95d0db03d59658e1af0d977ecfe142f178930ac5';
 const AMOUNT_TO_STAKE = parseEther('20');
 const AMOUNT_TO_MINT = parseEther('1');
 
+const originalFetch = global.fetch;
+
+const mockFetch = jest.fn().mockImplementation((input, init) => {
+    if (input === 'https://holesky-graph.stakewise.io/subgraphs/name/stakewise/stakewise?opName=OsTokenPositions') {
+        return Promise.resolve({
+            ok: true,
+            json: () => Promise.resolve({ data: { osTokenPositions: [{ shares: AMOUNT_TO_MINT.toString() }] } }),
+        });
+    } else {
+        return originalFetch(input, init); // Fallback to the original fetch for other URLs
+    }
+});
+
+global.fetch = mockFetch;
+
 describe('Minting OsToken', () => {
     let USER_ADDRESS: Hex;
     let publicClient: PublicClient;
@@ -75,7 +90,7 @@ describe('Minting OsToken', () => {
         const stake = await pool.getStakeBalanceForUser(VAULT_ADDRESS);
         expect(stake.assets).toBeGreaterThan(userSharesInitial);
 
-        const maxMint = await pool.getMaxMintForVault(VAULT_ADDRESS);
+        const maxMint = await pool.getMaxMintForVault(VAULT_ADDRESS); // makes call to graphql endpoint
 
         expect(maxMint).toBeGreaterThan(0n);
         expect(maxMint).toBeGreaterThan(AMOUNT_TO_MINT);
