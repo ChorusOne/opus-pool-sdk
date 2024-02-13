@@ -24,11 +24,10 @@ async function extractVaultProperties(connector: StakewiseConnector, vault: Hex)
     dateBeforeYesterday.setDate(dateBeforeYesterday.getDate() - 8);
     today.setDate(today.getDate());
 
-    try {
-        const vaultData = await connector.graphqlRequest({
-            type: 'graph',
-            op: 'Vault',
-            query: `
+    const vaultData = await connector.graphqlRequest({
+        type: 'graph',
+        op: 'Vault',
+        query: `
             query Vault($address: ID!) {
               vault(id: $address) {
                 address: id
@@ -60,21 +59,13 @@ async function extractVaultProperties(connector: StakewiseConnector, vault: Hex)
                 address
               }
             }`,
-            variables: vars_getVault,
-            onSuccess: (value: { data: any }) => value,
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            onError: function (reason: any): PromiseLike<never> {
-                throw new Error(`Failed to get vault from Stakewise: ${reason}`);
-            },
-        });
+        variables: vars_getVault,
+    });
 
-        if (!vaultData.data.vault) {
-            throw new Error(`Vault data is missing the vault field ${vaultData.data}`);
-        }
-        return { vaultData: vaultData.data };
-    } catch (error) {
-        throw new Error(`Error retrieving vault data: ${error instanceof Error ? error.message : error}`);
+    if (!vaultData.data.vault) {
+        throw new Error(`Vault data is missing the vault field`);
     }
+    return { vaultData: vaultData.data };
 }
 
 // Get latest balance and cached properties

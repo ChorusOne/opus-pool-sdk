@@ -18,46 +18,36 @@ async function extractTransactionsHistory(
         first: 1000,
         skip: 0,
     };
-    try {
-        const actionsData = await connector.graphqlRequest({
-            type: 'graph',
-            op: 'AllocatorActions',
-            query: `
+
+    const actionsData = await connector.graphqlRequest({
+        type: 'graph',
+        op: 'AllocatorActions',
+        query: `
         query AllocatorActions( $skip: Int! $first: Int! $where: AllocatorAction_filter) 
             { 
             allocatorActions( skip: $skip, first: $first, orderBy: createdAt, orderDirection: desc, where: $where, ) 
             { id assets createdAt actionType }}
         `,
-            variables: vars_getActions,
-            onSuccess: (value: { data: any }) => value,
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            onError: function (reason: any): PromiseLike<never> {
-                throw new Error(`Failed to get vault from Stakewise: ${reason}`);
-            },
-        });
+        variables: vars_getActions,
+    });
 
-        if (!actionsData.data.allocatorActions || actionsData.data.allocatorActions.length === 0) {
-            throw new Error(
-                `Transaction data is missing the allocatorActions field or the field is empty ${actionsData.data.allocatorActions}`,
-            );
-        }
-        const interactions: VaultTransaction[] = [];
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        actionsData.data.allocatorActions.forEach((action: any) => {
-            const createdAt: string = action.createdAt;
-            interactions.push({
-                vault: vault,
-                when: new Date(parseInt(createdAt) * 1000),
-                type: action.actionType,
-                amount: action.assets ? BigInt(action.assets) : 0n, // some txs don't have assets, e.g. ExitQueueEntered
-                hash: action.id,
-            });
-        });
-
-        return interactions;
-    } catch (error) {
-        throw new Error(`Error retrieving transaction history: ${error instanceof Error ? error.message : error}`);
+    if (!actionsData.data.allocatorActions || actionsData.data.allocatorActions.length === 0) {
+        throw new Error(`Transaction data is missing the allocatorActions field or the field is empty`);
     }
+    const interactions: VaultTransaction[] = [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    actionsData.data.allocatorActions.forEach((action: any) => {
+        const createdAt: string = action.createdAt;
+        interactions.push({
+            vault: vault,
+            when: new Date(parseInt(createdAt) * 1000),
+            type: action.actionType,
+            amount: action.assets ? BigInt(action.assets) : 0n, // some txs don't have assets, e.g. ExitQueueEntered
+            hash: action.id,
+        });
+    });
+
+    return interactions;
 }
 
 export default async function transactionsHistory(pool: OpusPool, vaults: Hex[]): Promise<Array<VaultTransaction>> {

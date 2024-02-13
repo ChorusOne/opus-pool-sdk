@@ -135,65 +135,57 @@ export const getStakeBalance = async (pool: OpusPool, vaultAddress: Hex): Promis
 };
 
 export const getOsTokenPosition = async (pool: OpusPool, vaultAddress: Hex): Promise<OsTokenPositionReturnType> => {
-    try {
-        const gqlMintedSharesJson = await pool.connector.graphqlRequest({
-            op: 'OsTokenPositions',
-            type: 'graph',
-            query: `
+    const gqlMintedSharesJson = await pool.connector.graphqlRequest({
+        op: 'OsTokenPositions',
+        type: 'graph',
+        query: `
             query OsTokenPositions($address: Bytes, $vaultAddress: String) { osTokenPositions(where: { address: $address, vault: $vaultAddress }) { shares }}
             `,
-            variables: {
-                vaultAddress,
-                address: pool.userAccount,
-            },
-            onSuccess: (value: { data: any }) => value,
-            onError: (reason: any) => Promise.reject(reason),
-        });
+        variables: {
+            vaultAddress,
+            address: pool.userAccount,
+        },
+    });
 
-        if (!gqlMintedSharesJson.data.osTokenPositions || gqlMintedSharesJson.data.osTokenPositions.length === 0) {
-            throw new Error(
-                `Minted shares data is missing the osTokenPositions field or the field is empty ${gqlMintedSharesJson.data.osTokenPositions}`,
-            );
-        }
-        const gqlMintedShares = BigInt(gqlMintedSharesJson.data.osTokenPositions[0]?.shares || 0);
-
-        const mintedShares = await pool.connector.eth.readContract({
-            abi: VaultABI,
-            functionName: 'osTokenPositions',
-            address: vaultAddress,
-            args: [pool.userAccount],
-        });
-
-        const [mintedAssets, feePercent] = await Promise.all([
-            pool.connector.eth.readContract({
-                abi: MintTokenControllerAbi,
-                address: pool.connector.mintTokenController,
-                functionName: 'convertToAssets',
-                args: [mintedShares],
-            }) as Promise<bigint>,
-            pool.connector.eth.readContract({
-                abi: MintTokenControllerAbi,
-                functionName: 'feePercent',
-                address: pool.connector.mintTokenController,
-            }) as Promise<bigint>,
-        ]);
-        const protocolFeePercent = feePercent / 100n;
-        const { assets } = await getStakeBalance(pool, vaultAddress);
-
-        const health = await pool.getHealthFactorForUser(mintedAssets, assets);
-
-        return {
-            minted: {
-                assets: mintedAssets,
-                shares: mintedShares,
-                fee: mintedShares - gqlMintedShares,
-            },
-            health,
-            protocolFeePercent,
-        };
-    } catch (error) {
-        throw new Error(`Error retrieving osToken positions: ${error instanceof Error ? error.message : error}`);
+    if (!gqlMintedSharesJson.data.osTokenPositions || gqlMintedSharesJson.data.osTokenPositions.length === 0) {
+        throw new Error(`Minted shares data is missing the osTokenPositions field or the field is empty`);
     }
+    const gqlMintedShares = BigInt(gqlMintedSharesJson.data.osTokenPositions[0]?.shares || 0);
+
+    const mintedShares = await pool.connector.eth.readContract({
+        abi: VaultABI,
+        functionName: 'osTokenPositions',
+        address: vaultAddress,
+        args: [pool.userAccount],
+    });
+
+    const [mintedAssets, feePercent] = await Promise.all([
+        pool.connector.eth.readContract({
+            abi: MintTokenControllerAbi,
+            address: pool.connector.mintTokenController,
+            functionName: 'convertToAssets',
+            args: [mintedShares],
+        }) as Promise<bigint>,
+        pool.connector.eth.readContract({
+            abi: MintTokenControllerAbi,
+            functionName: 'feePercent',
+            address: pool.connector.mintTokenController,
+        }) as Promise<bigint>,
+    ]);
+    const protocolFeePercent = feePercent / 100n;
+    const { assets } = await getStakeBalance(pool, vaultAddress);
+
+    const health = await pool.getHealthFactorForUser(mintedAssets, assets);
+
+    return {
+        minted: {
+            assets: mintedAssets,
+            shares: mintedShares,
+            fee: mintedShares - gqlMintedShares,
+        },
+        health,
+        protocolFeePercent,
+    };
 };
 
 export const getMaxWithdraw = async (pool: OpusPool, vault: Hex): Promise<bigint> => {
