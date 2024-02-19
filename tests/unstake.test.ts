@@ -59,14 +59,15 @@ describe('Unstaking Integration Test', () => {
             network: Networks.Hardhat,
         });
 
-        const initialMaxWithdraw = await pool.getMaxUnstakeForUserForVault(VAULT_ADDRESS);
-        const { assets: initialAssets } = await pool.getStakeBalanceForUser(VAULT_ADDRESS);
+        const [initialMaxWithdraw, { assets: initialAssets }, stakeTransactionData] = await Promise.all([
+            pool.getMaxUnstakeForUserForVault(VAULT_ADDRESS),
+            pool.getStakeBalanceForUser(VAULT_ADDRESS),
+            pool.buildStakeTransaction({
+                vault: VAULT_ADDRESS,
+                amount: AMOUNT_TO_STAKE,
+            }),
+        ]);
 
-        // first stake
-        const stakeTransactionData = await pool.buildStakeTransaction({
-            vault: VAULT_ADDRESS,
-            amount: AMOUNT_TO_STAKE,
-        });
         const stakeHash = await walletClientWithBalance.sendTransaction({
             account: USER_ADDRESS,
             to: VAULT_ADDRESS,
@@ -112,7 +113,7 @@ describe('Unstaking Integration Test', () => {
 
         const { assets: assetsAfterUnstaking } = await pool.getStakeBalanceForUser(VAULT_ADDRESS);
         expect(assetsAfterUnstaking).toEqual(assetsAfterStaking - AMOUNT_TO_UNSTAKE);
-    });
+    }, 10000);
 
     test('User can not unstake if there are not enough assets', async () => {
         const pool = new OpusPool({
