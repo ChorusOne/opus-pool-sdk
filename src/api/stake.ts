@@ -27,6 +27,7 @@ export default async function stake(
             abi: VaultABI,
             functionName: 'updateStateAndDeposit',
             account: pool.userAccount,
+            value: request.amount,
             address: request.vault,
             args: [
                 pool.userAccount,
@@ -38,6 +39,8 @@ export default async function stake(
                     unlockedMevReward: harvestParams.unlockedMevReward,
                 },
             ],
+            maxFeePerGas,
+            maxPriorityFeePerGas,
         });
         tx = encodeFunctionData({
             abi: VaultABI,
