@@ -37,7 +37,7 @@ const mockFetch = jest.fn().mockImplementation((input, init) => {
             case 4:
                 return Promise.resolve({
                     ok: true,
-                    json: () => Promise.resolve({ data: { osTokenPositions: [] } }),
+                    json: () => Promise.resolve({ data: {} }),
                 });
             default:
                 return Promise.resolve({
@@ -153,9 +153,7 @@ describe('OsTokenPositions', () => {
             .then((res) => res)
             .catch((err) => {
                 expect(err).toBeInstanceOf(Error);
-                expect(err.message).toBe(
-                    'Minted shares data is missing the osTokenPositions field or the field is empty',
-                );
+                expect(err.message).toBe('Minted shares data is missing the osTokenPositions field');
             });
     });
 });
@@ -205,9 +203,7 @@ describe('AllocatorActions', () => {
             .then((res) => res)
             .catch((err) => {
                 expect(err).toBeInstanceOf(Error);
-                expect(err.message).toBe(
-                    'Transaction data is missing the allocatorActions field or the field is empty',
-                );
+                expect(err.message).toBe('Transaction data is missing the allocatorActions field');
             });
     });
 });
@@ -240,7 +236,7 @@ describe('UserRewards', () => {
             .then((res) => res)
             .catch((err) => {
                 expect(err).toBeInstanceOf(Error);
-                expect(err.message).toBe('Rewards data is missing the userRewards field or the field is empty');
+                expect(err.message).toBe('Rewards data is missing the userRewards field');
             });
     });
 });
@@ -263,9 +259,7 @@ describe('HarvestParams', () => {
             .then((res) => res)
             .catch((err) => {
                 expect(err).toBeInstanceOf(Error);
-                expect(err.message).toBe(
-                    'Harvest params data is missing the harvestParams field or the field is empty',
-                );
+                expect(err.message).toBe('Harvest params data is missing the harvestParams field');
             });
     });
 });

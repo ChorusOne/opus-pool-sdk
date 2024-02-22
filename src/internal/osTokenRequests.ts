@@ -147,8 +147,8 @@ export const getOsTokenPosition = async (pool: OpusPool, vaultAddress: Hex): Pro
         },
     });
 
-    if (!gqlMintedSharesJson.data.osTokenPositions || gqlMintedSharesJson.data.osTokenPositions.length === 0) {
-        throw new Error(`Minted shares data is missing the osTokenPositions field or the field is empty`);
+    if (!gqlMintedSharesJson.data.osTokenPositions) {
+        throw new Error(`Minted shares data is missing the osTokenPositions field`);
     }
     const gqlMintedShares = BigInt(gqlMintedSharesJson.data.osTokenPositions[0]?.shares || 0);
 
