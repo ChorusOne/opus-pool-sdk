@@ -32,7 +32,7 @@ async function extractTransactionsHistory(
     });
 
     if (!actionsData.data.allocatorActions || actionsData.data.allocatorActions.length === 0) {
-        throw new Error(`Transaction data is missing the allocatorActions field or the field is empty`);
+        throw new Error(`Transaction data is missing the allocatorActions field`);
     }
     const interactions: VaultTransaction[] = [];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -23,8 +23,8 @@ async function extractVaultUserRewards(
         variables: vars_getRewards,
     });
 
-    if (!rewardsData.data.userRewards || rewardsData.data.userRewards.length === 0) {
-        throw new Error(`Rewards data is missing the userRewards field or the field is empty`);
+    if (!rewardsData.data.userRewards) {
+        throw new Error(`Rewards data is missing the userRewards field`);
     }
     const dataPoints: RewardsDataPoint[] = [];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
