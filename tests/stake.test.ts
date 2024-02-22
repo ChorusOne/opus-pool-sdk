@@ -128,4 +128,21 @@ describe('Staking Integration Test', () => {
         const { assets: assetsAfterStaking } = await pool.getStakeBalanceForUser(VAULT_ADDRESS);
         expect(assetsAfterStaking).toEqual(initialAssets + AMOUNT_TO_STAKE);
     });
+    test('User can estimate gas with max amount', async () => {
+        const pool = new OpusPool({
+            address: USER_ADDRESS,
+            network: Networks.Hardhat,
+        });
+
+        const { assets: initialAssets } = await pool.getStakeBalanceForUser(VAULT_ADDRESS);
+        const initialBalance: bigint = await publicClient.getBalance({
+            address: USER_ADDRESS,
+        });
+
+        const stakeTransactionData = await pool.buildStakeTransaction({
+            vault: VAULT_ADDRESS,
+            amount: initialBalance,
+        });
+        expect(stakeTransactionData.gasEstimation).toBeGreaterThan(0);
+    });
 });

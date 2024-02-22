@@ -39,8 +39,6 @@ export default async function stake(
                     unlockedMevReward: harvestParams.unlockedMevReward,
                 },
             ],
-            maxFeePerGas,
-            maxPriorityFeePerGas,
         });
         tx = encodeFunctionData({
             abi: VaultABI,
@@ -64,8 +62,6 @@ export default async function stake(
             value: request.amount,
             address: request.vault,
             account: pool.userAccount,
-            maxFeePerGas,
-            maxPriorityFeePerGas,
         });
         tx = encodeFunctionData({
             abi: VaultABI,
