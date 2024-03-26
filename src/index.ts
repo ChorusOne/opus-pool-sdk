@@ -19,11 +19,13 @@ import {
     getOsTokenPosition,
     getStakeBalance,
 } from './internal/osTokenRequests';
+import { UnstakeQueueItem, getUnstakeQueue } from './api/getUnstakeQueue';
 import { OsTokenPositionReturnType, StakeBalanceReturnType } from './types/osTokenRequests';
 import { MintTransactionData } from './types/mint';
 import { UnstakeTransactionData } from './types/unstake';
 import { StakeTransactionData } from './types/stake';
 import { BurnTransactionData } from './types/burn';
+import claimExitQueue from './api/claimExitQueue';
 
 export {
     getDefaultVaults,
@@ -126,6 +128,17 @@ export class OpusPool {
      */
     async buildUnstakeTransaction(params: Parameters<typeof unstake>[1]): Promise<UnstakeTransactionData> {
         return unstake(this, params);
+    }
+
+    /**
+     * Retrieves the unstake queue for the vault, including the user's position in the queue and shares waiting to be unstaked
+     *
+     * @param vault - A vault address
+     *
+     * @returns Array of `UnstakeQueueItem` objects corresponding to the queue
+     */
+    async getUnstakeQueueForVault(vault: Hex): Promise<Array<UnstakeQueueItem>> {
+        return getUnstakeQueue(this, vault);
     }
 
     /**
