@@ -1,16 +1,22 @@
 import { Hex, encodeFunctionData } from 'viem';
-import { Networks, OpusPool } from '..';
+import { Networks, OpusPool, UnstakeQueueItem } from '..';
 import { VaultABI } from '../internal/contracts/vaultAbi';
 import { UnstakeTransactionData } from '../types/unstake';
-import { WithdrawableUnstakeQueueItem } from '../types/unstakeQueue';
 
 export default async function withdrawUnstaked(
     pool: OpusPool,
     vault: Hex,
-    queueItems: WithdrawableUnstakeQueueItem[],
+    queueItems: UnstakeQueueItem[],
 ): Promise<UnstakeTransactionData> {
     const multicallArgs = queueItems.map((item) => {
         const timestamp = Math.floor(item.when.getTime() / 1000);
+        if (item.exitQueueIndex === undefined) {
+            throw new Error('Exit queue index is missing');
+        }
+        if (!item.isWithdrawable) {
+            throw new Error('Item is not withdrawable');
+        }
+
         return encodeFunctionData({
             abi: VaultABI,
             functionName: 'claimExitedAssets',

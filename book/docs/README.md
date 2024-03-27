@@ -21,4 +21,6 @@
 - [StakeTransactionData](interfaces/StakeTransactionData.md)
 - [UnstakeTransactionData](interfaces/UnstakeTransactionData.md)
 - [VaultDetails](interfaces/VaultDetails.md)
+- [UnstakeQueueTransactionData](interfaces/UnstakeQueueTransactionData.md)
 - [VaultTransaction](interfaces/VaultTransaction.md)
+- [UnstakeQueueItem](interfaces/UnstakeQueueItem.md)

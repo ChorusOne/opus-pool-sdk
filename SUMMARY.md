@@ -32,3 +32,4 @@
     -   [VaultDetails](book/docs/interfaces/VaultDetails.md)
     -   [VaultTransaction](book/docs/interfaces/VaultTransaction.md)
     -   [RewardsDataPoint](book/docs/interfaces/RewardsDataPoint.md)
+    -   [UnstakeQueueItem](book/docs/interfaces/UnstakeQueueItem.md)

@@ -18,6 +18,8 @@ Pooling solution
 - [getTransactionsHistory](OpusPool.md#gettransactionshistory)
 - [buildStakeTransaction](OpusPool.md#buildstaketransaction)
 - [buildUnstakeTransaction](OpusPool.md#buildunstaketransaction)
+- [getUnstakeQueueForVault](OpusPool.md#getunstakequeueforvault)
+- [buildWithdrawUnstakedTransaction](OpusPool.md#buildwithdrawunstakedtransaction)
 - [getRewardsHistory](OpusPool.md#getrewardshistory)
 - [buildMintTransaction](OpusPool.md#buildminttransaction)
 - [getMaxMintForVault](OpusPool.md#getmaxmintforvault)
@@ -162,6 +164,53 @@ up to the code integrating SDK.
 `Promise`\<[`UnstakeTransactionData`](../interfaces/UnstakeTransactionData.md)\>
 
 `UnstakeTransactionData` for transaction to sign and broadcast
+
+___
+
+### getUnstakeQueueForVault
+
+▸ **getUnstakeQueueForVault**(`vault`): `Promise`\<[`UnstakeQueueItem`](../interfaces/UnstakeQueueItem.md)[]\>
+
+Retrieves the unstake queue for the vault, including the user's position in the queue and shares waiting to be unstaked
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `vault` | \`0x$\{string}\` | A vault address |
+
+#### Returns
+
+`Promise`\<[`UnstakeQueueItem`](../interfaces/UnstakeQueueItem.md)[]\>
+
+Array of `UnstakeQueueItem` objects corresponding to the queue, which are needed to withdraw from the queue
+
+___
+
+### buildWithdrawUnstakedTransaction
+
+▸ **buildWithdrawUnstakedTransaction**(`params`): `Promise`\<[`UnstakeQueueTransactionData`](../interfaces/UnstakeQueueTransactionData.md)\>
+
+Generates transaction to withdraw from the unstake queue.
+
+Integrations should utilize wallet interface of their own choosing to
+broadcast the transaction via RPC nodes of their preference. This method
+is stateless and only generates transaction bytes, leaving sign and broadcast
+up to the code integrating SDK.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `params` | `Object` | params for request |
+| `params.vault` | \`0x$\{string}\` | A vault address |
+| `params.queueItems` | [`UnstakeQueueItem`](../interfaces/UnstakeQueueItem.md)[] | Array of `UnstakeQueueItem` objects corresponding to the queue(see `getUnstakeQueueForVault`) |
+
+#### Returns
+
+`Promise`\<[`UnstakeQueueTransactionData`](../interfaces/UnstakeQueueTransactionData.md)\>
+
+`UnstakeQueueTransactionData` for transaction to sign and broadcast
 
 ___
 

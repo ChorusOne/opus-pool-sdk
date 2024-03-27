@@ -1,7 +1,7 @@
 import { Hex } from 'viem';
 import { OpusPool } from '..';
 import { VaultABI } from '../internal/contracts/vaultAbi';
-import { UnstakeQueueItem, NonWithdrawableUnstakeQueueItem, WithdrawableUnstakeQueueItem } from '../types/unstakeQueue';
+import { UnstakeQueueItem } from '../types/unstakeQueue';
 
 export const getUnstakeQueue = async (pool: OpusPool, vault: Hex) => {
     const queueData = await pool.connector.graphqlRequest({
@@ -94,7 +94,7 @@ const parseQueueData = async ({ pool, userAddress, vaultAddress, exitRequests }:
             });
 
             if (!isWithdrawable || exitQueueIndex === undefined) {
-                const nonWithdrawable: NonWithdrawableUnstakeQueueItem = {
+                const nonWithdrawable: UnstakeQueueItem = {
                     exitQueueIndex,
                     positionTicket,
                     when,
@@ -123,7 +123,7 @@ const parseQueueData = async ({ pool, userAddress, vaultAddress, exitRequests }:
                 args: [leftShares],
             });
 
-            const fullPosition: WithdrawableUnstakeQueueItem = {
+            const fullPosition: UnstakeQueueItem = {
                 positionTicket,
                 when,
                 totalShares,
