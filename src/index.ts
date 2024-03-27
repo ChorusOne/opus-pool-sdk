@@ -25,7 +25,7 @@ import { MintTransactionData } from './types/mint';
 import { UnstakeTransactionData } from './types/unstake';
 import { StakeTransactionData } from './types/stake';
 import { BurnTransactionData } from './types/burn';
-import claimExitQueue from './api/claimExitQueue';
+import withdrawUnstaked from './api/withdrawUnstaked';
 
 export {
     getDefaultVaults,
@@ -139,6 +139,34 @@ export class OpusPool {
      */
     async getUnstakeQueueForVault(vault: Hex): Promise<Array<UnstakeQueueItem>> {
         return getUnstakeQueue(this, vault);
+    }
+
+    /**
+     * Generates unstake transaction to withdraw from chosen Vaults unstaked queue.
+     *
+     * Integrations should utilize wallet interface of their own choosing to
+     * broadcast the transaction via RPC nodes of their preference. This method
+     * is stateless and only generates transaction bytes, leaving sign and broadcast
+     * up to the code integrating SDK.
+     *
+     * @param params - params for request(see `getUnstakeQueueForVault`)
+     * @param params.vault - A vault address
+     * @param params.position - Position in the queue to withdraw
+     * @param params.position.positionTicket - Position ticket
+     * @param params.position.when - Date of the position
+     * @param params.position.exitQueueIndex - Exit queue index
+     * @returns `UnstakeTransactionData` for transaction to sign and broadcast
+     */
+
+    async buildWithdrawUnstakedTransaction(
+        vault: Hex,
+        queueItem: {
+            positionTicket: bigint;
+            when: Date;
+            exitQueueIndex?: bigint;
+        },
+    ): Promise<UnstakeTransactionData> {
+        return withdrawUnstaked(this, { vault, ...queueItem });
     }
 
     /**
