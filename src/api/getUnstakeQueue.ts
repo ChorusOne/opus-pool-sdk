@@ -1,6 +1,7 @@
 import { Hex } from 'viem';
 import { OpusPool } from '..';
 import { VaultABI } from '../internal/contracts/vaultAbi';
+import { UnstakeQueueItem, NonWithdrawableUnstakeQueueItem, WithdrawableUnstakeQueueItem } from '../types/unstakeQueue';
 
 export const getUnstakeQueue = async (pool: OpusPool, vault: Hex) => {
     const queueData = await pool.connector.graphqlRequest({
@@ -25,8 +26,7 @@ export const getUnstakeQueue = async (pool: OpusPool, vault: Hex) => {
     });
 
     if (!queueData.data.exitRequests) {
-        // throw new Error('Queue data is missing the exitRequests field');
-        return [];
+        throw new Error('Queue data is missing the exitRequests field');
     }
 
     return parseQueueData({
@@ -51,25 +51,6 @@ type ParseQueueDataArgs = {
         when: Date;
     }>;
 };
-
-interface BaseUnstakeQueueItem {
-    exitQueueIndex?: bigint;
-    positionTicket: bigint;
-    when: Date;
-    isWithdrawable: false;
-    totalShares: bigint;
-    totalAssets: bigint;
-}
-interface FullUnstakeQueueItem extends Omit<BaseUnstakeQueueItem, 'isWithdrawable'> {
-    isWithdrawable: true;
-    exitQueueIndex: bigint;
-    leftShares: bigint;
-    leftAssets: bigint;
-    withdrawableShares: bigint;
-    withdrawableAssets: bigint;
-}
-
-export type UnstakeQueueItem = BaseUnstakeQueueItem | FullUnstakeQueueItem;
 
 const getIs24HoursPassed = async (when: Date, pool: OpusPool) => {
     const lastBlock = await pool.connector.eth.getBlock();
@@ -113,15 +94,19 @@ const parseQueueData = async ({ pool, userAddress, vaultAddress, exitRequests }:
             });
 
             if (!isWithdrawable || exitQueueIndex === undefined) {
-                const basePosition: BaseUnstakeQueueItem = {
+                const nonWithdrawable: NonWithdrawableUnstakeQueueItem = {
                     exitQueueIndex,
                     positionTicket,
                     when,
                     isWithdrawable: false,
                     totalShares,
                     totalAssets,
+                    leftShares: totalShares,
+                    leftAssets: totalAssets,
+                    withdrawableShares: 0n,
+                    withdrawableAssets: 0n,
                 };
-                return basePosition;
+                return nonWithdrawable;
             }
 
             const [leftShares, withdrawableShares, withdrawableAssets] = await pool.connector.eth.readContract({
@@ -138,7 +123,7 @@ const parseQueueData = async ({ pool, userAddress, vaultAddress, exitRequests }:
                 args: [leftShares],
             });
 
-            const fullPosition: FullUnstakeQueueItem = {
+            const fullPosition: WithdrawableUnstakeQueueItem = {
                 positionTicket,
                 when,
                 totalShares,

@@ -2,35 +2,36 @@ import { Hex, encodeFunctionData } from 'viem';
 import { Networks, OpusPool } from '..';
 import { VaultABI } from '../internal/contracts/vaultAbi';
 import { UnstakeTransactionData } from '../types/unstake';
+import { WithdrawableUnstakeQueueItem } from '../types/unstakeQueue';
 
 export default async function withdrawUnstaked(
     pool: OpusPool,
-    request: {
-        vault: Hex;
-        positionTicket: bigint;
-        when: Date;
-        exitQueueIndex?: bigint;
-    },
+    vault: Hex,
+    queueItems: WithdrawableUnstakeQueueItem[],
 ): Promise<UnstakeTransactionData> {
-    if (request.exitQueueIndex === undefined) {
-        throw new Error('exitQueueIndex is required');
-    }
-
-    const timestamp = Math.floor(request.when.getTime() / 1000);
+    const multicallArgs = queueItems.map((item) => {
+        const timestamp = Math.floor(item.when.getTime() / 1000);
+        return encodeFunctionData({
+            abi: VaultABI,
+            functionName: 'claimExitedAssets',
+            args: [item.positionTicket, BigInt(timestamp), item.exitQueueIndex],
+        });
+    });
     const { maxFeePerGas, maxPriorityFeePerGas } = await pool.connector.eth.estimateFeesPerGas();
 
     const tx = encodeFunctionData({
         abi: VaultABI,
-        functionName: 'claimExitedAssets',
-        args: [request.positionTicket, BigInt(timestamp), request.exitQueueIndex],
+        functionName: 'multicall',
+        args: [multicallArgs],
     });
+
     let gas: bigint;
     if (pool.connector.network != Networks.Hardhat) {
         gas = await pool.connector.eth.estimateContractGas({
             abi: VaultABI,
-            functionName: 'claimExitedAssets',
-            args: [request.positionTicket, BigInt(timestamp), request.exitQueueIndex],
-            address: request.vault,
+            functionName: 'multicall',
+            args: [multicallArgs],
+            address: vault,
             account: pool.userAccount,
             maxFeePerGas,
             maxPriorityFeePerGas,
@@ -40,8 +41,6 @@ export default async function withdrawUnstaked(
         gas = BigInt(200000);
     }
 
-    // Unstake requires more gas than stake
-    // TODO: figure out if it's different for mainnet
     const gasDenominator = 2;
 
     return {

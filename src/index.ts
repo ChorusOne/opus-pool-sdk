@@ -19,13 +19,19 @@ import {
     getOsTokenPosition,
     getStakeBalance,
 } from './internal/osTokenRequests';
-import { UnstakeQueueItem, getUnstakeQueue } from './api/getUnstakeQueue';
+import { getUnstakeQueue } from './api/getUnstakeQueue';
 import { OsTokenPositionReturnType, StakeBalanceReturnType } from './types/osTokenRequests';
 import { MintTransactionData } from './types/mint';
 import { UnstakeTransactionData } from './types/unstake';
 import { StakeTransactionData } from './types/stake';
 import { BurnTransactionData } from './types/burn';
 import withdrawUnstaked from './api/withdrawUnstaked';
+import {
+    BaseUnstakeQueueItem,
+    NonWithdrawableUnstakeQueueItem,
+    WithdrawableUnstakeQueueItem,
+    UnstakeQueueItem,
+} from './types/unstakeQueue';
 
 export {
     getDefaultVaults,
@@ -38,6 +44,9 @@ export {
     UnstakeTransactionData,
     VaultDetails,
     VaultTransaction,
+    NonWithdrawableUnstakeQueueItem,
+    WithdrawableUnstakeQueueItem,
+    UnstakeQueueItem,
 };
 
 /**
@@ -158,15 +167,11 @@ export class OpusPool {
      * @returns `UnstakeTransactionData` for transaction to sign and broadcast
      */
 
-    async buildWithdrawUnstakedTransaction(
-        vault: Hex,
-        queueItem: {
-            positionTicket: bigint;
-            when: Date;
-            exitQueueIndex?: bigint;
-        },
-    ): Promise<UnstakeTransactionData> {
-        return withdrawUnstaked(this, { vault, ...queueItem });
+    async buildWithdrawUnstakedTransaction(params: {
+        vault: Hex;
+        queueItems: WithdrawableUnstakeQueueItem[];
+    }): Promise<UnstakeTransactionData> {
+        return withdrawUnstaked(this, params.vault, params.queueItems);
     }
 
     /**

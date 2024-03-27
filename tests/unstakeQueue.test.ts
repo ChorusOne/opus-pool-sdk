@@ -17,7 +17,6 @@ import { privateKeyToAccount } from 'viem/accounts';
 import { mine } from '@nomicfoundation/hardhat-toolbox/network-helpers';
 import { expect, test } from '@jest/globals';
 import { VaultABI } from '../src/internal/contracts/vaultAbi';
-import { resolve } from 'dns';
 
 const VAULT_ADDRESS: Hex = '0x95d0db03d59658e1af0d977ecfe142f178930ac5';
 const AMOUNT_TO_STAKE = parseEther('20');
@@ -219,8 +218,5 @@ describe('Unstake queue', () => {
         expect(earlierItem.totalAssets).toBeGreaterThan(BigInt(earlierMock.totalShares));
 
         expect(earlierItem.exitQueueIndex).toBeUndefined();
-        await expect(pool.buildWithdrawUnstakedTransaction(VAULT_ADDRESS, earlierItem)).rejects.toThrow(
-            'exitQueueIndex is required',
-        );
     }, 30000);
 });
