@@ -19,11 +19,14 @@ import {
     getOsTokenPosition,
     getStakeBalance,
 } from './internal/osTokenRequests';
+import { getUnstakeQueue } from './api/getUnstakeQueue';
 import { OsTokenPositionReturnType, StakeBalanceReturnType } from './types/osTokenRequests';
 import { MintTransactionData } from './types/mint';
 import { UnstakeTransactionData } from './types/unstake';
 import { StakeTransactionData } from './types/stake';
 import { BurnTransactionData } from './types/burn';
+import withdrawUnstaked from './api/withdrawUnstaked';
+import { UnstakeQueueItem, UnstakeQueueTransactionData } from './types/unstakeQueue';
 
 export {
     getDefaultVaults,
@@ -35,7 +38,9 @@ export {
     StakeTransactionData,
     UnstakeTransactionData,
     VaultDetails,
+    UnstakeQueueTransactionData,
     VaultTransaction,
+    UnstakeQueueItem,
 };
 
 /**
@@ -126,6 +131,38 @@ export class OpusPool {
      */
     async buildUnstakeTransaction(params: Parameters<typeof unstake>[1]): Promise<UnstakeTransactionData> {
         return unstake(this, params);
+    }
+
+    /**
+     * Retrieves the unstake queue for the vault, including the user's position in the queue and shares waiting to be unstaked
+     *
+     * @param vault - A vault address
+     *
+     * @returns {UnstakeQueueItem[]} Array of `UnstakeQueueItem` objects corresponding to the queue, which are needed to withdraw from the queue
+     */
+    async getUnstakeQueueForVault(vault: Hex): Promise<Array<UnstakeQueueItem>> {
+        return getUnstakeQueue(this, vault);
+    }
+
+    /**
+     * Generates transaction to withdraw from the unstake queue.
+     *
+     * Integrations should utilize wallet interface of their own choosing to
+     * broadcast the transaction via RPC nodes of their preference. This method
+     * is stateless and only generates transaction bytes, leaving sign and broadcast
+     * up to the code integrating SDK.
+     *
+     * @param params - params for request
+     * @param params.vault - A vault address
+     * @param params.queueItems - Array of `UnstakeQueueItem` objects corresponding to the queue(see `getUnstakeQueueForVault`)
+     * @returns `UnstakeQueueTransactionData` for transaction to sign and broadcast
+     */
+
+    async buildWithdrawUnstakedTransaction(params: {
+        vault: Hex;
+        queueItems: UnstakeQueueItem[];
+    }): Promise<UnstakeQueueTransactionData> {
+        return withdrawUnstaked(this, params.vault, params.queueItems);
     }
 
     /**
