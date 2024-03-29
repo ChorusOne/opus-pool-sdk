@@ -1,4 +1,4 @@
-PHONY: dist
+.PHONY: dist
 SHELL := /bin/bash
 
 #  ________  ________  ___  ___  ________           ________  ________  ________  ___
@@ -13,13 +13,16 @@ SHELL := /bin/bash
 # Builds package for distribution
 #
 dist:
+	npm ci
 	npm run clean
 	npm run build
 
 # Publishes package into npm
 #
 publish: dist
+	npm login
 	npm publish --access public
+	npm logout
 
 # Generates docs
 #
