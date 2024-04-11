@@ -2,6 +2,7 @@ import { OpusPool } from '..';
 import { VaultTransaction } from '../types/transaction';
 import { StakewiseConnector } from '../internal/connector';
 import { Hex } from 'viem';
+import { VaultActionType } from '../types/enums';
 
 async function extractTransactionsHistory(
     connector: StakewiseConnector,
@@ -13,7 +14,7 @@ async function extractTransactionsHistory(
             vault_: {
                 id: vault.toLowerCase(),
             },
-            address: allocatorAddress.toLowerCase(),
+            actionType_in: Object.values(VaultActionType),
         },
         first: 1000,
         skip: 0,
@@ -23,10 +24,25 @@ async function extractTransactionsHistory(
         type: 'graph',
         op: 'AllocatorActions',
         query: `
-        query AllocatorActions( $skip: Int! $first: Int! $where: AllocatorAction_filter) 
-            { 
-            allocatorActions( skip: $skip, first: $first, orderBy: createdAt, orderDirection: desc, where: $where, ) 
-            { id assets createdAt actionType }}
+        query AllocatorActions(
+            $skip: Int!
+            $first: Int!
+            $where: AllocatorAction_filter
+            ) {
+            allocatorActions(
+                skip: $skip,
+                first: $first,
+                orderBy: createdAt,
+                orderDirection: desc,
+                where: $where,
+            ) {
+                id
+                assets
+                shares
+                createdAt
+                actionType
+            }
+        }
         `,
         variables: vars_getActions,
     });
