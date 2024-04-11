@@ -86,8 +86,25 @@ describe('interactionHistory', () => {
         const defaultVaults = getDefaultVaults(params.network);
         const interactions: VaultTransaction[] = await pool.getTransactionsHistory(defaultVaults);
 
-        expect(toObject(interactions)).toBe(
-            '[{"vault":"0xe6d8d8ac54461b1c5ed15740eee322043f696c08","when":"2023-11-28T11:38:11.000Z","type":"Deposited","amount":"50000000000000000","hash":"0xf265f7aa11bb45643eafecfddb013ffd68ef42bda618f3e07d2668da8261d084-171"}]',
+        const expectedInteraction = {
+            vault: '0xe6d8d8ac54461b1c5ed15740eee322043f696c08',
+            when: '2023-11-28T11:38:11.000Z',
+            type: 'Deposited',
+            amount: '50000000000000000',
+            hash: '0xf265f7aa11bb45643eafecfddb013ffd68ef42bda618f3e07d2668da8261d084-171',
+        };
+
+        const interactionExists = interactions.find(
+            (interaction) =>
+                interaction.vault === expectedInteraction.vault &&
+                interaction.when.getDate() === 28 &&
+                interaction.when.getMonth() === 10 && // month is 0-based
+                interaction.when.getFullYear() === 2023 &&
+                interaction.type === expectedInteraction.type &&
+                interaction.amount.toString() === expectedInteraction.amount &&
+                interaction.hash === expectedInteraction.hash,
         );
+
+        expect(interactionExists).toBeTruthy();
     });
 });

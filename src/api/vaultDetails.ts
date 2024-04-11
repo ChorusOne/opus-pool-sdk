@@ -29,9 +29,10 @@ async function extractVaultProperties(connector: StakewiseConnector, vault: Hex)
         op: 'Vault',
         query: `
             query Vault($address: ID!) {
-              vault(id: $address) {
+            vault(id: $address) {
                 address: id
                 performance: score
+                apy
                 admin
                 isErc20
                 imageUrl
@@ -43,6 +44,7 @@ async function extractVaultProperties(connector: StakewiseConnector, vault: Hex)
                 tokenName
                 feePercent
                 totalAssets
+                isBlocklist
                 displayName
                 description
                 whitelister
@@ -50,15 +52,12 @@ async function extractVaultProperties(connector: StakewiseConnector, vault: Hex)
                 tokenSymbol
                 feeRecipient
                 validatorsRoot
-                weeklyApy
-              }
-              privateVaultAccounts(
-                where: { vault: $address }
-              ) {
-                createdAt
-                address
-              }
-            }`,
+                blocklistCount
+                whitelistCount
+                blocklistManager
+            }
+            }
+        `,
         variables: vars_getVault,
     });
 
@@ -114,7 +113,7 @@ async function extractVaultDetails(
         description: vaultData.vault.description,
         logoUrl: vaultData.vault.imageUrl,
         tvl: BigInt(vaultData.vault.totalAssets),
-        apy: vaultData.vault.weeklyApy > 0 ? vaultData.vault.weeklyApy : '0',
+        apy: vaultData.vault.apy > 0 ? vaultData.vault.apy : '0',
         balance: assets,
     };
 }
