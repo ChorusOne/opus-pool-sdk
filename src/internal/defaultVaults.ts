@@ -10,7 +10,7 @@ import { Networks } from '../types/enums';
 export function getDefaultVaults(network: Networks): Array<Hex> {
     switch (network) {
         case Networks.Holesky:
-            return ['0xd68af28aee9536144d4b9b6c0904caf7e794b3d3', '0x95d0db03d59658e1af0d977ecfe142f178930ac5'];
+            return ['0x95d0db03d59658e1af0d977ecfe142f178930ac5'];
         case Networks.Ethereum:
             return ['0xe6d8d8ac54461b1c5ed15740eee322043f696c08'];
         case Networks.Hardhat:
