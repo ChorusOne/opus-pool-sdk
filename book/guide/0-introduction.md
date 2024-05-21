@@ -1,5 +1,3 @@
-# Introduction & Prerequisites
-
 -   [Introduction](#introduction)
 -   [Understanding Key Concepts](#understanding-key-concepts)
 -   [Prerequisites for the OPUS Pool SDK Example](#prerequisites-for-the-opus-pool-sdk-example)
