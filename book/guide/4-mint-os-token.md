@@ -7,7 +7,7 @@ Minting liquid staking tokens (osETH) allows users to maintain liquidity while s
 
 {% hint style="info" %}
 
-We will use the same form as we did for staking for simplicity. This form allows users to input the amount of ETH and submit. Please refer to the [Stake chapter][stake-chapter] for more details.
+We will use the same form as we did for staking for simplicity. This form allows users to input the amount of ETH and submit. Please refer to the [Staking Functionality][stake-chapter] chapter for more details.
 
 {% endhint %}
 
