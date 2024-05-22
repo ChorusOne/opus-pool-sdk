@@ -1,14 +1,12 @@
-# 2. Fetching Vault Details
-
 -   [Initializing the Pool and Fetching Vault Details](#initializing-the-pool-and-fetching-vault-details)
 -   [Displaying Vault Details as a Table](#displaying-vault-details-as-a-table)
 -   [Next Steps](#next-steps)
 
-In this chapter, we will explore how to fetch and display details of various vaults using the Opus SDK. This process involves initializing the pool, fetching the vault details, and then presenting them in a user-friendly format.
+In this chapter, we will explore how to fetch and display vault details using the Opus SDK. This process involves initializing the pool, fetching the vault details, and presenting them in a user-friendly format.
 
 ## Initializing the Pool and Fetching Vault Details
 
-First, we start by initializing the pool in the same way we did previously. Then, we use the `getVaultDetails` method to fetch details about the vaults. You can refer to the detailed code for this process [here][get-vault-details-usage]. Here’s a snippet illustrating this process:
+First, we start by initializing the pool like we did previously. Then, we use the `getVaultDetails` method to fetch details about the vaults. You can refer to the detailed code for this process [here][get-vault-details-usage]. Here’s a snippet illustrating this process:
 
 ```typescript
 const pool = new OpusPool({
@@ -16,22 +14,34 @@ const pool = new OpusPool({
     network, // Networks.Holesky
 });
 
-const vaults = getDefaultVaults(network);
+const vault = getDefaultVaults(network)[0];
 // Alternatively, you can define vaults yourself:
-// const vaults = ['0x...', '0x...'];
+// const vault = '0x...';
 
-const vaultData = await pool.getVaultDetails(vaults);
+// Note: The getVaultDetails method accepts an array of vault addresses.
+const vaultDetails = await pool.getVaultDetails([vault]);
+
+console.log(vaultDetails[0]);
+// {
+//   address: "0x95d0db03d59658e1af0d977ecfe142f178930ac5",
+//   name: "Chorus One Test Wallet",
+//   description: "Test wallet for Chorus",
+//   logoUrl: "https://storage.stakewise.io/dxepxhzxsrqs.png",
+//   tvl: 5600841037682025178745n,
+//   apy: "3.98146836137682602839366230181093629",
+//   balance: 1999487039539970377023n
+// }
 ```
 
-Each parameter of the `VaultDetails` object returned by `getVaultDetails` has a specific purpose:
+The `VaultDetails` object returned by `getVaultDetails` contains the following parameters:
 
--   `address`: The hexadecimal address of the Vault.
--   `name`: A human-readable identifier for the Vault.
--   `description`: A description of the Vault as set by Chorus One.
--   `logoUrl`: The URL of the Vault's logo for UI display.
--   `tvl`: The total value of assets locked in the Vault, expressed in Gwei.
--   `apy`: The average yield percentage, derived from historical data.
--   `balance`: The current balance of the connected address in the Vault.
+-   **`address` (Hex)**: The hexadecimal address of the Vault.
+-   **`name` (string)**: A human-readable identifier for the Vault.
+-   **`description` (string)**: A description of the Vault.
+-   **`logoUrl` (string)**: The URL of the Vault's logo for UI display.
+-   **`tvl` (bigint)**: The total value of assets locked in the Vault, expressed in wei.
+-   **`apy` (string)**: The average yield percentage derived from historical data.
+-   **`balance` (bigint)**: The current balance of the connected address in the Vault.
 
 ## Displaying Vault Details as a Table
 
@@ -41,7 +51,7 @@ Now, let's display these vault details in a table format in the UI. The followin
 import { formatEther } from 'viem';
 import { VaultDetails } from '@chorus-one/opus-pool';
 
-const Vault = ({ vaultData }: { vaultData: VaultDetails[] }) => {
+const Vault = ({ vaultDetails }: { vaultDetails: VaultDetails[] }) => {
    return (
      <table>
         <thead>
@@ -54,7 +64,7 @@ const Vault = ({ vaultData }: { vaultData: VaultDetails[] }) => {
            </tr>
         </thead>
         <tbody>
-           {vaultData.map((vault: VaultDetails) => (
+           {vaultDetails.map((vault: VaultDetails) => (
              <tr key={vault.name}>
                 <td>{vault.name}</td>
                 <td>{vault.description}</td>
@@ -75,10 +85,8 @@ Once rendered, the vault details will be displayed in an informative table on th
 
 ## Next Steps
 
-In this chapter, we learned how to fetch and display details of various vaults using the Opus SDK. To continue exploring the functionality of the Opus SDK, you can proceed to the next section: [Staking Functionality][stake]. In the next section, we will learn how to stake assets to the vault.
+In this chapter, we learned how to fetch and display details of a vault using the Opus SDK. To continue exploring the functionality of the Opus SDK, you can proceed to the next section: [Staking Functionality][stake]. In the next section, we will learn how to stake assets to the vault.
 
-[Continue to Staking Functionality][stake]
-
-[get-vault-details-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/master/src/hooks/useVaultDetails.ts#L21
-[get-vault-details-ui]: https://github.com/ChorusOne/opus-pool-demo/blob/master/src/components/Vault.tsx#L35
+[get-vault-details-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/hooks/useVaultDetails.ts#L43
+[get-vault-details-ui]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/components/Vault.tsx#L31
 [stake]: ./3-stake.md

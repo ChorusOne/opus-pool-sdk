@@ -132,6 +132,6 @@ In this section, we integrated the wagmi library into our project and configured
 
 [wagmi]: https://wagmi.sh
 [web3modal]: https://docs.walletconnect.com/web3modal/about
-[wagmi-config]: https://github.com/ChorusOne/opus-pool-demo/blob/113e9f7ac5bb7157000363138db67ca0765a8b49/src/web3/config.ts#L55
+[wagmi-config]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/web3/config.ts#L55
 [walletconnect]: https://cloud.walletconnect.com
 [vault-details]: ./2-vault-details.md
