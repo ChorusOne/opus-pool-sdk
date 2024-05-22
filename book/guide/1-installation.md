@@ -101,7 +101,7 @@ function App() {
 export default App;
 ```
 
-In the above code, we import `WagmiConfig` and wrap our main application component (`<Main />`). This setup ensures that all components within `<Main />` have access to wagmi's features.
+In the above code, we import `WagmiProvider` and wrap our main application component (`<Main />`). This setup ensures that all components within `<Main />` have access to wagmi's features.
 
 In addition, we need to set up a WalletConnect project and use the `projectId` in the wagmi config. You can get your `projectId` by creating a new project on the [WalletConnect website][walletconnect]. This step is necessary for the configuration file.
 
@@ -130,7 +130,7 @@ In this example, `useAccount` is used to obtain the user's wallet address; the
 
 ## Next Steps
 
-In this section, we integrated the wagmi library into our project and configured it within our main application component. To continue with the tutorial, let's move on to the next section: [Fetching Vault Details][vault-details]. In the Vault Details section, we will learn how to fetch and display details about the vaults using the Opus Pool SDK.
+In this chapter, we integrated the wagmi library into our project and configured it within our main application component. To continue with the tutorial, let's move on to the next chapter: [Fetching Vault Details][vault-details], where we will learn how to fetch and display details about the vault using the Opus Pool SDK.
 
 [wagmi]: https://wagmi.sh
 [web3modal]: https://docs.walletconnect.com/web3modal/about

@@ -2,9 +2,11 @@
 -   [Writing the Staking Transaction Function](#writing-the-staking-transaction-function)
 -   [Next Steps](#next-steps)
 
-We will start by creating a basic form to integrate staking functionality into your application.. This form will consist of an input field for the amount to be staked and a button to submit the transaction. Below is a basic implementation of this form in React:
+Staking is a core functionality of the OPUS Pool SDK, enabling users to lock their ETH to support network operations and earn rewards. This section will cover how to integrate staking into your application by creating a form which submits the transaction.
 
 ## The Form Component
+
+We will start by creating a basic form which consist of an input field for the amount to be staked and a button to submit the transaction. Below is an implementation of this form in React:
 
 ```typescript
 import React, { useState } from 'react';
@@ -49,7 +51,7 @@ This simple yet effective form provides the basic functionality to integrate sta
 
 ## Writing the Staking Transaction Function
 
-Now, we will focus on the core functionality of our application: submitting a staking transaction. The complete code for this can be found [here][stake-usage]. Here is a representative snippet of the function:
+Now, we will focus on the main operation of our application: submitting a staking transaction. The complete code for this can be found [here][stake-usage]. Below is a representative snippet of the function:
 
 ```typescript
 const stake = async ({
@@ -57,19 +59,19 @@ const stake = async ({
     walletClient, // Comes from wagmi
     network, // Networks.Holesky
     vault, // Vault address (can be provided by getDefaultVaults(...))
-    amount, // Amount of ETH to deposit, denominated in wei
+    amountToStake, // Amount of ETH to deposit, denominated in wei
 }: {
     userAddress: Hex;
     walletClient: ReturnType<typeof useWalletClient>['data'];
     network: Networks;
     vault: Hex;
-    amount: bigint;
+    amountToStake: bigint;
 }): Promise<Hex> => {
     const pool = new OpusPool({ network, address: userAddress });
 
-    const stakeRes = await pool.buildStakeTransaction({
+    const stakeTx = await pool.buildStakeTransaction({
         vault,
-        amount,
+        amount: amountToStake,
     });
 
     console.log(stakeRes);
@@ -81,17 +83,15 @@ const stake = async ({
     //   maxPriorityFeePerGas: 220000000n
     // }
 
-    const { transaction, gasEstimation, maxPriorityFeePerGas, maxFeePerGas } = stakeRes;
-
     await walletClient.sendTransaction({
         account: userAddress,
         to: vault,
-        data: transaction,
-        value: amount,
+        data: stakeTx.transaction,
+        value: amountToStake,
         type: 'eip1559',
-        gas: gasEstimation,
-        maxPriorityFeePerGas,
-        maxFeePerGas,
+        gas: stakeTx.gasEstimation,
+        maxPriorityFeePerGas: stakeTx.maxPriorityFeePerGas,
+        maxFeePerGas: stakeTx.maxFeePerGas,
     });
 };
 ```
@@ -117,7 +117,7 @@ The `StakeTransactionData` object returned by `buildStakeTransaction` includes t
 
 ## Next Steps
 
-This section focused on our application’s core functionality: submitting a staking transaction. It utilizes the Ethereum Improvement Proposal 1559 (EIP-1559) transaction type and the Opus Pool SDK for gas estimation. To continue exploring our application’s functionality, you can proceed to the next section: [minting functionality][mint].
+Having integrated the basic staking functionality into your application, you're now ready to expand its capabilities. In this chapter, we utilized the EIP-1559 transaction type and leveraged the Opus Pool SDK for precise gas estimation. To continue exploring our application’s functionality, you can proceed to the next chapter: [minting functionality][mint].
 
 [stake-ui]: https://github.com/ChorusOne/opus-pool-demo/blob/master/src/components/FormComponent.tsx#L8
 [stake-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/hooks/useStakeMutation.ts#L49
