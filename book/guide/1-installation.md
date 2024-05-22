@@ -5,7 +5,7 @@
 -   [Utilizing wagmi Hooks for Wallet Interactions](#utilizing-wagmi-hooks-for-wallet-interactions)
 -   [Next Steps](#next-steps)
 
-To begin integrating the Opus SDK into your project, the first step is to add the library to your application. You can use your favorite package manager, including npm, yarn or pnpm. For simplicity, we will use npm. In your project's root directory, run the following command:
+To begin integrating the Opus SDK into our project, the first step is to add the library to the application. You can use your favorite package manager, including npm, yarn or pnpm. For simplicity, we will use npm. In the project's root directory, run the following command:
 
 {% code title="bash" %}
 
@@ -13,7 +13,7 @@ To begin integrating the Opus SDK into your project, the first step is to add th
 npm install @chorus-one/opus-pool
 ```
 
-Once the Opus SDK is installed, the next step is to import it into your codebase and initialize it. Here's how you can do this:
+Once the Opus SDK is installed, the next step is to import it into our codebase and initialize it. Here's how you can do this:
 
 ```typescript
 import { OpusPool, Networks } from '@chorus-one/opus-pool';
@@ -37,7 +37,7 @@ Let's break down what each parameter in the OpusPool initialization represents:
 
 -   **`rpcUrl` (string, optional)**: An optional parameter specifying the RPC URL to interact with the blockchain. If not defined, a public node will be used.
 
-With these steps, the Opus SDK is successfully integrated and initialized in your project.
+With these steps, the Opus SDK is successfully integrated and initialized in our project.
 
 ## Using Vaults with Opus Pool SDK
 
@@ -50,7 +50,9 @@ The Opus SDK has a predefined list of default vault addresses for each supported
 To access these default vault addresses, you can use the `getDefaultVaults` function, providing the network as an argument. This is particularly useful if you do not have specific vault addresses or prefer a quick setup.
 
 {% hint style="info" %}
-**Info hints** For the time being, the function returns an array containing only one default vault, regardless of the network.
+
+For the time being, the function returns an array containing only one default vault, regardless of the network.
+
 {% endhint %}
 
 You can retrieve the default vault by running:
@@ -66,7 +68,7 @@ const vault = getDefaultVaults(network)[0];
 console.log(vault); // '0x95d0db03d59658e1af0d977ecfe142f178930ac5'
 ```
 
-This function will return a list of default vault addresses, allowing you to fully leverage the capabilities of the Opus SDK in your project.
+This function will return a list of default vault addresses, allowing us to fully leverage the capabilities of the Opus SDK in our project.
 
 ### Option 2: Using Custom Vault Addresses
 
