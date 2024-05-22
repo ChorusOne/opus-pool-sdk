@@ -5,6 +5,12 @@
 
 Minting liquid staking tokens (osETH) allows users to maintain liquidity while staking their ETH. In this section, we will guide you through checking minting limits, assessing vault health, and building and submitting minting transactions.
 
+{% hint style="info" %}
+
+We will use the same form as we did for staking for simplicity. This form allows users to input the amount of ETH and submit. Please refer to the [Stake chapter][stake-chapter] for more details.
+
+{% endhint %}
+
 ## Checking Minting Limits
 
 Before minting, we need to check the maximum amount of shares that can be minted. This can be done using the `getMaxMintForVault` method:
@@ -112,4 +118,5 @@ For our implementation of the minting function, refer to the demo project implem
 In this chapter, we covered the essential steps for minting osETH tokens, including checking minting limits, calculating the health factor, and executing the minting transaction. To continue exploring the capabilities of our application, proceed to the next chapter: [Burning Functionality][burn].
 
 [burn]: ./5-burn-os-token.md
+[stake-chapter]: ./3-stake.md
 [mint-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/hooks/useMintMutation.ts#L48

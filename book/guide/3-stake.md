@@ -109,7 +109,7 @@ The network determines the actual fee based on the current demand for block spac
 
 The `StakeTransactionData` object returned by `buildStakeTransaction` includes the following parameters:
 
--   **`transaction` (Hex)**: A contract hashed method call with encoded arguments (the transformation of the method call into this encoded and hashed form is handled by the `encodeFunctionData` method from the `viem` library).
+-   **`transaction` (Hex)**: A contract hashed method call with encoded arguments (the transformation of the method call into this encoded and hashed form is handled by the `encodeFunctionData` method from the viem library).
 -   **`amount` (bigint)**: The amount of ETH being staked
 -   **`gasEstimation` (bigint)**: The estimated gas required for the transaction.
 -   **`maxPriorityFeePerGas` (bigint)**: The maximum priority fee per gas (in wei).
