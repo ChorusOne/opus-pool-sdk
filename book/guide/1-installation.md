@@ -7,8 +7,6 @@
 
 To begin integrating the Opus SDK into our project, the first step is to add the library to the application. You can use your favorite package manager, including npm, yarn or pnpm. For simplicity, we will use npm. In the project's root directory, run the following command:
 
-{% code title="bash" %}
-
 ```bash
 npm install @chorus-one/opus-pool
 ```
@@ -18,7 +16,8 @@ Once the Opus SDK is installed, the next step is to import it into our codebase 
 ```typescript
 import { OpusPool, Networks } from '@chorus-one/opus-pool';
 
-const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'; // The currently connected user's address
+// Currently connected user's address
+const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
 const network = Networks.Holesky;
 
 const pool = new OpusPool({
