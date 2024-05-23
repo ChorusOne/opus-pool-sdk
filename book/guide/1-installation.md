@@ -1,4 +1,5 @@
 ### Table of Contents
+-   [Overview](#overview)
 -   [Using Vaults with Opus Pool SDK](#using-vaults-with-opus-pool-sdk)
     -   [Option 1: Accessing Default Vault Address](#option-1-accessing-default-vault-address)
     -   [Option 2: Using Custom Vault Addresses](#option-2-using-custom-vault-addresses)
@@ -6,7 +7,7 @@
 -   [Utilizing wagmi Hooks for Wallet Interactions](#utilizing-wagmi-hooks-for-wallet-interactions)
 -   [Next Steps](#next-steps)
 
-## Introduction
+## Overview
 
 To begin integrating the Opus SDK into your project, the first step is to add the library to the application. You can use your favorite package manager, including npm, yarn or pnpm. For simplicity, we will use npm. 
 
