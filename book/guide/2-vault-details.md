@@ -1,12 +1,20 @@
+### Table of Contents
+-   [Overview](#overview)
 -   [Initializing the Pool and Fetching Vault Details](#initializing-the-pool-and-fetching-vault-details)
 -   [Displaying Vault Details as a Table](#displaying-vault-details-as-a-table)
 -   [Next Steps](#next-steps)
 
-In this chapter, we will explore how to fetch and display vault details using the Opus SDK. This process involves initializing the pool, fetching the vault details, and presenting them in a user-friendly format.
+## Overview
+
+In this chapter, we will explore how to fetch and display vault details using the Opus SDK. 
+
+This process involves initializing the pool, fetching the vault details, and presenting them in a user-friendly format.
 
 ## Initializing the Pool and Fetching Vault Details
 
-First, we start by initializing the pool like we did previously. Then, we use the `getVaultDetails` method to fetch details about the vaults. You can refer to the detailed code for this process [here][get-vault-details-usage]. Here’s a snippet illustrating this process:
+First, we start by initializing the pool like we did previously. Then, we use the `getVaultDetails` method to fetch details about the vaults. You can refer to the detailed code for this process [here][get-vault-details-usage]. 
+
+**Here’s a snippet illustrating this process:**
 
 ```typescript
 const pool = new OpusPool({
@@ -45,7 +53,9 @@ The `VaultDetails` object returned by `getVaultDetails` contains the following p
 
 ## Displaying Vault Details as a Table
 
-Now, let's display these vault details in a table format in the UI. The following code snippet, which you can find [here][get-vault-details-ui], demonstrates how to achieve this:
+Now, let's display these vault details in a table format in the UI. 
+
+The following code snippet, which you can find [here][get-vault-details-ui], demonstrates how to achieve this:
 
 ```typescript
 import { formatEther } from 'viem';
@@ -85,7 +95,9 @@ Once rendered, the vault details will be displayed in an informative table on th
 
 ## Next Steps
 
-In this chapter, we learned how to fetch and display details of a vault using the Opus SDK. To continue exploring the functionality of the Opus SDK, you can proceed to the next section: [Staking Functionality][stake]. In the next section, we will learn how to stake assets to the vault.
+In this chapter, we learned how to fetch and display details of a vault using the Opus SDK. To continue exploring the functionality of the Opus SDK, you can proceed to the next section: [Staking Functionality][stake]. 
+
+In the next section, we will learn how to stake assets to the vault.
 
 [get-vault-details-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/hooks/useVaultDetails.ts#L43
 [get-vault-details-ui]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/components/Vault.tsx#L31
