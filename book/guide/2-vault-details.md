@@ -3,7 +3,7 @@
 -   [Displaying Vault Details as a Table](#displaying-vault-details-as-a-table)
 -   [Next Steps](#next-steps)
 
-## Next Steps
+## Introduction
 
 In this chapter, we will explore how to fetch and display vault details using the Opus SDK. 
 
