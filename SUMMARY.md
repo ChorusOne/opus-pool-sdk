@@ -4,7 +4,7 @@
 
 ## OPUS Pool Guide
 
--   [Introduction and Prerequisites](book/guide/0-introduction.md)
+-   [Prerequisites](book/guide/0-prerequisites.md)
 -   [1. Installation and Setup](book/guide/1-installation.md)
 -   [2. Fetching Vault Details](book/guide/2-vault-details.md)
 -   [3. Staking Functionality](book/guide/3-stake.md)
