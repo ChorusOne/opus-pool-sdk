@@ -1,5 +1,6 @@
 ## Table of Contents
 
+-   [Table of Contents](#table-of-contents)
 -   [Overview](#overview)
 -   [Checking Minting Limits](#checking-minting-limits)
 -   [Calculating Health Factor for Minting](#calculating-health-factor-for-minting)
@@ -8,13 +9,13 @@
 
 ## Overview
 
-Minting liquid staking tokens (osETH) allows users to maintain liquidity while staking their ETH. 
+Minting liquid staking tokens (osETH) allows users to maintain liquidity while staking their ETH.
 
 In this section, we will guide you through checking minting limits, assessing vault health, and building and submitting minting transactions.
 
 {% hint style="info" %}
 
-We will use the same form as we did for staking for simplicity. This form allows users to input the amount of ETH and submit. 
+We will use the same form as we did for staking for simplicity. This form allows users to input the amount of ETH and submit.
 
 Please refer to the [Staking Functionality][stake-chapter] chapter for more details.
 
@@ -22,7 +23,7 @@ Please refer to the [Staking Functionality][stake-chapter] chapter for more deta
 
 ## Checking Minting Limits
 
-Before minting, we need to check the maximum amount of shares that can be minted. 
+Before minting, we need to check the maximum amount of shares that can be minted.
 
 **This can be done using the** `getMaxMintForVault` **method:**
 
@@ -44,7 +45,7 @@ if (maxMint < amountToMint) {
 
 ## Calculating Health Factor for Minting
 
-After confirming the minting limits, the next step is to assess the health factor of the vault. This involves evaluating the vault's health given the amount of shares the user intends to mint. 
+After confirming the minting limits, the next step is to assess the health factor of the vault. This involves evaluating the vault's health given the amount of shares the user intends to mint.
 
 **Use the** `getHealthFactorForUser` **method:**
 
@@ -94,7 +95,7 @@ The position health parameter is used to monitor the value of minted osETH relat
 -   **`OsTokenPositionHealth.Risky`**: Minted osETH > 91% but ≤ 92% of staked ETH
 -   **`OsTokenPositionHealth.Unhealthy`**: Minted osETH > 92% of staked ETH
 
-Changes in position health can result from discrepancies between Vault APY and osETH APY, higher fees, inconsistent performance, or MEV theft. 
+Changes in position health can result from discrepancies between Vault APY and osETH APY, higher fees, inconsistent performance, or MEV theft.
 
 Unhealthy positions may lead to forced burning of osETH tokens.
 
@@ -102,22 +103,16 @@ Unhealthy positions may lead to forced burning of osETH tokens.
 
 ## Executing the Minting Transaction
 
-If the minting limits and health factors are within acceptable ranges, you can proceed to minting the shares. 
+If the minting limits and health factors are within acceptable ranges, you can proceed to minting the shares.
 
-**First, build the minting transaction using the** `buildMintTransaction` **method:**
+**To illustrate this, we use the `pool.buildMintTransaction` method in the following example:**
 
 ```typescript
 const mintTx = await pool.buildMintTransaction({
     vault,
     shares: amountToMint,
 });
-```
 
-The `buildMintTransaction` method prepares the transaction data required for minting. 
-
-**Once the transaction is built, it can be sent to the blockchain:**
-
-```typescript
 await walletClient.sendTransaction({
     account: userAddress,
     to: vault,
@@ -134,7 +129,7 @@ For your implementation of the minting function, refer to the demo project imple
 
 ## Next Steps
 
-In this chapter, we covered the essential steps for minting osETH tokens, including checking minting limits, calculating the health factor, and executing the minting transaction. 
+In this chapter, we covered the essential steps for minting osETH tokens, including checking minting limits, calculating the health factor, and executing the minting transaction.
 
 To continue exploring the capabilities of your application, proceed to the next chapter: [Burning Functionality][burn].
 

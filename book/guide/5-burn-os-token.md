@@ -1,37 +1,65 @@
-## 8. Burn OS Token
+## Table of Contents
 
-In this section, we will learn about the burning process for the Opus pool SDK. The burning process is used to destroy the minted shares and receive the underlying assets back. This process is required if the user minted a portion or the entire staked amount and now wants to unstake. You can learn more about staking [here][stake] and unstaking [here][unstake].
+-   [Table of Contents](#table-of-contents)
+-   [Overview](#overview)
+-   [Determining Maximum Burnable osETH](#determining-maximum-burnable-oseth)
+-   [Executing the Burning Transaction](#executing-the-burning-transaction)
+-   [Next Steps](#next-steps)
 
-The steps to burn osETH are as follows:
+## Overview
 
-1. Obtain the maximum amount of shares the user can burn. This can be achieved by calling the `getOsTokenPositionForVault` method on the OpusPool instance. You can learn more about the health of a vault [here](https://docs.stakewise.io/guides/oseth#maintaining-a-healthy-oseth-position).
+In this section, we will cover the process of burning osETH tokens using the OPUS Pool SDK. Burning osETH is essential for redeeming your staked ETH, allowing you to unlock and unstake your assets from the Vault.
+
+We will guide you through determining the maximum amount of osETH you can burn, preparing the burn transaction, and executing it on the blockchain.
+
+## Determining Maximum Burnable osETH
+
+First, we need to determine the maximum amount of osETH that can be burned. This is done by calling the `getOsTokenPositionForVault` method on the `OpusPool` instance.
+
+**Here’s a snippet illustrating this process:**
 
 ```typescript
+const pool = new OpusPool({
+    address,
+    network,
+});
+
 const { minted } = await pool.getOsTokenPositionForVault(vaultAddress);
-const maxBurnable = minted.shares - minted.fee;
-if (maxBurnable === 0) {
-    // there are no shares to burn
-    return;
+
+console.log(minted);
+// {
+//     assets: 2000000000000000000n, // Balance in ETH
+//     shares: 1999935217534447000n, // Balance in vault units
+//     fee: 125356869411916n         // Usage fee amount
 }
+
+const maxBurnable = minted.shares - minted.fee;
+
+if (amountToBurn > maxBurnable) {
+    // The user is trying to burn more than they can
+    throw new Error('Burning amount exceeds the limit');
+}
+
 ```
 
-2. Proceed to burning the shares by first calling `buildBurnTransaction` on the OpusPool instance to get all the information needed to send the transaction to the blockchain:
+{% hint style="info" %}
+
+When burning osETH to redeem the underlying ETH, it's essential to account for usage fee. This 5% fee, applied to the rewards accumulated by osETH, increases the total osETH balance that must be returned to the Vault. Therefore, the maximum osETH that can be burned is calculated by subtracting the fee from the total minted shares. This ensures users only burn the amount of osETH they are entitled to, maintaining the protocol's integrity.
+
+{% endhint %}
+
+## Executing the Burning Transaction
+
+After determining the maximum amount of osETH that can be burned, proceed to build and send the burn transaction.
+
+**Here's how you can implement this with the `pool.buildBurnTransaction` method**
 
 ```typescript
-const amountToBurn = 1n;
-if (amountToBurn > maxBurnable) {
-    // the user is trying to burn more than they can
-    return;
-}
 const burnTx = await pool.buildBurnTransaction({
     vaultAddress,
     shares: amountToBurn,
 });
-```
 
-Then send the transaction to the blockchain
-
-```typescript
 await walletClient.sendTransaction({
     account: userAddress,
     to: vaultAddress,
@@ -40,12 +68,15 @@ await walletClient.sendTransaction({
     gas: burnTx.gasEstimation,
     maxPriorityFeePerGas: burnTx.maxPriorityFeePerGas,
     maxFeePerGas: burnTx.maxFeePerGas,
+    // Note: The value field is not set, as the user is not sending out ETH
 });
 ```
 
+For an example implementation of the burning function, see the demo project [here][burn-usage].
+
 ## Next Steps
 
-In this section, we focused on the core functionality of our application, which is submitting a burning transaction. To continue exploring the functionality of our application, you can proceed to the next section: [Unstaking Functionality][unstake].
+Now that you have learned how to burn osETH tokens, you are ready to dive deeper into the Opus SDK's capabilities. Proceed to the next section to explore [Unstaking Functionality][unstake], where you will learn how to unstake your assets and withdraw them from the vault.
 
-[stake]: ./3-stake.md
 [unstake]: ./6-unstake.md
+[burn-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/hooks/useBurnMutation.ts#L49
