@@ -6,7 +6,8 @@
 -   [Utilizing wagmi Hooks for Wallet Interactions](#utilizing-wagmi-hooks-for-wallet-interactions)
 -   [Next Steps](#next-steps)
 
-## Next Steps
+## Introduction
+
 To begin integrating the Opus SDK into your project, the first step is to add the library to the application. You can use your favorite package manager, including npm, yarn or pnpm. For simplicity, we will use npm. 
 
 **In the project's root directory, run the following command:**
