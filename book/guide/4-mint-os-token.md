@@ -1,4 +1,4 @@
-### Table of Contents
+## Table of Contents
 
 -   [Overview](#overview)
 -   [Checking Minting Limits](#checking-minting-limits)
