@@ -1,7 +1,7 @@
 {
-    "root": "./",
+    "root": "./book/",
     "structure": {
-        "readme": "README.md",
+        "readme": "getting-started.md",
         "summary": "SUMMARY.md"
     }
 }
