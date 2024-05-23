@@ -1,4 +1,5 @@
-### Table of Contents
+## Table of Contents
+
 -   [Overview](#overview)
 -   [Using Vaults with Opus Pool SDK](#using-vaults-with-opus-pool-sdk)
     -   [Option 1: Accessing Default Vault Address](#option-1-accessing-default-vault-address)
