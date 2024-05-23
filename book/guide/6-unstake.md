@@ -9,10 +9,10 @@ In order to unstake, there can be 2 scenarios:
 
 In the first scenario, the unstaking process is straightforward. These are the steps:
 
-1. determine the maximum amount the user can unstake by calling the `getMaxWithdraw` method on the OpusPool instance.
+1. determine the maximum amount the user can unstake by calling the `getMaxUnstakeForUserForVault` method on the OpusPool instance.
 
 ```typescript
-const maxWithdraw = await pool.getMaxWithdraw(vaultAddress);
+const maxWithdraw = await pool.getMaxUnstakeForUserForVault(vaultAddress);
 ```
 
 The user can unstake up to the `maxWithdraw` amount, i.e. `amountToUnstake <= maxWithdraw` and `0 < maxWithdraw`
@@ -64,7 +64,7 @@ const unstake = async ({
     amount: bigint;
 }): Promise<Hex> => {
     const pool = new OpusPool({ network, address: userAddress });
-    const maxWithdraw = await pool.getMaxWithdraw(vaultAddress);
+    const maxWithdraw = await pool.getMaxUnstakeForUserForVault(vaultAddress);
 
     if (maxWithdraw === 0 || maxWithdraw < amountToUnstake) {
         // the user is trying to unstake more than they can
@@ -103,16 +103,16 @@ const unstakeQueue = await pool.getUnstakeQueueForVault(vault);
 
 Here, `vault` refers to the address of your vault. The returned `unstakeQueue` contains an array of objects, each representing an item within the queue. These objects are structured as follows:
 
-- `exitQueueIndex`: (Optional) The index position of the item within the unstake queue, represented as a `bigint`.
-- `positionTicket`: A unique identifier for the queue item, also a `bigint`.
-- `when`: The date and time when the item was added to the queue.
-- `isWithdrawable`: A boolean flag indicating whether the assets are ready to be withdrawn.
-- `totalShares`: The total amount of assets in the queue item, represented in shares, as a `bigint`.
-- `totalAssets`: The total amount of assets, in token units, as a `bigint`.
-- `leftShares`: The amount of assets, in shares, that remain non-withdrawable, as a `bigint`.
-- `leftAssets`: The amount of assets, in token units, that cannot yet be withdrawn, as a `bigint`.
-- `withdrawableShares`: The portion of assets, in shares, that are eligible for withdrawal, as a `bigint`.
-- `withdrawableAssets`: The portion of assets, in token units, that can be withdrawn, as a `bigint`.
+-   `exitQueueIndex`: (Optional) The index position of the item within the unstake queue, represented as a `bigint`.
+-   `positionTicket`: A unique identifier for the queue item, also a `bigint`.
+-   `when`: The date and time when the item was added to the queue.
+-   `isWithdrawable`: A boolean flag indicating whether the assets are ready to be withdrawn.
+-   `totalShares`: The total amount of assets in the queue item, represented in shares, as a `bigint`.
+-   `totalAssets`: The total amount of assets, in token units, as a `bigint`.
+-   `leftShares`: The amount of assets, in shares, that remain non-withdrawable, as a `bigint`.
+-   `leftAssets`: The amount of assets, in token units, that cannot yet be withdrawn, as a `bigint`.
+-   `withdrawableShares`: The portion of assets, in shares, that are eligible for withdrawal, as a `bigint`.
+-   `withdrawableAssets`: The portion of assets, in token units, that can be withdrawn, as a `bigint`.
 
 Each item in the queue provides comprehensive details about the state of your unstaked assets, including their current withdrawability status and the precise amounts in both shares and token units. Monitoring these details is important for effectively managing your assets and planning your withdrawal strategy.
 
