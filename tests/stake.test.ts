@@ -63,7 +63,7 @@ describe('Staking Integration Test', () => {
             maxFeePerGas: stakeTransactionData.maxFeePerGas,
             chain: hardhat,
         });
-        await mine(10);
+        await mine(3);
         const receipt = await publicClient.getTransactionReceipt({ hash: txHash });
         expect(receipt.status).toEqual('success');
 

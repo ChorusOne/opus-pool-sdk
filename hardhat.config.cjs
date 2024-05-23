@@ -1,12 +1,14 @@
 /** @type import('hardhat/config').HardhatUserConfig */
 require('@nomicfoundation/hardhat-toolbox-viem');
 
+const INFURA_API_KEY = vars.get("INFURA_API_KEY");
+
 module.exports = {
     solidity: '0.8.20',
     networks: {
         hardhat: {
             forking: {
-                url: 'https://ethereum-holesky.publicnode.com',
+                url: 'https://holesky.infura.io/v3/' + INFURA_API_KEY,
             },
             accounts: [
                 {
