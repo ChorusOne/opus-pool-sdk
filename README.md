@@ -8,6 +8,10 @@ non-custodial staking on Ethereum networks.
 The SDK interface is implemented as Typescript library `opus-pool`,
 which is distributed under Apache 2.0 license.
 
+## Introduction
+
+Welcome to the OPUS Pool SDK tutorial. The OPUS Pool, created by Chorus One, offers a non-custodial Ethereum pooling solution that turns ETH staking into a straightforward process. This SDK enables easy integration with pools, including those operated by Chorus One, allowing users to stake any amount of ETH and start earning rewards immediately. It’s powered by StakewiseV3’s audited and secure smart contracts and leverages Chorus One's proprietary [MEV Research](https://chorus.one/categories/mev) for enhanced returns. Whether you're interested in liquid staking, automated restaking of rewards, or creating a regulated pool for specific users, this guide will walk you through leveraging the OPUS Pool SDK to its full potential.
+
 ## Integration flow
 ![integration flow](./book/media/integration.png)
 
