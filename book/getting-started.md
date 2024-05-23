@@ -17,7 +17,7 @@ It’s powered by StakewiseV3’s audited and secure smart contracts and leverag
 
 ## Integration Flow
 
-![Integration Flow - Illustrated](./book/media/integration.png)
+![Integration Flow - Illustrated](./media/integration.png)
 
 ## Understanding Key Concepts
 
