@@ -1,9 +1,10 @@
 ### Table of Contents
+-   [Overview](#overview)
 -   [Initializing the Pool and Fetching Vault Details](#initializing-the-pool-and-fetching-vault-details)
 -   [Displaying Vault Details as a Table](#displaying-vault-details-as-a-table)
 -   [Next Steps](#next-steps)
 
-## Introduction
+## Overview
 
 In this chapter, we will explore how to fetch and display vault details using the Opus SDK. 
 
