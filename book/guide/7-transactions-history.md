@@ -1,9 +1,8 @@
 # 5. Transactions History
 
--   [5. Transactions History](#5-transactions-history)
-    -   [Initializing the Pool and Fetching Transaction History](#initializing-the-pool-and-fetching-transaction-history)
-    -   [Displaying Transaction History](#displaying-transaction-history)
-    -   [Next Steps](#next-steps)
+-   [Initializing the Pool and Fetching Transaction History](#initializing-the-pool-and-fetching-transaction-history)
+-   [Displaying Transaction History](#displaying-transaction-history)
+-   [Next Steps](#next-steps)
 
 In this chapter, we'll explore how to fetch and display the transaction history of vaults using the Opus SDK. The SDK provides the `getTransactionsHistory` method, which returns up to 1000 stake or unstake transactions of the current user associated with a given array of vaults.
 
@@ -98,7 +97,7 @@ Once rendered, the transaction history will be displayed in an informative table
 
 ## Next Steps
 
-In this section, we learned how to fetch transaction history using the `getTransactionsHistory` method. We also displayed the transaction history in a structured table format. Next, we will move on to fetching vault rewards history and drawing a chart for it. To continue, please proceed to the [Rewards History][rewards-history] section.
+In this chapter, we learned how to fetch transaction history using the `getTransactionsHistory` method. We also displayed the transaction history in a structured table format. Next, we will move on to fetching vault rewards history and drawing a chart for it. To continue, please proceed to the [Rewards History][rewards-history] chapter.
 
 [Continue to Rewards History][rewards-history]
 
