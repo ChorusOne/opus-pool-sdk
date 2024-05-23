@@ -1,5 +1,3 @@
-‌
-
 # Opus Pool SDK
 
 [Opus Pool SDK](https://www.npmjs.com/package/@chorus-one/opus-pool) provides
