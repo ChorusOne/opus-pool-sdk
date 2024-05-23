@@ -1,4 +1,5 @@
-### Table of Contents
+## Table of Contents
+
 -   [Overview](#overview)
 -   [Initializing the Pool and Fetching Vault Details](#initializing-the-pool-and-fetching-vault-details)
 -   [Displaying Vault Details as a Table](#displaying-vault-details-as-a-table)

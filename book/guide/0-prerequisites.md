@@ -1,4 +1,4 @@
-### Table of Contents
+## Table of Contents
 -   [Introduction](#introduction)
 -   [Prerequisites for the OPUS Pool SDK Example](#prerequisites-for-the-opus-pool-sdk-example)
     -   [Understanding the Project Base](#understanding-the-project-base)

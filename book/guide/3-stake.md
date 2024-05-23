@@ -1,4 +1,4 @@
-### Table of Contents
+## Table of Contents
 
 -   [Overview](#overview)
 -   [The Form Component](#the-form-component)

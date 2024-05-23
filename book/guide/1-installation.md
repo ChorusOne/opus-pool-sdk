@@ -1,4 +1,5 @@
-### Table of Contents
+## Table of Contents
+
 -   [Overview](#overview)
 -   [Using Vaults with Opus Pool SDK](#using-vaults-with-opus-pool-sdk)
     -   [Option 1: Accessing Default Vault Address](#option-1-accessing-default-vault-address)
@@ -95,9 +96,9 @@ We will use the wagmi and web3modal libraries to connect with Ethereum wallets, 
 
 Instead, the Opus SDK entirely depends on an existing wallet connection already set up and managed by your application. To get started with this process and obtain detailed instructions on installing and using both libraries, we highly recommend visiting the [wagmi][wagmi] and [web3modal][web3modal] websites.
 
-## Configuring wagmi in Our Application
+## Configuring wagmi in Your Application
 
-To integrate wagmi into our project, we'll start by configuring it within our main application component. This involves wrapping our application in the `WagmiProvider` component, which is responsible for providing the necessary context for wagmi's functionality.
+To integrate wagmi into your project, we'll start by configuring it within your main application component. This involves wrapping your application in the `WagmiProvider` component, which is responsible for providing the necessary context for wagmi's functionality.
 
 **Here’s how you can do this:**
 
@@ -118,7 +119,7 @@ function App() {
 export default App;
 ```
 
-In the above code, we import `WagmiProvider` and wrap our main application component (`<Main />`). This setup ensures that all components within `<Main />` have access to wagmi's features.
+In the above code, we import `WagmiProvider` and wrap your main application component (`<Main />`). This setup ensures that all components within `<Main />` have access to wagmi's features.
 
 In addition, we need to set up a WalletConnect project and use the `projectId` in the wagmi config. You can get your `projectId` by creating a new project on the [WalletConnect website][walletconnect]. 
 -   This step is necessary for the configuration file.
@@ -127,7 +128,7 @@ Please refer to our demo code [here][wagmi-config] for a detailed example of the
 
 ## Utilizing wagmi Hooks for Wallet Interactions
 
-[Wagmi][wagmi] provides a variety of hooks that make it simple to interact with user wallets and perform blockchain transactions. These hooks simplify the process of integrating web3 functionalities into our application.
+[Wagmi][wagmi] provides a variety of hooks that make it simple to interact with user wallets and perform blockchain transactions. These hooks simplify the process of integrating web3 functionalities into your application.
 
 **Let's look at how we can use some of these hooks:**
 
@@ -148,7 +149,9 @@ In this example, `useAccount` is used to obtain the user's wallet address; the
 
 ## Next Steps
 
-In this chapter, we integrated the wagmi library into your project and configured it within your main application component. To continue with the tutorial, let's move on to the next chapter: [Fetching Vault Details][vault-details], where we will learn how to fetch and display details about the vault using the Opus Pool SDK.
+In this chapter, we integrated the wagmi library into your project and configured it within your main application component. 
+
+To continue with the tutorial, let's move on to the next chapter: [Fetching Vault Details][vault-details], where we will learn how to fetch and display details about the vault using the Opus Pool SDK.
 
 [wagmi]: https://wagmi.sh
 [web3modal]: https://docs.walletconnect.com/web3modal/about
