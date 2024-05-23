@@ -45,7 +45,9 @@ Let's break down what each parameter in the OpusPool initialization represents:
 -   **`rpcUrl` (string, optional)**: An optional parameter specifying the RPC URL to interact with the blockchain. If not defined, a public node will be used.
 
 {% hint style="success" %}
+
 With these steps, the Opus SDK is successfully integrated and initialized in our project.
+
 {% endhint %}
 
 ## Using Vaults with Opus Pool SDK
@@ -63,7 +65,9 @@ The Opus SDK has a predefined list of default vault addresses for each supported
 To access these default vault addresses, you can use the `getDefaultVaults` function, providing the network as an argument. This is particularly useful if you do not have specific vault addresses or prefer a quick setup.
 
 {% hint style="info" %}
+
 For the time being, the function returns an array containing only one default vault, regardless of the network.
+
 {% endhint %}
 
 **You can retrieve the default vault by running:**
