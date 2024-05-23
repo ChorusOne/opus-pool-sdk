@@ -1,6 +1,6 @@
 # Table of contents
 
--   [README](README.md)
+-   [Getting Started](book/getting-started.md)
 
 ## OPUS Pool Guide
 
