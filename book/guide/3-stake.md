@@ -1,12 +1,21 @@
+### Table of Contents
+
+-   [Overview](#overview)
 -   [The Form Component](#the-form-component)
 -   [Writing the Staking Transaction Function](#writing-the-staking-transaction-function)
 -   [Next Steps](#next-steps)
 
-Staking is a core functionality of the OPUS Pool SDK, enabling users to lock their ETH to support network operations and earn rewards. This section will cover how to integrate staking into your application by creating a form which submits the transaction.
+## Overview
+
+Staking is a core functionality of the OPUS Pool SDK, enabling users to lock their ETH to support network operations and earn rewards. 
+
+This section will cover how to integrate staking into your application by creating a form which submits the transaction.
 
 ## The Form Component
 
-We will start by creating a basic form which consist of an input field for the amount to be staked and a button to submit the transaction. Below is an implementation of this form in React:
+We will start by creating a basic form which consist of an input field for the amount to be staked and a button to submit the transaction. 
+
+**Below is an implementation of this form in React:**
 
 ```typescript
 import React, { useState } from 'react';
@@ -43,7 +52,11 @@ export const FormComponent = ({ onSubmit }) => {
 
 This form component uses the `useAccount` and `useBalance` hooks from `wagmi` to manage user account details and balance information. The `onSubmit` prop is a function that handles the actual staking process, which you can define in your application logic.
 
+{% hint style="info" %}
+
 For a more comprehensive implementation, which includes error handling, loading states, and styling, refer to our [extended version][stake-ui], which is available in the codebase.
+
+{% endhint %}
 
 This simple yet effective form provides the basic functionality to integrate staking into your Ethereum-based application.
 
@@ -51,7 +64,9 @@ This simple yet effective form provides the basic functionality to integrate sta
 
 ## Writing the Staking Transaction Function
 
-Now, we will focus on the main operation of our application: submitting a staking transaction. The complete code for this can be found [here][stake-usage]. Below is a representative snippet of the function:
+Now, we will focus on the main operation of our application: submitting a staking transaction. The complete code for this can be found [here][stake-usage]. 
+
+**Below is a representative snippet of the function:**
 
 ```typescript
 const stake = async ({
@@ -117,7 +132,11 @@ The `StakeTransactionData` object returned by `buildStakeTransaction` includes t
 
 ## Next Steps
 
-Having integrated the basic staking functionality into your application, you're now ready to expand its capabilities. In this chapter, we utilized the EIP-1559 transaction type and leveraged the Opus Pool SDK for precise gas estimation. To continue exploring our application’s functionality, you can proceed to the next chapter: [minting functionality][mint].
+Having integrated the basic staking functionality into your application, you're now ready to expand its capabilities. 
+
+In this chapter, we utilized the EIP-1559 transaction type and leveraged the Opus Pool SDK for precise gas estimation. 
+
+To continue exploring our application’s functionality, you can proceed to the next chapter: [minting functionality][mint].
 
 [stake-ui]: https://github.com/ChorusOne/opus-pool-demo/blob/master/src/components/FormComponent.tsx#L8
 [stake-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/hooks/useStakeMutation.ts#L49
