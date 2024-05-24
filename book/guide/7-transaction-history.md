@@ -7,9 +7,9 @@
 
 ## Overview
 
-Tracking the transaction history of your vaults is important for accountability and understanding users staking, unstaking, minting and other activities. With the Opus SDK, you can fetch detailed transaction history, which includes up to 1000 transactions associated with a given vault.
+Tracking the transaction history of your vaults is important for accountability and understanding users staking, unstaking, minting and other activities. With the OPUS Pool SDK, you can fetch detailed transaction history, which includes up to 1000 transactions associated with a given vault.
 
-This chapter will guide you through fetching and displaying this transaction history.
+This section will guide you through fetching and displaying this transaction history.
 
 ## Initializing the Pool and Fetching Transaction History
 
@@ -117,9 +117,9 @@ The `Transactions` component function takes an array of `VaultTransaction` objec
 
 ## Next Steps
 
-In this chapter, we learned how to fetch transaction history using the `getTransactionsHistory` method and displayed it in a structured table format.
+In this section, we learned how to fetch transaction history using the `getTransactionsHistory` method and displayed it in a structured table format.
 
-Next, we will fetch the vault rewards history and draw its chart. Please proceed to the [Rewards History][rewards-history] chapter to continue.
+Next, we will fetch the vault rewards history and draw its chart. Please proceed to the [Rewards History][rewards-history] section to continue.
 
 [get-transactions-history-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/master/src/hooks/useTransactions.ts#L22
 [get-transactions-history-ui]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/components/Transactions.tsx#L52

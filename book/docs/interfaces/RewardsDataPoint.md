@@ -12,7 +12,7 @@ Single atomic rewards point for a particular date
 
 A reference date for the rewards received
 
-___
+---
 
 ### amount
 
@@ -20,9 +20,9 @@ ___
 
 **`Const`**
 
-Amount of rewards received in gwei
+Amount of rewards received in wei
 
-___
+---
 
 ### vault
 

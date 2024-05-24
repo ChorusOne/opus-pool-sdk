@@ -7,7 +7,7 @@
 
 ## Overview
 
-This section will focus on fetching and visualizing the rewards history using the Opus SDK. The SDK offers a getRewardsHistory method, which retrieves the history of rewards earned from specific vault.
+This section will focus on fetching and visualizing the rewards history using the OPUS Pool SDK. The SDK offers a getRewardsHistory method, which retrieves the history of rewards earned from specific vault.
 
 ## Initializing the Pool and Fetching Rewards History
 
@@ -107,11 +107,11 @@ We also covered how to track transaction history, giving you clear insights into
 
 By the end of this guide, you should feel confident in leveraging the OPUS Pool SDK to enhance your Ethereum-based applications. Happy staking! 📥
 
-{% hint style="info" %}
+{% hint style=“info” %}
 
 For more detailed information on the OPUS Pool SDK, visit the [API Documentation][api] to explore all available methods and their usages.
 
-{% endhint %}
+{% endhint %}
 
 [get-rewards-history-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/master/src/hooks/useRewards.ts#L27
 [recharts]: https://recharts.org

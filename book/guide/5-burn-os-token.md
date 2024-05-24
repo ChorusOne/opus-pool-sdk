@@ -1,6 +1,5 @@
 ## Table of Contents
 
--   [Table of Contents](#table-of-contents)
 -   [Overview](#overview)
 -   [Determining Maximum Burnable osETH](#determining-maximum-burnable-oseth)
 -   [Executing the Burning Transaction](#executing-the-burning-transaction)
@@ -8,7 +7,7 @@
 
 ## Overview
 
-In this section, we will cover the process of burning osETH tokens using the OPUS Pool SDK. Burning osETH is essential for redeeming your staked ETH, allowing you to unlock and unstake your assets from the Vault.
+In this section, we will cover the process of burning osETH tokens using the OPUS Pool SDK. Burning osETH is essential for redeeming your staked ETH, allowing you to unlock and unstake your assets from the Vault.
 
 We will guide you through determining the maximum amount of osETH you can burn, preparing the burn transaction, and executing it on the blockchain.
 
@@ -16,7 +15,7 @@ We will guide you through determining the maximum amount of osETH you can burn, 
 
 First, we need to determine the maximum amount of osETH that can be burned. This is done by calling the `getOsTokenPositionForVault` method on the `OpusPool` instance.
 
-**Here’s a snippet illustrating this process:**
+**Here’s a snippet illustrating this process:**
 
 ```typescript
 const pool = new OpusPool({
@@ -24,7 +23,7 @@ const pool = new OpusPool({
     network,
 });
 
-const { minted } = await pool.getOsTokenPositionForVault(vaultAddress);
+const { minted } = await pool.getOsTokenPositionForVault(vault);
 
 console.log(minted);
 // {
@@ -44,7 +43,7 @@ if (amountToBurn > maxBurnable) {
 
 {% hint style="info" %}
 
-When burning osETH to redeem the underlying ETH, it's essential to account for usage fee. This 5% fee, applied to the rewards accumulated by osETH, increases the total osETH balance that must be returned to the Vault. Therefore, the maximum osETH that can be burned is calculated by subtracting the fee from the total minted shares. This ensures users only burn the amount of osETH they are entitled to, maintaining the protocol's integrity.
+When burning osETH to redeem the underlying ETH, it’s essential to account for usage fee. This 5% fee, applied to the rewards accumulated by osETH, increases the total osETH balance that must be returned to the Vault. Therefore, the maximum osETH that can be burned is calculated by subtracting the fee from the total minted shares. This ensures users only burn the amount of osETH they are entitled to, maintaining the protocol’s integrity.
 
 {% endhint %}
 
@@ -52,17 +51,17 @@ When burning osETH to redeem the underlying ETH, it's essential to account for u
 
 After determining the maximum amount of osETH that can be burned, proceed to build and send the burn transaction.
 
-**Here's how you can implement this with the `pool.buildBurnTransaction` method**
+**Here’s how you can implement this with the `pool.buildBurnTransaction` method**
 
 ```typescript
 const burnTx = await pool.buildBurnTransaction({
-    vaultAddress,
+    vault,
     shares: amountToBurn,
 });
 
 await walletClient.sendTransaction({
     account: userAddress,
-    to: vaultAddress,
+    to: vault,
     data: burnTx.transaction,
     type: 'eip1559',
     gas: burnTx.gasEstimation,
@@ -76,7 +75,7 @@ For an example implementation of the burning function, see the demo project [her
 
 ## Next Steps
 
-Now that you have learned how to burn osETH tokens, you are ready to dive deeper into the Opus SDK's capabilities. Proceed to the next section to explore [Unstaking Functionality][unstake], where you will learn how to unstake your assets and withdraw them from the vault.
+Now that you have learned how to burn osETH tokens, you are ready to dive deeper into the OPUS Pool SDK’s capabilities. Proceed to the next section to explore [Unstaking Functionality][unstake], where you will learn how to unstake your assets and withdraw them from the vault.
 
 [unstake]: ./6-unstake.md
 [burn-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/hooks/useBurnMutation.ts#L49

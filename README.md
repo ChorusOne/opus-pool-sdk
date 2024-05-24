@@ -1,8 +1,8 @@
 ‌
 
-# Opus Pool SDK
+# OPUS Pool SDK
 
-[Opus Pool SDK](https://www.npmjs.com/package/@chorus-one/opus-pool) provides
+[OPUS Pool SDK](https://www.npmjs.com/package/@chorus-one/opus-pool) provides
 a programmatic interface to deliver integration of
 non-custodial staking on Ethereum networks. It enables easy integration with pools, including those operated by Chorus One, allowing users to stake any amount of ETH and start earning rewards immediately.
 
@@ -17,7 +17,7 @@ which is distributed under Apache 2.0 license.
 
 ## Demo
 
-Visit [Demo website](https://chorusone.github.io/opus-pool-demo/) to try out the steps you will learn in this guide staking with Opus Pool SDK.
+Visit [Demo website](https://chorusone.github.io/opus-pool-demo/) to try out the steps you will learn in this guide staking with OPUS Pool SDK.
 Please note that [Holesky testnet](https://github.com/eth-clients/holesky) wallet is necessary to actually stake there.
 
 Source code of the demo can be found [on Github](https://github.com/chorusOne/opus-pool-demo)

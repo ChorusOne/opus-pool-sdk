@@ -7,15 +7,15 @@
 
 ## Overview
 
-In this chapter, we will explore how to fetch and display vault details using the Opus SDK. 
+In this section, we will explore how to fetch and display vault details using the OPUS Pool SDK.
 
-This process involves initializing the pool, fetching the vault details, and presenting them in a user-friendly format.
+This process involves initializing the pool, fetching the vault details, and presenting them in a user-friendly format.
 
 ## Initializing the Pool and Fetching Vault Details
 
-First, we start by initializing the pool like we did previously. Then, we use the `getVaultDetails` method to fetch details about the vaults. You can refer to the detailed code for this process [here][get-vault-details-usage]. 
+First, we start by initializing the pool like we did previously. Then, we use the `getVaultDetails` method to fetch details about the vaults. You can refer to the detailed code for this process [here][get-vault-details-usage].
 
-**Here’s a snippet illustrating this process:**
+**Here’s a snippet illustrating this process:**
 
 ```typescript
 const pool = new OpusPool({
@@ -45,16 +45,16 @@ console.log(vaultDetails[0]);
 The `VaultDetails` object returned by `getVaultDetails` contains the following parameters:
 
 -   **`address` (Hex)**: The hexadecimal address of the Vault.
--   **`name` (string)**: A human-readable identifier for the Vault.
--   **`description` (string)**: A description of the Vault.
--   **`logoUrl` (string)**: The URL of the Vault's logo for UI display.
+-   **`name` (string)**: A human-readable identifier for the Vault.
+-   **`description` (string)**: A description of the Vault.
+-   **`logoUrl` (string)**: The URL of the Vault’s logo for UI display.
 -   **`tvl` (bigint)**: The total value of assets locked in the Vault, expressed in wei.
 -   **`apy` (string)**: The average yield percentage derived from historical data.
 -   **`balance` (bigint)**: The current balance of the connected address in the Vault.
 
-## Displaying Vault Details as a Table
+## Displaying Vault Details as a Table
 
-Now, let's display these vault details in a table format in the UI. 
+Now, let’s display these vault details in a table format in the UI.
 
 The following code snippet, which you can find [here][get-vault-details-ui], demonstrates how to achieve this:
 
@@ -90,15 +90,13 @@ const Vault = ({ vaultDetails }: { vaultDetails: VaultDetails[] }) => {
 };
 ```
 
-Once rendered, the vault details will be displayed in an informative table on the screen, showcasing key information such as vault name, APY, and balances in a user-friendly format:
+Once rendered, the vault details will be displayed in an informative table on the screen, showcasing key information such as vault name, APY, and balances in a user-friendly format:
 
 ![Vault details](../media/vaultDetails.png)
 
 ## Next Steps
 
-In this chapter, we learned how to fetch and display details of a vault using the Opus SDK. To continue exploring the functionality of the Opus SDK, you can proceed to the next section: [Staking Functionality][stake]. 
-
-In the next section, we will learn how to stake assets to the vault.
+In this section, we learned how to fetch and display details of a vault using the OPUS Pool SDK. To continue exploring the functionality of the SDK, you can proceed to the next section: [Staking Functionality][stake].
 
 [get-vault-details-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/hooks/useVaultDetails.ts#L43
 [get-vault-details-ui]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/components/Vault.tsx#L31

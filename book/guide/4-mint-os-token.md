@@ -1,6 +1,5 @@
 ## Table of Contents
 
--   [Table of Contents](#table-of-contents)
 -   [Overview](#overview)
 -   [Checking Minting Limits](#checking-minting-limits)
 -   [Calculating Health Factor for Minting](#calculating-health-factor-for-minting)
@@ -17,7 +16,7 @@ In this section, we will guide you through checking minting limits, assessing va
 
 We will use the same form as we did for staking for simplicity. This form allows users to input the amount of ETH and submit.
 
-Please refer to the [Staking Functionality][stake-chapter] chapter for more details.
+Please refer to the [Staking Functionality][stake-section] section for more details.
 
 {% endhint %}
 
@@ -45,7 +44,7 @@ if (maxMint < amountToMint) {
 
 ## Calculating Health Factor for Minting
 
-After confirming the minting limits, the next step is to assess the health factor of the vault. This involves evaluating the vault's health given the amount of shares the user intends to mint.
+After confirming the minting limits, the next step is to assess the health factor of the vault. This involves evaluating the vault’s health given the amount of shares the user intends to mint.
 
 **Use the** `getHealthFactorForUser` **method:**
 
@@ -84,7 +83,7 @@ if (nextHealth !== OsTokenPositionHealth.Healthy) {
 }
 ```
 
-The `getHealthFactorForUser` method calculates the vault's health factor based on the current and intended minting amounts, ensuring the vault remains in a healthy state post-minting.
+The `getHealthFactorForUser` method calculates the vault’s health factor based on the current and intended minting amounts, ensuring the vault remains in a healthy state post-minting.
 
 {% hint style="info" %}
 
@@ -129,10 +128,10 @@ For your implementation of the minting function, refer to the demo project imple
 
 ## Next Steps
 
-In this chapter, we covered the essential steps for minting osETH tokens, including checking minting limits, calculating the health factor, and executing the minting transaction.
+In this section, we covered the essential steps for minting osETH tokens, including checking minting limits, calculating the health factor, and executing the minting transaction.
 
-To continue exploring the capabilities of your application, proceed to the next chapter: [Burning Functionality][burn].
+To continue exploring the capabilities of your application, proceed to the next section: [Burning Functionality][burn].
 
 [burn]: ./5-burn-os-token.md
-[stake-chapter]: ./3-stake.md
+[stake-section]: ./3-stake.md
 [mint-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/hooks/useMintMutation.ts#L48

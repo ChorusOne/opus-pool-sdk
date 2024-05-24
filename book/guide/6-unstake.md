@@ -38,7 +38,7 @@ if (amountToUnstake > maxUnstake) {
 
 {% hint style="warning" %}
 
-To unstake your entire ETH amount, you may need to burn your osETH tokens first. Burning osETH reclaims the underlying staked ETH. For detailed steps, see the [burning section][burn].
+To unstake your entire ETH amount, you may need to burn your osETH tokens first. Burning osETH reclaims the underlying staked ETH. For detailed steps, see the [burning section][burn].
 
 {% endhint %}
 
@@ -66,6 +66,8 @@ await walletClient.sendTransaction({
 });
 ```
 
+You can find an example of the unstaking function in the demo project implementation [here][unstake-usage].
+
 After initiating an unstake request, assets are placed into an unstake queue before being withdrawn. This is a safeguard to ensure the liquidity and stability of the vault. The duration an asset remains in the queue is contingent upon the validator’s policies and the state of the vault.
 
 ## Fetching the Unstake Queue
@@ -78,7 +80,8 @@ To view the current state of your assets within the unstake queue, you’ll need
 const unstakeQueue = await pool.getUnstakeQueueForVault(vault);
 
 console.log(unstakeQueue);
-// {
+// [
+//   {
 //     exitQueueIndex: 64n,
 //     positionTicket: 200565792007826595508n,
 //     when: 2024-05-08T20:11:24.000Z,
@@ -89,15 +92,16 @@ console.log(unstakeQueue);
 //     leftAssets: 0n,
 //     withdrawableShares: 9966734055972798n,
 //     withdrawableAssets: 10000014138234276n
+//   ]
 // }
 ```
 
 Here, `vault` refers to the address of your vault. The returned `unstakeQueue` contains an array of objects, each representing an item within the queue. These objects are structured as follows:
 
 -   **`exitQueueIndex` (bigint)**: The index position of the item within the unstake queue.
--   **`positionTicket`(bigint)**: A unique identifier for the queue item.
+-   **`positionTicket`(bigint)**: A unique identifier for the queue item.
 -   **`when` (Date)**: The date and time when the item was added to the queue.
--   **`isWithdrawable` (boolean)**: A flag indicating whether the assets are ready to be withdrawn.
+-   **`isWithdrawable` (boolean)**: A flag indicating whether the assets are ready to be withdrawn.
 -   **`totalShares` (bigint)**: The total amount of assets in the queue item, represented in shares.
 -   **`totalAssets` (bigint)**: The total amount of assets, in token units.
 -   **`leftShares` (bigint)**: The amount of assets, in shares, that remain non-withdrawable.
@@ -143,7 +147,6 @@ const hash = await walletClient.sendTransaction({
     // Note: The value field is not set, as the user is not sending out ETH
 });
 
-const receipt = await publicClient.waitForTransactionReceipt({ hash });
 ```
 
 {% hint style="success" %}
@@ -154,12 +157,10 @@ Once the transaction is successfully sent and confirmed, the specified assets ar
 
 ## Next Steps
 
-In this section, we learned about the functionality for unstaking in the Opus pool SDK, covering both the initiation of unstaking and the process of managing assets within the unstake queue.
+In this section, we learned about the functionality for unstaking in the OPUS Pool SDK, covering both the initiation of unstaking and the process of managing assets within the unstake queue.
 
-Now, you are ready to move on to the next section — [Transactions History][transactions-history], where we will learn how to fetch the stake/unstake transactions history for a given vault.
+Now, you are ready to move on to the next section — [Transaction History][transaction-history].
 
-[get-vault-details-chapter]: ./2-vault-details.md
-[stake-chapter]: ./3-stake.md
-[unstake-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/master/src/hooks/useUnstakeMutation.ts#L40
-[transactions-history]: ./7-transactions-history.md
+[unstake-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/hooks/useUnstakeMutation.ts#L49
+[transaction-history]: ./7-transaction-history.md
 [burn]: ./5-burn-os-token.md

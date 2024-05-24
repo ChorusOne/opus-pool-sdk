@@ -1,26 +1,26 @@
 ## Table of Contents
 
--   [Overview](#overview)
--   [Using Vaults with Opus Pool SDK](#using-vaults-with-opus-pool-sdk)
+-   [Installation](#installation)
+-   [Using Vaults with OPUS Pool SDK](#using-vaults-with-opus-pool-sdk)
     -   [Option 1: Accessing Default Vault Address](#option-1-accessing-default-vault-address)
     -   [Option 2: Using Custom Vault Addresses](#option-2-using-custom-vault-addresses)
--   [Configuring wagmi in Our Application](#configuring-wagmi-in-our-application)
+-   [Configuring wagmi in Your Application](#configuring-wagmi-in-your-application)
 -   [Utilizing wagmi Hooks for Wallet Interactions](#utilizing-wagmi-hooks-for-wallet-interactions)
 -   [Next Steps](#next-steps)
 
-## Overview
+## Installation
 
-To begin integrating the Opus SDK into your project, the first step is to add the library to the application. You can use your favorite package manager, including npm, yarn or pnpm. For simplicity, we will use npm. 
+To begin integrating the OPUS SDK into your project, the first step is to add the library to the application. You can use your favorite package manager, including npm, yarn or pnpm. For simplicity, we will use npm.
 
-**In the project's root directory, run the following command:**
+**In the project’s root directory, run the following command:**
 
 ```bash
 npm install @chorus-one/opus-pool
 ```
 
-Once the Opus SDK is installed, the next step is to import it into your codebase and initialize it. 
+Once the SDK is installed, the next step is to import it into your codebase and initialize it.
 
-**Here's how you can do this:**
+**Here’s how you can do this:**
 
 ```typescript
 import { OpusPool, Networks } from '@chorus-one/opus-pool';
@@ -35,35 +35,36 @@ const pool = new OpusPool({
 });
 ```
 
-In the above snippet, we import the `OpusPool` and `Networks` from the `opus-pool` package, and we create a new `OpusPool` instance with specific parameters.
+In the above snippet, we import the `OpusPool` and `Networks` from the `opus-pool` package, and we create a new `OpusPool` instance with specific parameters.
 
-Let's break down what each parameter in the OpusPool initialization represents:
+Let’s break down what each parameter in the `OpusPool` initialization represents:
 
--   **`address` (Hex)**: This represents the the currently connected user's wallet address. Note that the pool solution must be re-initialized with the new user address if a different wallet is connected.
+-   **`address` (Hex)**: This represents the the currently connected user’s wallet address. Note that the pool solution must be re-initialized with the new user address if a different wallet is connected.
 
 -   **`network` (Networks)**: Specifies the network to be used, which can be Holesky, Ethereum.
 
--   **`rpcUrl` (string, optional)**: An optional parameter specifying the RPC URL to interact with the blockchain. If not defined, a public node will be used.
+-   **`rpcUrl` (string, optional)**: An optional parameter specifying the RPC URL to interact with the blockchain. If not defined, a public node will be used.
 
 {% hint style="success" %}
 
-With these steps, the Opus SDK is successfully integrated and initialized in our project.
+With these steps, the OPUS Pool SDK is successfully integrated and initialized in our project.
 
 {% endhint %}
 
-## Using Vaults with Opus Pool SDK
+## Using Vaults with OPUS Pool SDK
 
-The Opus Pool SDK offers two primary ways to engage with vaults for Ethereum staking: 
-1. Using predefined default vaults provided by Opus
-2. Configuring your own custom vaults. 
+The OPUS Pool SDK offers two primary ways to engage with vaults for Ethereum staking:
 
-Below is a guide on how to leverage each option.
+1. Using predefined default vaults provided by OPUS
+2. Configuring your own custom vaults.
+
+Below is a guide on how to leverage each option.
 
 ### Option 1: Accessing Default Vault Address
 
-The Opus SDK has a predefined list of default vault addresses for each supported network. These vaults are Chorus One nodes, optimized for immediate use without additional setup.
+The OPUS Pool SDK has a predefined list of default vault addresses for each supported network. These vaults are Chorus One nodes, optimized for immediate use without additional setup.
 
-To access these default vault addresses, you can use the `getDefaultVaults` function, providing the network as an argument. This is particularly useful if you do not have specific vault addresses or prefer a quick setup.
+To access these default vault addresses, you can use the `getDefaultVaults` function, providing the network as an argument. This is particularly useful if you do not have specific vault addresses or prefer a quick setup.
 
 {% hint style="info" %}
 
@@ -84,21 +85,21 @@ const vault = getDefaultVaults(network)[0];
 console.log(vault); // '0x95d0db03d59658e1af0d977ecfe142f178930ac5'
 ```
 
-This function will return a list of default vault addresses, allowing you to fully leverage the capabilities of the Opus SDK in your project.
+This function will return a list of default vault addresses, allowing you to fully leverage the capabilities of the OPUS PoolSDK in your project.
 
 ### Option 2: Using Custom Vault Addresses
 
-The Opus Pool SDK supports this flexibility if you prefer to use custom vaults and have specific vault addresses for your project. You can configure these addresses as part of your setup, enabling you to work with vaults of your choice.
+The OPUS Pool SDK supports this flexibility if you prefer to use custom vaults and have specific vault addresses for your project. You can configure these addresses as part of your setup, enabling you to work with vaults of your choice.
 
-# 2. Integrating the wagmi Library
+# Integrating the wagmi Library
 
-We will use the wagmi and web3modal libraries to connect with Ethereum wallets, allowing users to interact with blockchain applications. This is an essential step, particularly because the Opus SDK does not provide wallet connection functionality. 
+We will use the wagmi and web3modal libraries to connect with Ethereum wallets, allowing users to interact with blockchain applications. This is an essential step, particularly because the OPUS Pool SDK does not provide wallet connection functionality.
 
-Instead, the Opus SDK entirely depends on an existing wallet connection already set up and managed by your application. To get started with this process and obtain detailed instructions on installing and using both libraries, we highly recommend visiting the [wagmi][wagmi] and [web3modal][web3modal] websites.
+Instead, the SDK entirely depends on an existing wallet connection already set up and managed by your application. To get started with this process and obtain detailed instructions on installing and using both libraries, we highly recommend visiting the [wagmi][wagmi] and [web3modal][web3modal] websites.
 
 ## Configuring wagmi in Your Application
 
-To integrate wagmi into your project, we'll start by configuring it within your main application component. This involves wrapping your application in the `WagmiProvider` component, which is responsible for providing the necessary context for wagmi's functionality.
+To integrate wagmi into your project, we’ll start by configuring it within your main application component. This involves wrapping your application in the `WagmiProvider` component, which is responsible for providing the necessary context for wagmi’s functionality.
 
 **Here’s how you can do this:**
 
@@ -119,18 +120,19 @@ function App() {
 export default App;
 ```
 
-In the above code, we import `WagmiProvider` and wrap your main application component (`<Main />`). This setup ensures that all components within `<Main />` have access to wagmi's features.
+In the above code, we import `WagmiProvider` and wrap your main application component (`<Main />`). This setup ensures that all components within `<Main />` have access to wagmi’s features.
 
-In addition, we need to set up a WalletConnect project and use the `projectId` in the wagmi config. You can get your `projectId` by creating a new project on the [WalletConnect website][walletconnect]. 
+In addition, we need to set up a WalletConnect project and use the `projectId` in the wagmi config. You can get your `projectId` by creating a new project on the [WalletConnect website][walletconnect].
+
 -   This step is necessary for the configuration file.
 
-Please refer to our demo code [here][wagmi-config] for a detailed example of the wagmi configuration file.
+Please refer to our demo code [here][wagmi-config] for a detailed example of the wagmi configuration file.
 
 ## Utilizing wagmi Hooks for Wallet Interactions
 
-[Wagmi][wagmi] provides a variety of hooks that make it simple to interact with user wallets and perform blockchain transactions. These hooks simplify the process of integrating web3 functionalities into your application.
+[Wagmi][wagmi] provides a variety of hooks that make it simple to interact with user wallets and perform blockchain transactions. These hooks simplify the process of integrating web3 functionalities into your application.
 
-**Let's look at how we can use some of these hooks:**
+**Let’s look at how we can use some of these hooks:**
 
 ```typescript
 import { useAccount, useWalletClient, usePublicClient } from 'wagmi';
@@ -145,13 +147,13 @@ const publicClient = usePublicClient();
 const { data: walletClient } = useWalletClient();
 ```
 
-In this example, `useAccount` is used to obtain the user's wallet address; the `usePublicClient` hook provides a client for querying public blockchain data. Finally, the `useWalletClient` hook provides a client for executing transactions, enabling interactions with the blockchain.
+In this example, `useAccount` is used to obtain the user’s wallet address; the `usePublicClient` hook provides a client for querying public blockchain data. Finally, the `useWalletClient` hook provides a client for executing transactions, enabling interactions with the blockchain.
 
 ## Next Steps
 
-In this chapter, we integrated the wagmi library into your project and configured it within your main application component. 
+In this section, we integrated the wagmi library into your project and configured it within your main application component.
 
-To continue with the tutorial, let's move on to the next chapter: [Fetching Vault Details][vault-details], where we will learn how to fetch and display details about the vault using the Opus Pool SDK.
+To continue with the tutorial, let’s move on to the next section: [Fetching Vault Details][vault-details], where we will learn how to fetch and display details about the vault using the OPUS Pool SDK.
 
 [wagmi]: https://wagmi.sh
 [web3modal]: https://docs.walletconnect.com/web3modal/about
