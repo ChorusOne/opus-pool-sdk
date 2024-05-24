@@ -1,5 +1,6 @@
 ## Table of Contents
 
+-   [Table of Contents](#table-of-contents)
 -   [Overview](#overview)
 -   [Initializing the Pool and Fetching Transaction History](#initializing-the-pool-and-fetching-transaction-history)
 -   [Displaying Transaction History](#displaying-transaction-history)

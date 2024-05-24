@@ -159,4 +159,4 @@ To continue with the tutorial, let’s move on to the next section: [Fetching Va
 [web3modal]: https://docs.walletconnect.com/web3modal/about
 [wagmi-config]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/web3/config.ts#L55
 [walletconnect]: https://cloud.walletconnect.com
-[vault-details]: ./2-vault-details.md
+[vault-details]: 2-fetching-vault-details.md

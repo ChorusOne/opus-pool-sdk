@@ -100,4 +100,4 @@ In this section, we learned how to fetch and display details of a vault using t
 
 [get-vault-details-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/hooks/useVaultDetails.ts#L43
 [get-vault-details-ui]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/components/Vault.tsx#L31
-[stake]: ./3-stake.md
+[stake]: 3-staking.md

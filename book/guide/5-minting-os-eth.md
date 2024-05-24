@@ -124,5 +124,5 @@ In this section, we covered the essential steps for minting osETH tokens, includ
 
 To continue exploring the capabilities of your application, proceed to the next section: [Burning osETH][burn].
 
-[burn]: ./6-burn-os-token.md
+[burn]: 6-burning-os-eth.md
 [mint-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/hooks/useMintMutation.ts#L48

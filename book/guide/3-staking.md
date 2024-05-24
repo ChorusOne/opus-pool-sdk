@@ -140,4 +140,4 @@ To continue exploring our application’s functionality, you can proceed to the 
 
 [stake-ui]: https://github.com/ChorusOne/opus-pool-demo/blob/master/src/components/FormComponent.tsx#L8
 [stake-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/hooks/useStakeMutation.ts#L49
-[unstake]: ./4-unstake.md
+[unstake]: 4-unstaking.md

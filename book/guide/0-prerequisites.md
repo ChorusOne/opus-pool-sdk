@@ -77,4 +77,4 @@ Please follow the instructions in the [Installation and Setup][installation] sec
 [opus-pool-example]: https://github.com/ChorusOne/opus-pool-demo
 [wagmi]: https://wagmi.sh
 [holesky]: https://github.com/eth-clients/holesky
-[installation]: ./1-installation.md
+[installation]: 1-installation-and-setup.md

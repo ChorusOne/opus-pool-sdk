@@ -168,7 +168,7 @@ In this section, we learned about the functionality for unstaking in the OPUS Po
 
 Now, you are ready to move on to the next section — [Minting osETH][mint].
 
-[stake-section]: ./3-stake.md
+[stake-section]: 3-staking.md
 [unstake-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/hooks/useUnstakeMutation.ts#L49
-[mint]: ./5-mint-os-token.md
-[burn]: ./6-burn-os-token.md
+[mint]: 5-minting-os-eth.md
+[burn]: 6-burning-os-eth.md
