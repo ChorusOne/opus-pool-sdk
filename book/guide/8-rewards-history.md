@@ -7,7 +7,9 @@
 
 ## Overview
 
-This section will focus on fetching and visualizing the rewards history using the OPUS Pool SDK. The SDK offers a getRewardsHistory method, which retrieves the history of rewards earned from specific vault.
+In this chapter, we’ll explore the process of fetching and visualizing rewards history using the Opus SDK. Visualizing reward data helps users gain insights into their earnings over time and make informed decisions about their staking activities.
+
+We will guide you through fetching the necessary data, and presenting it in a user-friendly chart.
 
 ## Initializing the Pool and Fetching Rewards History
 
