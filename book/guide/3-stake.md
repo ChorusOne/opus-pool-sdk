@@ -136,8 +136,8 @@ Having integrated the basic staking functionality into your application, you’r
 
 In this section, we utilized the EIP-1559 transaction type and leveraged the OPUS Pool SDK for precise gas estimation.
 
-To continue exploring our application’s functionality, you can proceed to the next section: [minting functionality][mint].
+To continue exploring our application’s functionality, you can proceed to the next section: [Unstaking][unstake].
 
 [stake-ui]: https://github.com/ChorusOne/opus-pool-demo/blob/master/src/components/FormComponent.tsx#L8
 [stake-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/hooks/useStakeMutation.ts#L49
-[mint]: ./4-mint-os-token.md
+[unstake]: ./4-unstake.md

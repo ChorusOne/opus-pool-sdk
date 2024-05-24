@@ -2,7 +2,7 @@
 
 -   [Overview](#overview)
 -   [Initializing the Pool and Fetching Vault Details](#initializing-the-pool-and-fetching-vault-details)
--   [Displaying Vault Details as a Table](#displaying-vault-details-as-a-table)
+-   [Displaying Vault Details as a Table](#displaying-vault-details-as-atable)
 -   [Next Steps](#next-steps)
 
 ## Overview
@@ -96,7 +96,7 @@ Once rendered, the vault details will be displayed in an informative table on th
 
 ## Next Steps
 
-In this section, we learned how to fetch and display details of a vault using the OPUS Pool SDK. To continue exploring the functionality of the SDK, you can proceed to the next section: [Staking Functionality][stake].
+In this section, we learned how to fetch and display details of a vault using the OPUS Pool SDK. To continue exploring the functionality of the SDK, you can proceed to the next section: [Staking][stake].
 
 [get-vault-details-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/hooks/useVaultDetails.ts#L43
 [get-vault-details-ui]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/components/Vault.tsx#L31

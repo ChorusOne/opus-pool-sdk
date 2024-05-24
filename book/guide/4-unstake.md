@@ -14,6 +14,14 @@ With the OPUS Pool SDK, users can unstake their ETH from a Vault, regaining ass
 
 This section covers the entire process, from unstaking request initiation to handling the exit queue and withdrawing your ETH.
 
+{% hint style="info" %}
+
+We will use the same form as we did for staking for simplicity. This form allows users to input the amount of ETH and submit.
+
+Please refer to the [Staking Functionality][stake-section] section for more details.
+
+{% endhint %}
+
 ## Determining Unstaking Limits
 
 To begin, we need to establish the maximum amount that the user is permitted to unstake. This is achieved by invoking the `getMaxUnstakeForUserForVault` method on the `OpusPool` instance.
@@ -38,7 +46,7 @@ if (amountToUnstake > maxUnstake) {
 
 {% hint style="warning" %}
 
-To unstake your entire ETH amount, you may need to burn your osETH tokens first. Burning osETH reclaims the underlying staked ETH. For detailed steps, see the [burning section][burn].
+To unstake your entire ETH amount, you may need to burn your osETH tokens first. Burning osETH reclaims the underlying staked ETH. For detailed steps, see the [Burning osETH section][burn].
 
 {% endhint %}
 
@@ -146,7 +154,6 @@ const hash = await walletClient.sendTransaction({
     chain: publicClient.chain,
     // Note: The value field is not set, as the user is not sending out ETH
 });
-
 ```
 
 {% hint style="success" %}
@@ -159,8 +166,9 @@ Once the transaction is successfully sent and confirmed, the specified assets ar
 
 In this section, we learned about the functionality for unstaking in the OPUS Pool SDK, covering both the initiation of unstaking and the process of managing assets within the unstake queue.
 
-Now, you are ready to move on to the next section — [Transaction History][transaction-history].
+Now, you are ready to move on to the next section — [Minting osETH][mint].
 
+[stake-section]: ./3-stake.md
 [unstake-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/hooks/useUnstakeMutation.ts#L49
-[transaction-history]: ./7-transaction-history.md
-[burn]: ./5-burn-os-token.md
+[mint]: ./5-mint-os-token.md
+[burn]: ./6-burn-os-token.md

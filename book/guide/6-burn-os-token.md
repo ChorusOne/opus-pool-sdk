@@ -75,7 +75,7 @@ For an example implementation of the burning function, see the demo project [her
 
 ## Next Steps
 
-Now that you have learned how to burn osETH tokens, you are ready to dive deeper into the OPUS Pool SDK’s capabilities. Proceed to the next section to explore [Unstaking Functionality][unstake], where you will learn how to unstake your assets and withdraw them from the vault.
+Now that you have learned how to burn osETH tokens, you are ready to dive deeper into the OPUS Pool SDK’s capabilities. Proceed to the next section to explore [Transaction History][transaction-history].
 
-[unstake]: ./6-unstake.md
+[transaction-history]: 7-transaction-history.md
 [burn-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/main/src/hooks/useBurnMutation.ts#L49
