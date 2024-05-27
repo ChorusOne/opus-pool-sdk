@@ -101,12 +101,12 @@ export class OpusPool {
      *
      * @param params - params for request
      * @param params.vault - A vault address
-     * @param params.amount - Amount of Eth to deposit, denominated in gwei
+     * @param params.amount - Amount of Eth to deposit, denominated in wei
      * @param params.referrer - Address of the referrer. Optional.
      * 
      * @returns {StakeTransactionData} - `StakeTransactionData` 
      * @returns {Hex} - `StakeTransactionData.transaction` - Transaction to sign and broadcast
-     * @returns {bigint} - `StakeTransactionData.amount` - Amount of Eth to deposit, denominated in gwei
+     * @returns {bigint} - `StakeTransactionData.amount` - Amount of Eth to deposit, denominated in wei
      * @returns {bigint} - `StakeTransactionData.gasEstimation` - Gas estimation in wei
      * @returns {bigint} - `StakeTransactionData.maxPriorityFeePerGas` - Max priority fee per gas to use for network
      * @returns {bigint} - `StakeTransactionData.maxFeePerGas` - Max fee per gas to use for network
@@ -126,7 +126,7 @@ export class OpusPool {
      *
      * @param params - params for request
      * @param params.vault - A vault address
-     * @param params.amount - Amount of Eth to deposit, denominated in gwei
+     * @param params.amount - Amount of Eth to deposit, denominated in wei
      * @returns `UnstakeTransactionData` for transaction to sign and broadcast
      */
     async buildUnstakeTransaction(params: Parameters<typeof unstake>[1]): Promise<UnstakeTransactionData> {

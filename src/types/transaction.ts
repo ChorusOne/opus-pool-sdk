@@ -18,7 +18,7 @@ export interface VaultTransaction {
      */
     type: VaultActionType;
     /**
-     * @const Amount of Eth transacted, denominated in gwei
+     * @const Amount of Eth transacted, denominated in wei
      */
     amount: bigint;
     /**

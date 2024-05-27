@@ -9,7 +9,7 @@ export interface RewardsDataPoint {
      */
     when: Date;
     /**
-     * @const Amount of rewards received in gwei
+     * @const Amount of rewards received in wei
      */
     amount: bigint;
     /**

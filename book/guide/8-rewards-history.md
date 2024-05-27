@@ -1,23 +1,27 @@
-# 6. Rewards History
+## Table of Contents
 
-In this chapter, we'll focus on fetching and visualizing the rewards history using the Opus SDK. The SDK offers a `getRewardsHistory` method, which retrieves the history of rewards earned from specific vaults.
+-   [Overview](#overview)
+-   [Initializing the Pool and Fetching Rewards History](#initializing-the-pool-and-fetching-rewards-history)
+-   [Visualizing Rewards Data with a Chart](#visualizing-rewards-data-with-a-chart)
+-   [Chart Representation on the Screen](#chart-representation-on-the-screen)
+
+## Overview
+
+In this section, we’ll explore the process of fetching and visualizing rewards history using the OPUS Pool SDK. Visualizing reward data helps users gain insights into their earnings over time and make informed decisions about their staking activities.
+
+We will guide you through fetching the necessary data, and presenting it in a user-friendly chart.
 
 ## Initializing the Pool and Fetching Rewards History
 
-As with our previous tasks, we begin by initializing the `OpusPool`. Then, we'll use the `getRewardsHistory` method to gather the rewards history. You can find the relevant code [here][get-rewards-history-usage].
+As with our previous tasks, we begin by initializing the `OpusPool`. Then, we’ll use the `getRewardsHistory` method to gather the rewards history. You can find the relevant code [here][get-rewards-history-usage].
 
-Below is a sample code snippet for fetching rewards history:
+**Below is a sample code snippet for fetching rewards history:**
 
 ```typescript
 const pool = new OpusPool({
     address,
     network,
 });
-
-const vaults = getDefaultVaults(network); // Alternatively, you can use your own vaults
-
-// Targeting only one vault
-const vault = vaults[0];
 
 // Setting the date range: from 1 month ago to today
 const from = new Date();
@@ -33,36 +37,36 @@ const rewardsHistory = await pool.getRewardsHistory({
 
 The `getRewardsHistory` method requires an object with the following parameters:
 
--   `from` (Date): The starting date for the rewards retrieval query.
--   `to` (Date): The end date for the rewards retrieval query.
--   `vault` (Hex): The address of the vault for which to retrieve rewards.
+-   **`from` (Date)**: The starting date for the rewards retrieval query.
+-   **`to` (Date)**: The end date for the rewards retrieval query.
+-   **`vault` (Hex)**: The vault address for which to retrieve rewards.
 
 The method returns an array of `RewardsDataPoint` objects, each containing:
 
--   `when` (Date): The reference date for the rewards received.
--   `amount` (bigint): The amount of rewards received, denoted in Gwei.
--   `vault` (Hex): The address of the vault that generated the rewards.
+-   **`when` (Date)**: The reference date for the rewards received.
+-   **`amount` (bigint)**: The amount of rewards received, denoted in wei.
+-   **`vault` (Hex)**: The address of the vault that generated the rewards.
 
-## Transforming Data for Chart Visualization
+Check out the demo project implementation [here][get-rewards-history-usage] for a working example of the rewards history fetching.
 
-To visualize this data effectively, we'll transform it into a format suitable for our chart library:
+## Visualizing Rewards Data with a Chart
+
+We will use a chart to provide a more visual representation of the rewards. We have chosen to use [Recharts][recharts], a composable library built on React components for this guide. However, feel free to use any other charting library that suits your needs. The complete code for this implementation and additional details can be found [here][get-rewards-history-ui].
+
+**First, we’ll transform the rewards history data into a format suitable for Recharts:**
 
 ```typescript
 const chartData = rewardsHistory.map((point) => {
     return {
         date: point.when.toDateString(),
-        amount: Number(formatGwei(point.amount)),
+        amount: Number(formatEther(point.amount)),
     };
 });
 ```
 
-In this transformation, we’re converting each data point into an object containing a readable date string and the amount of rewards formatted from Gwei. This format is specific for chart library we are using - Recharts.
+In this transformation, each rewards data point is converted into an object with `date` and `amount` properties, where `date` is a string representation of the date, and `amount` is the reward amount in Ether (converted from wei).
 
-## Visualizing Rewards Data with a Chart
-
-To provide a more visual representation of the rewards, we will utilize a chart. For this tutorial, we have chosen to use [Recharts][recharts], a composable charting library built on React components. However, feel free to use any other charting library that suits your needs. The complete code for this implementation, along with additional details, can be found [here][get-rewards-history-ui].
-
-Here’s the code snippet for creating a line chart with our rewards data:
+**Here’s the code snippet for creating a line chart with our rewards data:**
 
 ```typescript
 import { LineChart, Line, XAxis, YAxis } from 'recharts';
@@ -83,21 +87,35 @@ const RewardsChart = ({ data }: { data: ChartDataPoint[] }) => {
 };
 ```
 
-In this snippet, we import the necessary components from Recharts and define the `RewardsChart` component. This component takes an array of `ChartDataPoint` objects and renders them in a LineChart. The `XAxis` and `YAxis` components provide axis context for the chart, while the `Line` component plots the transaction amounts over time.
+In this snippet, we import the necessary components from Recharts and define the `RewardsChart` component. This component takes an array of `ChartDataPoint` objects and renders them in a LineChart. The `XAxis` and `YAxis` components provide the chart’s axises, while the `Line` component plots the transaction amounts over time.
 
 ## Chart Representation on the Screen
 
-Once rendered, the line chart provides a clear view of reward trends over time.
+Once rendered, the line chart provides a clear view of reward trends over time.
 
 ![Rewards chart](../media/rewards.png)
 
 # Wrapping Up
 
-Throughout this tutorial, we have explored the integration of the OPUS Pool SDK for Ethereum staking. We covered the initial setup process, fetching and displaying vault details, and practical staking and unstaking functionality. We have also learned how to fetch and present transaction history, along with visualizing rewards history using charts. This guide aimed to provide a clear foundation for incorporating Ethereum staking into web applications. We appreciate your presence throughout this journey, and we hope this guide has empowered you to utilize the OPUS Pool SDK effectively in your projects.
+Throughout this guide, we explored the powerful capabilities of the OPUS Pool SDK, unlocking its potential for various key operations.
 
-For further information and detailed API documentation, we recommend visiting the [API Docs][api]
+We started by setting up the SDK and quickly moved into practical tasks like fetching and displaying vault details. From there, we dived into staking, showing how to lock ETH seamlessly and earn rewards.
+
+Next, we guided you through the process of minting osETH tokens to maintain liquidity, and the essential steps to burn these tokens and reclaim your staked ETH.
+
+Our step-by-step instructions made unstaking your ETH and navigating the exit queue a breeze, highlighting the user-friendly nature of the OPUS Pool SDK.
+
+We also covered how to track transaction history, giving you clear insights into all your staking, unstaking, and other activities. Lastly, we wrapped up by visualizing rewards history, helping you understand the benefits accrued from the vault.
+
+By the end of this guide, you should feel confident in leveraging the OPUS Pool SDK to enhance your Ethereum-based applications. Happy staking! 📥
+
+{% hint style=“info” %}
+
+For more detailed information on the OPUS Pool SDK, visit the [API Documentation][api] to explore all available methods and their usages.
+
+{% endhint %}
 
 [get-rewards-history-usage]: https://github.com/ChorusOne/opus-pool-demo/blob/master/src/hooks/useRewards.ts#L27
 [recharts]: https://recharts.org
-[get-rewards-history-ui]: https://github.com/ChorusOne/opus-pool-demo/blob/master/src/components/Rewards.tsx#L41
+[get-rewards-history-ui]: https://github.com/ChorusOne/opus-pool-demo/blob/master/src/components/Rewards.tsx#L26
 [api]: ../docs/classes/OpusPool.md

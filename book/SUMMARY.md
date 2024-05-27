@@ -2,19 +2,19 @@
 
 -   [Getting Started](getting-started.md)
 
-## OPUS Pool Guide
+## Build your Staking dApp
 
 -   [Prerequisites](guide/0-prerequisites.md)
--   [1. Installation and Setup](guide/1-installation.md)
--   [2. Fetching Vault Details](guide/2-vault-details.md)
--   [3. Staking Functionality](guide/3-stake.md)
--   [4. Minting Functionality](guide/4-mint-os-token.md)
--   [5. Burning Functionality](guide/5-burn-os-token.md)
--   [6. Unstaking Functionality](guide/6-unstake.md)
--   [7. Transactions History](guide/7-transactions-history.md)
+-   [1. Installation and Setup](guide/1-installation-and-setup.md)
+-   [2. Fetching Vault Details](guide/2-fetching-vault-details.md)
+-   [3. Staking](guide/3-staking.md)
+-   [6. Unstaking](guide/4-unstaking.md)
+-   [4. Minting osETH](guide/5-minting-os-eth.md)
+-   [5. Burning osETH](guide/6-burning-os-eth.md)
+-   [7. Transaction History](guide/7-transaction-history.md)
 -   [8. Rewards History](guide/8-rewards-history.md)
 
-## API Docs
+## API Reference
 
 -   [OpusPool](docs/classes/OpusPool.md)
 -   [getDefaultVaults](docs/functions/getDefaultVaults.md)
