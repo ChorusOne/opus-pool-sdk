@@ -7,7 +7,7 @@
 
 ## Overview
 
-In this chapter, we’ll explore the process of fetching and visualizing rewards history using the Opus SDK. Visualizing reward data helps users gain insights into their earnings over time and make informed decisions about their staking activities.
+In this section, we’ll explore the process of fetching and visualizing rewards history using the OPUS Pool SDK. Visualizing reward data helps users gain insights into their earnings over time and make informed decisions about their staking activities.
 
 We will guide you through fetching the necessary data, and presenting it in a user-friendly chart.
 

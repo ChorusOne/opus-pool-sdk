@@ -90,7 +90,7 @@ const Vault = ({ vaultDetails }: { vaultDetails: VaultDetails[] }) => {
 };
 ```
 
-Once rendered, the vault details will be displayed in an informative table on the screen, showcasing key information such as vault name, APY, and balances in a user-friendly format:
+Once rendered, the vault details will be displayed in an informative table on the screen, showcasing key information such as vault name, APY, and balances in user-friendly format:
 
 ![Vault details](../media/vaultDetails.png)
 

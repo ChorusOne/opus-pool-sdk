@@ -54,7 +54,7 @@ This form component uses the `useAccount` and `useBalance` hooks from `wagmi` to
 
 {% hint style="info" %}
 
-For a more comprehensive implementation, which includes error handling, loading states, and styling, refer to our [extended version][stake-ui], which is available in the codebase.
+For the more comprehensive implementation, which includes error handling, loading states, and styling, refer to our [extended version][stake-ui], which is available in the codebase.
 
 {% endhint %}
 

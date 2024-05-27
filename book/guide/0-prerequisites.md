@@ -29,9 +29,7 @@ Please refer to the README in the repository for setup instructions and addition
 
 Before we dive into the core of our tutorial, it’s essential to understand the prerequisites and the foundation on which we’re building. This guide is centered around the OPUS Pool SDK Example.
 
-The repository for this example can be found [here][opus-pool-example].
-
-Please review the README in the repository for instructions on installation and how to run the project.
+The repository for this example can be found [here][opus-pool-example]. Please review the README in the repository.
 
 You can visit the [demo website](https://chorusone.github.io/opus-pool-demo/) to try out the steps you will learn in this guide staking with OPUS Pool SDK.
 
@@ -54,7 +52,7 @@ While an in-depth understanding of all the technologies used is beneficial, it i
 
 ### Wallet Connection
 
-It’s important to note that the Opus SDK does not inherently provide wallet connection functionality. For this, we will leverage the wagmi library, which excels at managing wallet interactions and blockchain operations.
+It’s important to note that the OPUS Pool SDK does not inherently provide wallet connection functionality. For this, we will leverage the wagmi library, which excels at managing wallet interactions and blockchain operations.
 
 -   You can learn more about wagmi [here][wagmi].
 

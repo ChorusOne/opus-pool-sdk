@@ -10,7 +10,7 @@
 
 ## Installation
 
-To begin integrating the OPUS SDK into your project, the first step is to add the library to the application. You can use your favorite package manager, including npm, yarn or pnpm. For simplicity, we will use npm.
+To begin integrating the OPUS Pool SDK into your project, the first step is to add the library to the application. You can use your favorite package manager, including npm, yarn, pnpm or bun. For simplicity, we will use npm.
 
 **In the project’s root directory, run the following command:**
 
@@ -93,9 +93,11 @@ The OPUS Pool SDK supports this flexibility if you prefer to use custom vaults a
 
 # Integrating the wagmi Library
 
-We will use the wagmi and web3modal libraries to connect with Ethereum wallets, allowing users to interact with blockchain applications. This is an essential step, particularly because the OPUS Pool SDK does not provide wallet connection functionality.
+We will use wagmi and web3modal libraries to connect with Ethereum wallets, allowing users to interact with blockchain applications. This is an essential step, particularly because the OPUS Pool SDK does not provide wallet connection functionality.
 
-Instead, the SDK entirely depends on an existing wallet connection already set up and managed by your application. To get started with this process and obtain detailed instructions on installing and using both libraries, we highly recommend visiting the [wagmi][wagmi] and [web3modal][web3modal] websites.
+The SDK relies on your application to manage an existing wallet connection. You can choose any library for this purpose, and the SDK will still function correctly.
+
+For detailed instructions on installing and using wagmi and web3modal, please visit their respective websites: [wagmi][wagmi] and [web3modal][web3modal].
 
 ## Configuring wagmi in Your Application
 
