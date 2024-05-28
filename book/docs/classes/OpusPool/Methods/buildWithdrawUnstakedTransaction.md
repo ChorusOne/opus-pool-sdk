@@ -11,10 +11,10 @@ up to the code integrating SDK.
 
 #### Parameters
 
-| Name                | Type                                                      | Description                                                                                   |
-| :------------------ | :-------------------------------------------------------- | :-------------------------------------------------------------------------------------------- |
-| `params`            | `Object`                                                  | params for request                                                                            |
-| `params.vault`      | \`0x$\{string}\`                                          | A vault address                                                                               |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `params` | `Object` | params for request |
+| `params.vault` | \`0x$\{string}\` | A vault address |
 | `params.queueItems` | [`UnstakeQueueItem`](../interfaces/UnstakeQueueItem.md)[] | Array of `UnstakeQueueItem` objects corresponding to the queue(see `getUnstakeQueueForVault`) |
 
 #### Returns

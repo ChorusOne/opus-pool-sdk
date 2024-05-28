@@ -6,28 +6,28 @@ Pooling solution
 
 ### Properties
 
--   [userAccount](OpusPool.md#useraccount)
+- [userAccount](OpusPool.md#useraccount)
 
 ### Constructors
 
--   [constructor](OpusPool.md#constructor)
+- [constructor](OpusPool.md#constructor)
 
 ### Methods
 
--   [getVaultDetails](OpusPool.md#getvaultdetails)
--   [getTransactionsHistory](OpusPool.md#gettransactionshistory)
--   [buildStakeTransaction](OpusPool.md#buildstaketransaction)
--   [buildUnstakeTransaction](OpusPool.md#buildunstaketransaction)
--   [getUnstakeQueueForVault](OpusPool.md#getunstakequeueforvault)
--   [buildWithdrawUnstakedTransaction](OpusPool.md#buildwithdrawunstakedtransaction)
--   [getRewardsHistory](OpusPool.md#getrewardshistory)
--   [buildMintTransaction](OpusPool.md#buildminttransaction)
--   [getMaxMintForVault](OpusPool.md#getmaxmintforvault)
--   [getHealthFactorForUser](OpusPool.md#gethealthfactorforuser)
--   [getStakeBalanceForUser](OpusPool.md#getstakebalanceforuser)
--   [getOsTokenPositionForVault](OpusPool.md#getostokenpositionforvault)
--   [getMaxUnstakeForUserForVault](OpusPool.md#getmaxunstakeforuserforvault)
--   [buildBurnTransaction](OpusPool.md#buildburntransaction)
+- [getVaultDetails](OpusPool.md#getvaultdetails)
+- [getTransactionsHistory](OpusPool.md#gettransactionshistory)
+- [buildStakeTransaction](OpusPool.md#buildstaketransaction)
+- [buildUnstakeTransaction](OpusPool.md#buildunstaketransaction)
+- [getUnstakeQueueForVault](OpusPool.md#getunstakequeueforvault)
+- [buildWithdrawUnstakedTransaction](OpusPool.md#buildwithdrawunstakedtransaction)
+- [getRewardsHistory](OpusPool.md#getrewardshistory)
+- [buildMintTransaction](OpusPool.md#buildminttransaction)
+- [getMaxMintForVault](OpusPool.md#getmaxmintforvault)
+- [getHealthFactorForUser](OpusPool.md#gethealthfactorforuser)
+- [getStakeBalanceForUser](OpusPool.md#getstakebalanceforuser)
+- [getOsTokenPositionForVault](OpusPool.md#getostokenpositionforvault)
+- [getMaxUnstakeForUserForVault](OpusPool.md#getmaxunstakeforuserforvault)
+- [buildBurnTransaction](OpusPool.md#buildburntransaction)
 
 ## Properties
 
@@ -48,12 +48,12 @@ to allow staking for individual user.
 
 #### Parameters
 
-| Name             | Type                               | Description                                                                                                                                                        |
-| :--------------- | :--------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `params`         | `Object`                           | Parameters to configure the pooling solution interface.                                                                                                            |
-| `params.address` | \`0x$\{string}\`                   | An address of currently connected user wallet. If user connects different wallet, pooling solution implementation must be re-instantiated with a new user address. |
-| `params.network` | [`Networks`](../enums/Networks.md) | One of holesky, ethereum, hardhat                                                                                                                                  |
-| `params.rpcUrl?` | `string`                           | RPC Url to interact with If not defined, either public node                                                                                                        |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `params` | `Object` | Parameters to configure the pooling solution interface. |
+| `params.address` | \`0x$\{string}\` | An address of currently connected user wallet. If user connects different wallet, pooling solution implementation must be re-instantiated with a new user address. |
+| `params.network` | [`Networks`](../enums/Networks.md) | One of holesky, ethereum, hardhat |
+| `params.rpcUrl?` | `string` | RPC Url to interact with If not defined, either public node |
 
 #### Returns
 
@@ -66,12 +66,12 @@ to allow staking for individual user.
 ▸ **getVaultDetails**(`vaults`): `Promise`\<[`VaultDetails`](../interfaces/VaultDetails.md)[]\>
 
 Exposes information regarding vault details such as TVL, APY, description and logotype,
-and also balance of connected customer in that Vault.
+ and also balance of connected customer in that Vault.
 
 #### Parameters
 
-| Name     | Type               | Description                                          |
-| :------- | :----------------- | :--------------------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `vaults` | \`0x$\{string}\`[] | an array of vault addresses to query the details for |
 
 #### Returns
@@ -80,7 +80,7 @@ and also balance of connected customer in that Vault.
 
 An array of `OpusVaultDetails` corresponding to given details
 
----
+___
 
 ### getTransactionsHistory
 
@@ -90,8 +90,8 @@ Returns up to 1000 Stake or Unstake interactions of current user with given Vaul
 
 #### Parameters
 
-| Name     | Type               | Description                                               |
-| :------- | :----------------- | :-------------------------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `vaults` | \`0x$\{string}\`[] | an array of vault addresses to query the interactions for |
 
 #### Returns
@@ -100,7 +100,7 @@ Returns up to 1000 Stake or Unstake interactions of current user with given Vaul
 
 An array of `OpusVaultDetails` corresponding to given details
 
----
+___
 
 ### buildStakeTransaction
 
@@ -108,37 +108,37 @@ An array of `OpusVaultDetails` corresponding to given details
 
 Generates stake transaction to deposit into chosen Vault
 
-Integrations should utilize wallet interface of their own choosing to
+ Integrations should utilize wallet interface of their own choosing to
 broadcast the transaction via RPC nodes of their preference. This method
 is stateless and only generates transaction bytes, leaving sign and broadcast
 up to the code integrating SDK.
 
 #### Parameters
 
-| Name               | Type             | Description                                  |
-| :----------------- | :--------------- | :------------------------------------------- |
-| `params`           | `Object`         | params for request                           |
-| `params.vault`     | \`0x$\{string}\` | A vault address                              |
-| `params.amount`    | `bigint`         | Amount of Eth to deposit, denominated in wei |
-| `params.referrer?` | \`0x$\{string}\` | Address of the referrer. Optional.           |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `params` | `Object` | params for request |
+| `params.vault` | \`0x$\{string}\` | A vault address |
+| `params.amount` | `bigint` | Amount of Eth to deposit, denominated in wei |
+| `params.referrer?` | \`0x$\{string}\` | Address of the referrer. Optional. |
 
 #### Returns
 
 `Promise`\<[`StakeTransactionData`](../interfaces/StakeTransactionData.md)\>
 
--   `StakeTransactionData`
+- `StakeTransactionData`
 
--   `StakeTransactionData.transaction` - Transaction to sign and broadcast
+- `StakeTransactionData.transaction` - Transaction to sign and broadcast
 
--   `StakeTransactionData.amount` - Amount of Eth to deposit, denominated in wei
+- `StakeTransactionData.amount` - Amount of Eth to deposit, denominated in wei
 
--   `StakeTransactionData.gasEstimation` - Gas estimation in wei
+- `StakeTransactionData.gasEstimation` - Gas estimation in wei
 
--   `StakeTransactionData.maxPriorityFeePerGas` - Max priority fee per gas to use for network
+- `StakeTransactionData.maxPriorityFeePerGas` - Max priority fee per gas to use for network
 
--   `StakeTransactionData.maxFeePerGas` - Max fee per gas to use for network
+- `StakeTransactionData.maxFeePerGas` - Max fee per gas to use for network
 
----
+___
 
 ### buildUnstakeTransaction
 
@@ -153,11 +153,11 @@ up to the code integrating SDK.
 
 #### Parameters
 
-| Name            | Type             | Description                                  |
-| :-------------- | :--------------- | :------------------------------------------- |
-| `params`        | `Object`         | params for request                           |
-| `params.vault`  | \`0x$\{string}\` | A vault address                              |
-| `params.amount` | `bigint`         | Amount of Eth to deposit, denominated in wei |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `params` | `Object` | params for request |
+| `params.vault` | \`0x$\{string}\` | A vault address |
+| `params.amount` | `bigint` | Amount of Eth to deposit, denominated in wei |
 
 #### Returns
 
@@ -165,7 +165,7 @@ up to the code integrating SDK.
 
 `UnstakeTransactionData` for transaction to sign and broadcast
 
----
+___
 
 ### getUnstakeQueueForVault
 
@@ -175,8 +175,8 @@ Retrieves the unstake queue for the vault, including the user's position in the 
 
 #### Parameters
 
-| Name    | Type             | Description     |
-| :------ | :--------------- | :-------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `vault` | \`0x$\{string}\` | A vault address |
 
 #### Returns
@@ -185,7 +185,7 @@ Retrieves the unstake queue for the vault, including the user's position in the 
 
 Array of `UnstakeQueueItem` objects corresponding to the queue, which are needed to withdraw from the queue
 
----
+___
 
 ### buildWithdrawUnstakedTransaction
 
@@ -200,10 +200,10 @@ up to the code integrating SDK.
 
 #### Parameters
 
-| Name                | Type                                                      | Description                                                                                   |
-| :------------------ | :-------------------------------------------------------- | :-------------------------------------------------------------------------------------------- |
-| `params`            | `Object`                                                  | params for request                                                                            |
-| `params.vault`      | \`0x$\{string}\`                                          | A vault address                                                                               |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `params` | `Object` | params for request |
+| `params.vault` | \`0x$\{string}\` | A vault address |
 | `params.queueItems` | [`UnstakeQueueItem`](../interfaces/UnstakeQueueItem.md)[] | Array of `UnstakeQueueItem` objects corresponding to the queue(see `getUnstakeQueueForVault`) |
 
 #### Returns
@@ -212,7 +212,7 @@ up to the code integrating SDK.
 
 `UnstakeQueueTransactionData` for transaction to sign and broadcast
 
----
+___
 
 ### getRewardsHistory
 
@@ -222,12 +222,12 @@ Retrieves rewards history for customer, earned via specific Vaults
 
 #### Parameters
 
-| Name           | Type             | Description                                   |
-| :------------- | :--------------- | :-------------------------------------------- |
-| `params`       | `Object`         | params for request                            |
-| `params.from`  | `Date`           | Starting date for the rewards retrieval query |
-| `params.to`    | `Date`           | End date for the rewards retrieval query      |
-| `params.vault` | \`0x$\{string}\` | Address of the vault to retrieve rewards for  |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `params` | `Object` | params for request |
+| `params.from` | `Date` | Starting date for the rewards retrieval query |
+| `params.to` | `Date` | End date for the rewards retrieval query |
+| `params.vault` | \`0x$\{string}\` | Address of the vault to retrieve rewards for |
 
 #### Returns
 
@@ -235,7 +235,7 @@ Retrieves rewards history for customer, earned via specific Vaults
 
 Array of daily rewards amount data points
 
----
+___
 
 ### buildMintTransaction
 
@@ -245,11 +245,11 @@ Generates mint transaction to mint osTokens from chosen Vault.
 
 #### Parameters
 
-| Name               | Type             | Description                        |
-| :----------------- | :--------------- | :--------------------------------- |
-| `params`           | `Object`         | params for request                 |
-| `params.shares`    | `bigint`         | Amount of osTokens to mint         |
-| `params.vault`     | \`0x$\{string}\` | A vault address                    |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `params` | `Object` | params for request |
+| `params.shares` | `bigint` | Amount of osTokens to mint |
+| `params.vault` | \`0x$\{string}\` | A vault address |
 | `params.referrer?` | \`0x$\{string}\` | Address of the referrer. Optional. |
 
 #### Returns
@@ -258,7 +258,7 @@ Generates mint transaction to mint osTokens from chosen Vault.
 
 `MintTransactionData` for transaction to sign and broadcast
 
----
+___
 
 ### getMaxMintForVault
 
@@ -268,8 +268,8 @@ Retrieves maximum amount of osTokens that can be minted by the user
 
 #### Parameters
 
-| Name    | Type             | Description     |
-| :------ | :--------------- | :-------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `vault` | \`0x$\{string}\` | A vault address |
 
 #### Returns
@@ -278,7 +278,7 @@ Retrieves maximum amount of osTokens that can be minted by the user
 
 Max amount of osTokens that can be minted
 
----
+___
 
 ### getHealthFactorForUser
 
@@ -288,10 +288,10 @@ Retrieves health factor for the user
 
 #### Parameters
 
-| Name           | Type     | Description                           |
-| :------------- | :------- | :------------------------------------ |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `mintedAssets` | `bigint` | Amount of osTokens minted by the user |
-| `stakedAssets` | `bigint` | Amount of ETH staked by the user      |
+| `stakedAssets` | `bigint` | Amount of ETH staked by the user |
 
 #### Returns
 
@@ -299,7 +299,7 @@ Retrieves health factor for the user
 
 Position Health (enum)
 
----
+___
 
 ### getStakeBalanceForUser
 
@@ -309,19 +309,19 @@ Retrieves stake balance for user in the vault
 
 #### Parameters
 
-| Name    | Type             | Description     |
-| :------ | :--------------- | :-------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `vault` | \`0x$\{string}\` | A vault address |
 
 #### Returns
 
 `Promise`\<`StakeBalanceReturnType`\>
 
--   `StakeBalanceReturnType.assets` - Balance in ETH
+- `StakeBalanceReturnType.assets` - Balance in ETH
 
--   `StakeBalanceReturnType.shares` - Balance in vault tokens
+- `StakeBalanceReturnType.shares` - Balance in vault tokens
 
----
+___
 
 ### getOsTokenPositionForVault
 
@@ -331,27 +331,27 @@ Retrieves osToken position for the vault
 
 #### Parameters
 
-| Name    | Type             | Description     |
-| :------ | :--------------- | :-------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `vault` | \`0x$\{string}\` | A vault address |
 
 #### Returns
 
 `Promise`\<`OsTokenPositionReturnType`\>
 
--   `OsTokenPositionReturnType.minted`
+- `OsTokenPositionReturnType.minted`
 
--   `OsTokenPositionReturnType.minted.assets` - Balance in ETH
+- `OsTokenPositionReturnType.minted.assets` - Balance in ETH
 
--   `OsTokenPositionReturnType.minted.shares` - Balance
+- `OsTokenPositionReturnType.minted.shares` - Balance
 
--   `OsTokenPositionReturnType.minted.fee` - Usage fee amount
+- `OsTokenPositionReturnType.minted.fee` - Usage fee amount
 
--   `OsTokenPositionReturnType.health` - Position Health (enum)
+- `OsTokenPositionReturnType.health` - Position Health (enum)
 
--   `OsTokenPositionReturnType.protocolFeePercent` - Usage fee percent
+- `OsTokenPositionReturnType.protocolFeePercent` - Usage fee percent
 
----
+___
 
 ### getMaxUnstakeForUserForVault
 
@@ -361,8 +361,8 @@ Retrieves the max amount of ETH that can be unstaked
 
 #### Parameters
 
-| Name    | Type             | Description     |
-| :------ | :--------------- | :-------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `vault` | \`0x$\{string}\` | A vault address |
 
 #### Returns
@@ -371,7 +371,7 @@ Retrieves the max amount of ETH that can be unstaked
 
 Max amount of ETH that can be unstaked
 
----
+___
 
 ### buildBurnTransaction
 
@@ -381,11 +381,11 @@ Generates burn transaction to burn osTokens from chosen Vault.
 
 #### Parameters
 
-| Name            | Type             | Description                |
-| :-------------- | :--------------- | :------------------------- |
-| `params`        | `Object`         | params for request         |
-| `params.shares` | `bigint`         | Amount of osTokens to burn |
-| `params.vault`  | \`0x$\{string}\` | A vault address            |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `params` | `Object` | params for request |
+| `params.shares` | `bigint` | Amount of osTokens to burn |
+| `params.vault` | \`0x$\{string}\` | A vault address |
 
 #### Returns
 

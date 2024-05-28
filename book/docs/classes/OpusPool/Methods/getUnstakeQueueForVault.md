@@ -6,8 +6,8 @@ Retrieves the unstake queue for the vault, including the user's position in the 
 
 #### Parameters
 
-| Name    | Type             | Description     |
-| :------ | :--------------- | :-------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `vault` | \`0x$\{string}\` | A vault address |
 
 #### Returns

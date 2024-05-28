@@ -12,7 +12,7 @@ Single atomic rewards point for a particular date
 
 A reference date for the rewards received
 
----
+___
 
 ### amount
 
@@ -22,7 +22,7 @@ A reference date for the rewards received
 
 Amount of rewards received in wei
 
----
+___
 
 ### vault
 

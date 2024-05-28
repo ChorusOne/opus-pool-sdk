@@ -6,11 +6,11 @@ Generates burn transaction to burn osTokens from chosen Vault.
 
 #### Parameters
 
-| Name            | Type             | Description                |
-| :-------------- | :--------------- | :------------------------- |
-| `params`        | `Object`         | params for request         |
-| `params.shares` | `bigint`         | Amount of osTokens to burn |
-| `params.vault`  | \`0x$\{string}\` | A vault address            |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `params` | `Object` | params for request |
+| `params.shares` | `bigint` | Amount of osTokens to burn |
+| `params.vault` | \`0x$\{string}\` | A vault address |
 
 #### Returns
 

@@ -6,8 +6,8 @@ Returns up to 1000 Stake or Unstake interactions of current user with given Vaul
 
 #### Parameters
 
-| Name     | Type               | Description                                               |
-| :------- | :----------------- | :-------------------------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `vaults` | \`0x$\{string}\`[] | an array of vault addresses to query the interactions for |
 
 #### Returns

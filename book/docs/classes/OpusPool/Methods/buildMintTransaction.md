@@ -6,11 +6,11 @@ Generates mint transaction to mint osTokens from chosen Vault.
 
 #### Parameters
 
-| Name               | Type             | Description                        |
-| :----------------- | :--------------- | :--------------------------------- |
-| `params`           | `Object`         | params for request                 |
-| `params.shares`    | `bigint`         | Amount of osTokens to mint         |
-| `params.vault`     | \`0x$\{string}\` | A vault address                    |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `params` | `Object` | params for request |
+| `params.shares` | `bigint` | Amount of osTokens to mint |
+| `params.vault` | \`0x$\{string}\` | A vault address |
 | `params.referrer?` | \`0x$\{string}\` | Address of the referrer. Optional. |
 
 #### Returns

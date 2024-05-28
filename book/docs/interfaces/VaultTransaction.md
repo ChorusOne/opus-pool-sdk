@@ -12,7 +12,7 @@ Transaction history data point
 
 Opus Vault that have been interacted with
 
----
+___
 
 ### when
 
@@ -22,7 +22,7 @@ Opus Vault that have been interacted with
 
 Date and time of vault transaction
 
----
+___
 
 ### type
 
@@ -32,7 +32,7 @@ Date and time of vault transaction
 
 Type of vault transaction
 
----
+___
 
 ### amount
 
@@ -42,7 +42,7 @@ Type of vault transaction
 
 Amount of Eth transacted, denominated in wei
 
----
+___
 
 ### hash
 

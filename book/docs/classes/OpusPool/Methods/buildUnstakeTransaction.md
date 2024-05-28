@@ -11,11 +11,11 @@ up to the code integrating SDK.
 
 #### Parameters
 
-| Name            | Type             | Description                                  |
-| :-------------- | :--------------- | :------------------------------------------- |
-| `params`        | `Object`         | params for request                           |
-| `params.vault`  | \`0x$\{string}\` | A vault address                              |
-| `params.amount` | `bigint`         | Amount of Eth to deposit, denominated in wei |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `params` | `Object` | params for request |
+| `params.vault` | \`0x$\{string}\` | A vault address |
+| `params.amount` | `bigint` | Amount of Eth to deposit, denominated in wei |
 
 #### Returns
 
