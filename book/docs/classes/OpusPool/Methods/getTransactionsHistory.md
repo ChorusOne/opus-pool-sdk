@@ -1,6 +1,6 @@
 ### getTransactionsHistory
 
-▸ **getTransactionsHistory**(`vaults`): `Promise`\<[`VaultTransaction`](../interfaces/VaultTransaction.md)[]\>
+▸ **getTransactionsHistory**(`vaults`): `Promise`\<[`VaultTransaction`](../../../interfaces/VaultTransaction.md)[]\>
 
 Returns up to 1000 Stake or Unstake interactions of current user with given Vault.
 
@@ -12,6 +12,6 @@ Returns up to 1000 Stake or Unstake interactions of current user with given Vaul
 
 #### Returns
 
-`Promise`\<[`VaultTransaction`](../interfaces/VaultTransaction.md)[]\>
+`Promise`\<[`VaultTransaction`](../../../interfaces/VaultTransaction.md)[]\>
 
 An array of `OpusVaultDetails` corresponding to given details

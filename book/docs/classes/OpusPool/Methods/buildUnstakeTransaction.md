@@ -1,6 +1,6 @@
 ### buildUnstakeTransaction
 
-▸ **buildUnstakeTransaction**(`params`): `Promise`\<[`UnstakeTransactionData`](../interfaces/UnstakeTransactionData.md)\>
+▸ **buildUnstakeTransaction**(`params`): `Promise`\<[`UnstakeTransactionData`](../../../interfaces/UnstakeTransactionData.md)\>
 
 Generates unstake transaction to withdraw from chosen Vault.
 
@@ -19,6 +19,6 @@ up to the code integrating SDK.
 
 #### Returns
 
-`Promise`\<[`UnstakeTransactionData`](../interfaces/UnstakeTransactionData.md)\>
+`Promise`\<[`UnstakeTransactionData`](../../../interfaces/UnstakeTransactionData.md)\>
 
 `UnstakeTransactionData` for transaction to sign and broadcast

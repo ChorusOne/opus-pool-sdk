@@ -17,9 +17,13 @@ content = re.sub(r'^.*## Properties', 'Properties', content, flags=re.DOTALL)
 content = re.sub(r'\n---\n', '\n', content)
 content = re.sub(r'\n___\n', '\n', content)
 
+# Fix markdown URLs by adding '../../' prefix
+content = re.sub(r'\(([^)]+\.md)\)', r'(../../\1)', content)
+
 
 # Create a dictionary to store section contents
 sections = re.split(r'\n## ', content)
+
 
 
 section_dict = {}

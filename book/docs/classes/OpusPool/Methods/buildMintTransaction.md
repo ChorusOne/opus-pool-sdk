@@ -1,6 +1,6 @@
 ### buildMintTransaction
 
-▸ **buildMintTransaction**(`params`): `Promise`\<[`MintTransactionData`](../interfaces/MintTransactionData.md)\>
+▸ **buildMintTransaction**(`params`): `Promise`\<[`MintTransactionData`](../../../interfaces/MintTransactionData.md)\>
 
 Generates mint transaction to mint osTokens from chosen Vault.
 
@@ -15,6 +15,6 @@ Generates mint transaction to mint osTokens from chosen Vault.
 
 #### Returns
 
-`Promise`\<[`MintTransactionData`](../interfaces/MintTransactionData.md)\>
+`Promise`\<[`MintTransactionData`](../../../interfaces/MintTransactionData.md)\>
 
 `MintTransactionData` for transaction to sign and broadcast

@@ -1,6 +1,6 @@
 ### buildBurnTransaction
 
-▸ **buildBurnTransaction**(`params`): `Promise`\<[`BurnTransactionData`](../interfaces/BurnTransactionData.md)\>
+▸ **buildBurnTransaction**(`params`): `Promise`\<[`BurnTransactionData`](../../../interfaces/BurnTransactionData.md)\>
 
 Generates burn transaction to burn osTokens from chosen Vault.
 
@@ -14,6 +14,6 @@ Generates burn transaction to burn osTokens from chosen Vault.
 
 #### Returns
 
-`Promise`\<[`BurnTransactionData`](../interfaces/BurnTransactionData.md)\>
+`Promise`\<[`BurnTransactionData`](../../../interfaces/BurnTransactionData.md)\>
 
 `BurnTransactionData` for transaction to sign and broadcast

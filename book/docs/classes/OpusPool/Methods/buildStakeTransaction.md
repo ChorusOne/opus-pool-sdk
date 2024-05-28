@@ -1,6 +1,6 @@
 ### buildStakeTransaction
 
-▸ **buildStakeTransaction**(`params`): `Promise`\<[`StakeTransactionData`](../interfaces/StakeTransactionData.md)\>
+▸ **buildStakeTransaction**(`params`): `Promise`\<[`StakeTransactionData`](../../../interfaces/StakeTransactionData.md)\>
 
 Generates stake transaction to deposit into chosen Vault
 
@@ -20,7 +20,7 @@ up to the code integrating SDK.
 
 #### Returns
 
-`Promise`\<[`StakeTransactionData`](../interfaces/StakeTransactionData.md)\>
+`Promise`\<[`StakeTransactionData`](../../../interfaces/StakeTransactionData.md)\>
 
 - `StakeTransactionData`
 

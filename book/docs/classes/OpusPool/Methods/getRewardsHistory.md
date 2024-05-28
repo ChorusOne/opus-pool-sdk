@@ -1,6 +1,6 @@
 ### getRewardsHistory
 
-▸ **getRewardsHistory**(`params`): `Promise`\<[`RewardsDataPoint`](../interfaces/RewardsDataPoint.md)[]\>
+▸ **getRewardsHistory**(`params`): `Promise`\<[`RewardsDataPoint`](../../../interfaces/RewardsDataPoint.md)[]\>
 
 Retrieves rewards history for customer, earned via specific Vaults
 
@@ -15,6 +15,6 @@ Retrieves rewards history for customer, earned via specific Vaults
 
 #### Returns
 
-`Promise`\<[`RewardsDataPoint`](../interfaces/RewardsDataPoint.md)[]\>
+`Promise`\<[`RewardsDataPoint`](../../../interfaces/RewardsDataPoint.md)[]\>
 
 Array of daily rewards amount data points
