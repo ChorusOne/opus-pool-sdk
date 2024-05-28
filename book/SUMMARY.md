@@ -16,8 +16,29 @@
 
 ## API Reference
 
--   [OpusPool](docs/classes/OpusPool.md)
 -   [getDefaultVaults](docs/functions/getDefaultVaults.md)
+
+-   OpusPool
+
+    -   Constructor
+        -   [constructor](docs/classes/OpusPool/Constructor/constructor.md)
+    -   Properties
+        -   [userAccount](docs/classes/OpusPool/Properties/userAccount.md)
+    -   Methods
+        -   [buildBurnTransaction](docs/classes/OpusPool/Methods/buildBurnTransaction.md)
+        -   [buildMintTransaction](docs/classes/OpusPool/Methods/buildMintTransaction.md)
+        -   [buildStakeTransaction](docs/classes/OpusPool/Methods/buildStakeTransaction.md)
+        -   [buildUnstakeTransaction](docs/classes/OpusPool/Methods/buildUnstakeTransaction.md)
+        -   [buildWithdrawUnstakedTransaction](docs/classes/OpusPool/Methods/buildWithdrawUnstakedTransaction.md)
+        -   [getHealthFactorForUser](docs/classes/OpusPool/Methods/getHealthFactorForUser.md)
+        -   [getMaxMintForVault](docs/classes/OpusPool/Methods/getMaxMintForVault.md)
+        -   [getMaxUnstakeForUserForVault](docs/classes/OpusPool/Methods/getMaxUnstakeForUserForVault.md)
+        -   [getOsTokenPositionForVault](docs/classes/OpusPool/Methods/getOsTokenPositionForVault.md)
+        -   [getRewardsHistory](docs/classes/OpusPool/Methods/getRewardsHistory.md)
+        -   [getStakeBalanceForUser](docs/classes/OpusPool/Methods/getStakeBalanceForUser.md)
+        -   [getTransactionsHistory](docs/classes/OpusPool/Methods/getTransactionsHistory.md)
+        -   [getUnstakeQueueForVault](docs/classes/OpusPool/Methods/getUnstakeQueueForVault.md)
+        -   [getVaultDetails](docs/classes/OpusPool/Methods/getVaultDetails.md)
 
 -   Enums
 
