@@ -18,7 +18,7 @@
 
 -   [getDefaultVaults](docs/functions/getDefaultVaults.md)
 
--   OpusPool
+-   [OpusPool](docs/classes/OpusPool.md)
 
     -   Constructor
         -   [constructor](docs/classes/OpusPool/Constructor/constructor.md)
