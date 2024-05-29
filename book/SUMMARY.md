@@ -44,13 +44,12 @@
 
     -   [Networks](docs/enums/Networks.md)
     -   [OsTokenPositionHealth](docs/enums/OsTokenPositionHealth.md)
+    -   [VaultActionType](docs/enums/VaultActionType.md)
 
 -   Interfaces
 
     -   [BurnTransactionData](docs/interfaces/BurnTransactionData.md)
     -   [MintTransactionData](docs/interfaces/MintTransactionData.md)
-    -   [Networks](docs/interfaces/Networks.md)
-    -   [OsTokenPositionHealth](docs/interfaces/OsTokenPositionHealth.md)
     -   [OsTokenPositionReturnType](docs/interfaces/OsTokenPositionReturnType.md)
     -   [RewardsDataPoint](docs/interfaces/RewardsDataPoint.md)
     -   [StakeBalanceReturnType](docs/interfaces/StakeBalanceReturnType.md)
@@ -58,6 +57,5 @@
     -   [UnstakeQueueItem](docs/interfaces/UnstakeQueueItem.md)
     -   [UnstakeQueueTransactionData](docs/interfaces/UnstakeQueueTransactionData.md)
     -   [UnstakeTransactionData](docs/interfaces/UnstakeTransactionData.md)
-    -   [VaultActionType](docs/interfaces/VaultActionType.md)
     -   [VaultDetails](docs/interfaces/VaultDetails.md)
     -   [VaultTransaction](docs/interfaces/VaultTransaction.md)
