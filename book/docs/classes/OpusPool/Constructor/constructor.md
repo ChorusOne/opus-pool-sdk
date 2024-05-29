@@ -2,18 +2,19 @@
 
 • **new OpusPool**(`params`): [`OpusPool`](../../OpusPool.md)
 
-Instantiates pooling solution facade that provides convenience methods
-to allow staking for individual user.
+Creates an OpusPool instance
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `params` | `Object` | Parameters to configure the pooling solution interface. |
-| `params.address` | \`0x$\{string}\` | An address of currently connected user wallet. If user connects different wallet, pooling solution implementation must be re-instantiated with a new user address. |
-| `params.network` | [`Networks`](../../../enums/Networks.md) | One of holesky, ethereum, hardhat |
-| `params.rpcUrl?` | `string` | RPC Url to interact with If not defined, either public node |
+| `params` | `Object` | Initialization parameters |
+| `params.address` | \`0x$\{string}\` | An address of the currently connected user wallet. If the user connects to a different wallet, OpusPool must be re-instantiated with a new user address |
+| `params.network` | [`Networks`](../../../enums/Networks.md) | Network configuration (Networks.Ethereum or Networks.Holesky) |
+| `params.rpcUrl?` | `string` | An RPC URL to interact with. If not provided, a default public node will be used. Optional |
 
 #### Returns
 
 [`OpusPool`](../../OpusPool.md)
+
+An instance of OpusPool

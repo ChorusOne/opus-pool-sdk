@@ -2,34 +2,25 @@
 
 ▸ **buildStakeTransaction**(`params`): `Promise`\<[`StakeTransactionData`](../../../interfaces/StakeTransactionData.md)\>
 
-Generates stake transaction to deposit into chosen Vault
-
- Integrations should utilize wallet interface of their own choosing to
-broadcast the transaction via RPC nodes of their preference. This method
-is stateless and only generates transaction bytes, leaving sign and broadcast
-up to the code integrating SDK.
+Generates a stake transaction to deposit into the chosen vault
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `params` | `Object` | params for request |
+| `params` | `Object` | Parameters for building the transaction |
 | `params.vault` | \`0x$\{string}\` | A vault address |
-| `params.amount` | `bigint` | Amount of Eth to deposit, denominated in wei |
-| `params.referrer?` | \`0x$\{string}\` | Address of the referrer. Optional. |
+| `params.amount` | `bigint` | An amount of ETH to deposit, denominated in wei |
+| `params.referrer?` | \`0x$\{string}\` | An address of the referrer. Optional |
 
 #### Returns
 
 `Promise`\<[`StakeTransactionData`](../../../interfaces/StakeTransactionData.md)\>
 
-- `StakeTransactionData`
+A promise that resolves to a transaction data object
 
-- `StakeTransactionData.transaction` - Transaction to sign and broadcast
+**`Remarks`**
 
-- `StakeTransactionData.amount` - Amount of Eth to deposit, denominated in wei
-
-- `StakeTransactionData.gasEstimation` - Gas estimation in wei
-
-- `StakeTransactionData.maxPriorityFeePerGas` - Max priority fee per gas to use for network
-
-- `StakeTransactionData.maxFeePerGas` - Max fee per gas to use for network
+Integrations should use their preferred wallet interface to broadcast the transaction via RPC nodes of
+their choice. This method is stateless and only generates transaction bytes, leaving the signing and broadcasting up to
+the code integrating the SDK

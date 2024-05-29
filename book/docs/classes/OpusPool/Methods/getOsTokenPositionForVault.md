@@ -2,7 +2,7 @@
 
 ▸ **getOsTokenPositionForVault**(`vault`): `Promise`\<`OsTokenPositionReturnType`\>
 
-Retrieves osToken position for the vault
+Retrieves the osToken position for the vault
 
 #### Parameters
 
@@ -14,14 +14,4 @@ Retrieves osToken position for the vault
 
 `Promise`\<`OsTokenPositionReturnType`\>
 
-- `OsTokenPositionReturnType.minted`
-
-- `OsTokenPositionReturnType.minted.assets` - Balance in ETH
-
-- `OsTokenPositionReturnType.minted.shares` - Balance
-
-- `OsTokenPositionReturnType.minted.fee` - Usage fee amount
-
-- `OsTokenPositionReturnType.health` - Position Health (enum)
-
-- `OsTokenPositionReturnType.protocolFeePercent` - Usage fee percent
+A promise that resolves to the osToken position data for the vault

@@ -2,7 +2,7 @@
 
 ▸ **getHealthFactorForUser**(`mintedAssets`, `stakedAssets`): `Promise`\<[`OsTokenPositionHealth`](../../../enums/OsTokenPositionHealth.md)\>
 
-Retrieves health factor for the user
+Retrieves the vault position health for the user
 
 #### Parameters
 
@@ -15,4 +15,4 @@ Retrieves health factor for the user
 
 `Promise`\<[`OsTokenPositionHealth`](../../../enums/OsTokenPositionHealth.md)\>
 
-Position Health (enum)
+A promise that resolves to the position health

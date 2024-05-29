@@ -2,17 +2,17 @@
 
 ▸ **getVaultDetails**(`vaults`): `Promise`\<[`VaultDetails`](../../../interfaces/VaultDetails.md)[]\>
 
-Exposes information regarding vault details such as TVL, APY, description and logotype,
- and also balance of connected customer in that Vault.
+Provides information regarding vault details such as TVL, APY, description, logo, and the balance of the connected
+customer in that vault
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `vaults` | \`0x$\{string}\`[] | an array of vault addresses to query the details for |
+| `vaults` | \`0x$\{string}\`[] | An array of vault addresses to query the details for |
 
 #### Returns
 
 `Promise`\<[`VaultDetails`](../../../interfaces/VaultDetails.md)[]\>
 
-An array of `OpusVaultDetails` corresponding to given details
+A promise that resolves to an array of vault details corresponding to the given vaults

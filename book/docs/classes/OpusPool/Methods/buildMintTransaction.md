@@ -2,19 +2,25 @@
 
 ▸ **buildMintTransaction**(`params`): `Promise`\<[`MintTransactionData`](../../../interfaces/MintTransactionData.md)\>
 
-Generates mint transaction to mint osTokens from chosen Vault.
+Generates a mint transaction to mint osTokens from the chosen vault
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `params` | `Object` | params for request |
-| `params.shares` | `bigint` | Amount of osTokens to mint |
+| `params` | `Object` | Parameters for building the transaction |
+| `params.shares` | `bigint` | An amount of shares to be minted |
 | `params.vault` | \`0x$\{string}\` | A vault address |
-| `params.referrer?` | \`0x$\{string}\` | Address of the referrer. Optional. |
+| `params.referrer?` | \`0x$\{string}\` | An address of the referrer. Optional |
 
 #### Returns
 
 `Promise`\<[`MintTransactionData`](../../../interfaces/MintTransactionData.md)\>
 
-`MintTransactionData` for transaction to sign and broadcast
+A promise that resolves to a transaction data object
+
+**`Remarks`**
+
+Integrations should use their preferred wallet interface to broadcast the transaction via RPC nodes of
+their choice. This method is stateless and only generates transaction bytes, leaving the signing and broadcasting up to
+the code integrating the SDK

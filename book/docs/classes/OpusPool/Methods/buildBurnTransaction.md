@@ -2,18 +2,24 @@
 
 ▸ **buildBurnTransaction**(`params`): `Promise`\<[`BurnTransactionData`](../../../interfaces/BurnTransactionData.md)\>
 
-Generates burn transaction to burn osTokens from chosen Vault.
+Generates a burn transaction to burn osTokens from the chosen vault
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `params` | `Object` | params for request |
-| `params.shares` | `bigint` | Amount of osTokens to burn |
+| `params` | `Object` | Parameters for building the transaction |
+| `params.shares` | `bigint` | An amount of shares to be burned |
 | `params.vault` | \`0x$\{string}\` | A vault address |
 
 #### Returns
 
 `Promise`\<[`BurnTransactionData`](../../../interfaces/BurnTransactionData.md)\>
 
-`BurnTransactionData` for transaction to sign and broadcast
+A promise that resolves to a transaction data object
+
+**`Remarks`**
+
+Integrations should use their preferred wallet interface to broadcast the transaction via RPC nodes of
+their choice. This method is stateless and only generates transaction bytes, leaving the signing and broadcasting up to
+the code integrating the SDK

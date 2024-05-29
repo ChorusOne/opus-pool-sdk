@@ -2,7 +2,7 @@
 
 ▸ **getMaxUnstakeForUserForVault**(`vault`): `Promise`\<`bigint`\>
 
-Retrieves the max amount of ETH that can be unstaked
+Retrieves the maximum amount of ETH that can be unstaked
 
 #### Parameters
 
@@ -14,4 +14,4 @@ Retrieves the max amount of ETH that can be unstaked
 
 `Promise`\<`bigint`\>
 
-Max amount of ETH that can be unstaked
+A promise that resolves to the max amount of ETH that can be unstaked

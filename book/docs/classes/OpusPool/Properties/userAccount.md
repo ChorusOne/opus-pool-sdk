@@ -2,4 +2,4 @@
 
 • **userAccount**: \`0x$\{string}\`
 
-Currently connected Ethereum address
+Currently connected wallet address

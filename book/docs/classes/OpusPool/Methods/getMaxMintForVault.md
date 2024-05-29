@@ -2,7 +2,7 @@
 
 ▸ **getMaxMintForVault**(`vault`): `Promise`\<`bigint`\>
 
-Retrieves maximum amount of osTokens that can be minted by the user
+Retrieves the maximum amount of osTokens that can be minted by the user
 
 #### Parameters
 
@@ -14,4 +14,4 @@ Retrieves maximum amount of osTokens that can be minted by the user
 
 `Promise`\<`bigint`\>
 
-Max amount of osTokens that can be minted
+A promise that resolves to the max amount of osTokens that can be minted
