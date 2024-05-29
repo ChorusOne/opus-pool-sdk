@@ -18,4 +18,4 @@ A promise that resolves to an array of transactions corresponding to the given v
 
 **`See`**
 
-[Transaction History](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/7-transaction-history)
+[Transaction History](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/7-transaction-history) for more information

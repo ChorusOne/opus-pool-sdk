@@ -99,7 +99,7 @@ export class OpusPool {
      *
      * @returns A promise that resolves to an array of transactions corresponding to the given vaults
      *
-     * @see [Transaction History](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/7-transaction-history)
+     * @see [Transaction History](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/7-transaction-history) for more information
      */
     async getTransactionsHistory(vaults: Hex[]): Promise<VaultTransaction[]> {
         return transactionsHistory(this, vaults);
