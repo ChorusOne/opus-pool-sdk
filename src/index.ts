@@ -2,7 +2,7 @@ import { Hex } from 'viem';
 import type { VaultDetails } from './types/vault';
 import type { VaultTransaction } from './types/transaction';
 import type { RewardsDataPoint } from './types/rewards';
-import { Networks, OsTokenPositionHealth } from './types/enums';
+import { Networks, OsTokenPositionHealth, VaultActionType } from './types/enums';
 import vaultDetails from './api/vaultDetails';
 import { StakewiseConnector } from './internal/connector';
 import transactionsHistory from './api/transactionsHistory';
@@ -34,13 +34,16 @@ export {
     MintTransactionData,
     Networks,
     OsTokenPositionHealth,
+    OsTokenPositionReturnType,
     RewardsDataPoint,
+    StakeBalanceReturnType,
     StakeTransactionData,
-    UnstakeTransactionData,
-    VaultDetails,
-    UnstakeQueueTransactionData,
-    VaultTransaction,
     UnstakeQueueItem,
+    UnstakeQueueTransactionData,
+    UnstakeTransactionData,
+    VaultActionType,
+    VaultDetails,
+    VaultTransaction,
 };
 
 /**

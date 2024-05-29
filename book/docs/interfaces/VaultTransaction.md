@@ -1,6 +1,6 @@
 # Interface: VaultTransaction
 
-Transaction history data point
+Represents a transaction history data point for a vault.
 
 ## Properties
 
@@ -8,9 +8,7 @@ Transaction history data point
 
 • **vault**: \`0x$\{string}\`
 
-**`Const`**
-
-Opus Vault that have been interacted with
+The address of the vault that was interacted with.
 
 ___
 
@@ -18,19 +16,15 @@ ___
 
 • **when**: `Date`
 
-**`Const`**
-
-Date and time of vault transaction
+The date and time when the vault transaction occurred.
 
 ___
 
 ### type
 
-• **type**: `VaultActionType`
+• **type**: [`VaultActionType`](../enums/VaultActionType.md)
 
-**`Const`**
-
-Type of vault transaction
+The type of vault transaction.
 
 ___
 
@@ -38,9 +32,7 @@ ___
 
 • **amount**: `bigint`
 
-**`Const`**
-
-Amount of Eth transacted, denominated in wei
+The amount of ETH transacted, denominated in wei.
 
 ___
 
@@ -48,6 +40,4 @@ ___
 
 • **hash**: `string`
 
-**`Const`**
-
-Hash of transaction
+The hash of the transaction.

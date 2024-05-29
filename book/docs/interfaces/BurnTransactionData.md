@@ -1,14 +1,12 @@
 # Interface: BurnTransactionData
 
-A transaction for minting osTokens
+A transaction for burning osTokens
 
 ## Properties
 
 ### transaction
 
 • **transaction**: \`0x$\{string}\`
-
-**`Const`**
 
 Hex-encoded transaction call data
 
@@ -18,9 +16,7 @@ ___
 
 • **gasEstimation**: `bigint`
 
-**`Const`**
-
-Gas estimation
+Gas estimation for the transaction.
 
 ___
 
@@ -28,9 +24,7 @@ ___
 
 • **maxPriorityFeePerGas**: `bigint`
 
-**`Const`**
-
-Max priority fee per gas to use for network
+Max priority fee per gas to use for the network.
 
 ___
 
@@ -38,6 +32,4 @@ ___
 
 • **maxFeePerGas**: `bigint`
 
-**`Const`**
-
-Max fee per gas to use for network
+Max fee per gas to use for the network.

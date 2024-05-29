@@ -8,10 +8,10 @@ Retrieves the default vaults for the given network
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `network` | [`Networks`](../enums/Networks.md) | The network to retrieve the default vaults for. Supported values are `Networks.Holesky` and `Networks.Ethereum` |
+| `network` | [`Networks`](../enums/Networks.md) | Network configuration (Networks.Ethereum or Networks.Holesky) |
 
 #### Returns
 
 `Hex`[]
 
-An array of default vaults
+An array of default vault addresses

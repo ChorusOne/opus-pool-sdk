@@ -1,6 +1,6 @@
 ### getOsTokenPositionForVault
 
-▸ **getOsTokenPositionForVault**(`vault`): `Promise`\<`OsTokenPositionReturnType`\>
+▸ **getOsTokenPositionForVault**(`vault`): `Promise`\<[`OsTokenPositionReturnType`](../../../interfaces/OsTokenPositionReturnType.md)\>
 
 Retrieves the osToken position for the vault
 
@@ -12,6 +12,6 @@ Retrieves the osToken position for the vault
 
 #### Returns
 
-`Promise`\<`OsTokenPositionReturnType`\>
+`Promise`\<[`OsTokenPositionReturnType`](../../../interfaces/OsTokenPositionReturnType.md)\>
 
 A promise that resolves to the osToken position data for the vault

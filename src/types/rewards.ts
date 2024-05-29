@@ -1,19 +1,19 @@
 import { Hex } from 'viem';
 
 /**
- * Single atomic rewards point for a particular date
+ * Represents a single atomic rewards point for a specific date.
  */
 export interface RewardsDataPoint {
     /**
-     * @const A reference date for the rewards received
+     * The date when the rewards were received.
      */
     when: Date;
     /**
-     * @const Amount of rewards received in wei
+     * The amount of rewards received, in wei.
      */
     amount: bigint;
     /**
-     * @const Address of the vault that generated the rewards
+     * The address of the vault that generated the rewards.
      */
     vault: Hex;
 }

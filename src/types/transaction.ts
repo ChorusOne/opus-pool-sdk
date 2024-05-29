@@ -2,27 +2,27 @@ import { Hex } from 'viem';
 import { VaultActionType } from './enums';
 
 /**
- * Transaction history data point
+ * Represents a transaction history data point for a vault.
  */
 export interface VaultTransaction {
     /**
-     *  @const Opus Vault that have been interacted with
+     * The address of the vault that was interacted with.
      */
     vault: Hex;
     /**
-     * @const Date and time of vault transaction
+     * The date and time when the vault transaction occurred.
      */
     when: Date;
     /**
-     * @const Type of vault transaction
+     * The type of vault transaction.
      */
     type: VaultActionType;
     /**
-     * @const Amount of Eth transacted, denominated in wei
+     * The amount of ETH transacted, denominated in wei.
      */
     amount: bigint;
     /**
-     * @const Hash of transaction
+     * The hash of the transaction.
      */
     hash: string;
 }

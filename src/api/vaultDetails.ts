@@ -13,7 +13,7 @@ interface VaultProperties {
 const cachedVaultProperties = new Map<string, VaultProperties>();
 const cacheLock = new AsyncLock();
 
-// Extracts Vault properties from Stakewise API
+// Extracts vault properties from Stakewise API
 async function extractVaultProperties(connector: StakewiseConnector, vault: Hex): Promise<VaultProperties> {
     const vars_getVault = {
         address: vault.toLowerCase(),

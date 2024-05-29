@@ -1,6 +1,6 @@
 # Interface: StakeTransactionData
 
-A transaction for staking ETH
+A transaction for staking ETH.
 
 ## Properties
 
@@ -8,7 +8,7 @@ A transaction for staking ETH
 
 • **transaction**: \`0x$\{string}\`
 
-Hex-encoded transaction call data
+Hex-encoded transaction call data.
 
 ___
 
@@ -16,7 +16,7 @@ ___
 
 • **gasEstimation**: `bigint`
 
-Gas estimation
+Gas estimation for the transaction.
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 • **amount**: `bigint`
 
-Amount of the ETH staked or unstaked
+Amount of the ETH staked in the transaction.
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • **maxPriorityFeePerGas**: `bigint`
 
-Max priority fee per gas to use for network
+Max priority fee per gas to use for the network.
 
 ___
 
@@ -40,4 +40,4 @@ ___
 
 • **maxFeePerGas**: `bigint`
 
-Max fee per gas to use for network
+Max fee per gas to use for the network.

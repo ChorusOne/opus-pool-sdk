@@ -3,9 +3,10 @@ import { Networks } from '../types/enums';
 
 /**
  * Retrieves the default vaults for the given network
- * @param network The network to retrieve the default vaults for.
- * Supported values are `Networks.Holesky` and `Networks.Ethereum`
- * @returns An array of default vaults
+ *
+ * @param network - Network configuration (Networks.Ethereum or Networks.Holesky)
+ *
+ * @returns An array of default vault addresses
  */
 export function getDefaultVaults(network: Networks): Array<Hex> {
     switch (network) {

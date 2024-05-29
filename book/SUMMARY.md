@@ -47,10 +47,17 @@
 
 -   Interfaces
 
-    -   [StakeTransactionData](docs/interfaces/StakeTransactionData.md)
-    -   [UnstakeTransactionData](docs/interfaces/UnstakeTransactionData.md)
+    -   [BurnTransactionData](docs/interfaces/BurnTransactionData.md)
     -   [MintTransactionData](docs/interfaces/MintTransactionData.md)
+    -   [Networks](docs/interfaces/Networks.md)
+    -   [OsTokenPositionHealth](docs/interfaces/OsTokenPositionHealth.md)
+    -   [OsTokenPositionReturnType](docs/interfaces/OsTokenPositionReturnType.md)
+    -   [RewardsDataPoint](docs/interfaces/RewardsDataPoint.md)
+    -   [StakeBalanceReturnType](docs/interfaces/StakeBalanceReturnType.md)
+    -   [StakeTransactionData](docs/interfaces/StakeTransactionData.md)
+    -   [UnstakeQueueItem](docs/interfaces/UnstakeQueueItem.md)
+    -   [UnstakeQueueTransactionData](docs/interfaces/UnstakeQueueTransactionData.md)
+    -   [UnstakeTransactionData](docs/interfaces/UnstakeTransactionData.md)
+    -   [VaultActionType](docs/interfaces/VaultActionType.md)
     -   [VaultDetails](docs/interfaces/VaultDetails.md)
     -   [VaultTransaction](docs/interfaces/VaultTransaction.md)
-    -   [RewardsDataPoint](docs/interfaces/RewardsDataPoint.md)
-    -   [UnstakeQueueItem](docs/interfaces/UnstakeQueueItem.md)

@@ -1,6 +1,6 @@
 ### getStakeBalanceForUser
 
-▸ **getStakeBalanceForUser**(`vault`): `Promise`\<`StakeBalanceReturnType`\>
+▸ **getStakeBalanceForUser**(`vault`): `Promise`\<[`StakeBalanceReturnType`](../../../interfaces/StakeBalanceReturnType.md)\>
 
 Retrieves the stake balance for the user in the vault
 
@@ -12,6 +12,6 @@ Retrieves the stake balance for the user in the vault
 
 #### Returns
 
-`Promise`\<`StakeBalanceReturnType`\>
+`Promise`\<[`StakeBalanceReturnType`](../../../interfaces/StakeBalanceReturnType.md)\>
 
 A promise that resolves to an object with the balance in ETH and the balance in vault tokens
