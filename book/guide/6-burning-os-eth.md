@@ -43,7 +43,9 @@ if (amountToBurn > maxBurnable) {
 
 {% hint style="info" %}
 
-When burning osETH to redeem the underlying ETH, it’s essential to account for usage fee. This 5% fee, applied to the rewards accumulated by osETH, increases the total osETH balance that must be returned to the Vault. Therefore, the maximum osETH that can be burned is calculated by subtracting the fee from the total minted shares. This ensures users only burn the amount of osETH they are entitled to, maintaining the protocol’s integrity.
+When burning osETH to redeem the underlying ETH, it’s essential to account for usage fee. This 5% fee, applied to the rewards accumulated by osETH, increases the total osETH balance that must be returned to the Vault. 
+
+Therefore, the maximum osETH that can be burned is calculated by subtracting the fee from the total minted shares. This ensures users only burn the amount of osETH they are entitled to which maintains the protocol’s integrity.
 
 {% endhint %}
 
@@ -51,7 +53,7 @@ When burning osETH to redeem the underlying ETH, it’s essential to account for
 
 After determining the maximum amount of osETH that can be burned, proceed to build and send the burn transaction.
 
-**Here’s how you can implement this with the `pool.buildBurnTransaction` method**
+**Here’s how you can implement this with the `pool.buildBurnTransaction` method:**
 
 ```typescript
 const burnTx = await pool.buildBurnTransaction({
@@ -71,7 +73,7 @@ await walletClient.sendTransaction({
 });
 ```
 
-For an example implementation of the burning function, see the demo project [here][burn-usage].
+For an example implementation of the burn function, please see the demo project [here][burn-usage].
 
 ## Next Steps
 

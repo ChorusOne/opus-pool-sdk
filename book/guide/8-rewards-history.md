@@ -13,7 +13,7 @@ We will guide you through fetching the necessary data, and presenting it in a u
 
 ## Initializing the Pool and Fetching Rewards History
 
-As with our previous tasks, we begin by initializing the `OpusPool`. Then, we’ll use the `getRewardsHistory` method to gather the rewards history. You can find the relevant code [here][get-rewards-history-usage].
+As with our previous tasks, we begin by initializing `OpusPool`. Then, we’ll use the `getRewardsHistory` method to gather the rewards history. You can find the relevant code [here][get-rewards-history-usage].
 
 **Below is a sample code snippet for fetching rewards history:**
 
@@ -39,7 +39,7 @@ The `getRewardsHistory` method requires an object with the following parameters:
 
 -   **`from` (Date)**: The starting date for the rewards retrieval query.
 -   **`to` (Date)**: The end date for the rewards retrieval query.
--   **`vault` (Hex)**: The vault address for which to retrieve rewards.
+-   **`vault` (Hex)**: The vault address from which to retrieve rewards history.
 
 The method returns an array of `RewardsDataPoint` objects, each containing:
 
@@ -47,11 +47,13 @@ The method returns an array of `RewardsDataPoint` objects, each containing:
 -   **`amount` (bigint)**: The amount of rewards received, denoted in wei.
 -   **`vault` (Hex)**: The address of the vault that generated the rewards.
 
-Check out the demo project implementation [here][get-rewards-history-usage] for a working example of the rewards history fetching.
+Check out the demo project implementation [here][get-rewards-history-usage] for a working example of rewards history fetching.
 
 ## Visualizing Rewards Data with a Chart
 
-We will use a chart to provide a more visual representation of the rewards. We have chosen to use [Recharts][recharts], a composable library built on React components for this guide. However, feel free to use any other charting library that suits your needs. The complete code for this implementation and additional details can be found [here][get-rewards-history-ui].
+We will use a chart to provide a visual representation of the rewards. We have chosen to use [Recharts][recharts], a composable library built on React components for this guide. However, feel free to use any other charting library that suits your needs. 
+
+The complete code for this implementation and additional details can be found [here][get-rewards-history-ui].
 
 **First, we’ll transform the rewards history data into a format suitable for Recharts:**
 
@@ -87,11 +89,13 @@ const RewardsChart = ({ data }: { data: ChartDataPoint[] }) => {
 };
 ```
 
-In this snippet, we import the necessary components from Recharts and define the `RewardsChart` component. This component takes an array of `ChartDataPoint` objects and renders them in a LineChart. The `XAxis` and `YAxis` components provide the chart’s axises, while the `Line` component plots the transaction amounts over time.
+In this snippet, we import the necessary components from Recharts and define the `RewardsChart` component. This component takes an array of `ChartDataPoint` objects and renders them in a LineChart. 
+
+The `XAxis` and `YAxis` components provide the chart’s axises, while the `Line` component plots the transaction amounts over time.
 
 ## Chart Representation on the Screen
 
-Once rendered, the line chart provides a clear view of reward trends over time.
+Once rendered, the line chart provides a clear view of reward history over time.
 
 ![Rewards chart](../media/rewards.png)
 
@@ -99,19 +103,21 @@ Once rendered, the line chart provides a clear view of reward trends over time.
 
 Throughout this guide, we explored the powerful capabilities of the OPUS Pool SDK, unlocking its potential for various key operations.
 
-We started by setting up the SDK and quickly moved into practical tasks like fetching and displaying vault details. From there, we dived into staking, showing how to lock ETH seamlessly and earn rewards.
+We started by setting up the SDK and quickly moved into practical tasks like fetching and displaying vault details. From there we explored staking and showing how to lock ETH seamlessly and earn rewards.
 
-Next, we guided you through the process of minting osETH tokens to maintain liquidity, and the essential steps to burn these tokens and reclaim your staked ETH.
+Next, we covered the process of minting osETH tokens to maintain liquidity and the essential steps to burn osETH tokens and reclaim your staked ETH.
 
 Our step-by-step instructions made unstaking your ETH and navigating the exit queue a breeze, highlighting the user-friendly nature of the OPUS Pool SDK.
 
-We also covered how to track transaction history, giving you clear insights into all your staking, unstaking, and other activities. Lastly, we wrapped up by visualizing rewards history, helping you understand the benefits accrued from the vault.
+We also covered how to track transaction history for a given vault, giving you clear insights into all your staking, unstaking, and other activities. 
+
+Lastly, we wrapped up by visualizing the rewards history, helping you understand the benefits accrued from the vault.
 
 By the end of this guide, you should feel confident in leveraging the OPUS Pool SDK to enhance your Ethereum-based applications. Happy staking! 📥
 
 {% hint style=“info” %}
 
-For more detailed information on the OPUS Pool SDK, visit the [API Documentation][api] to explore all available methods and their usages.
+For more detailed information on the OPUS Pool SDK, visit the [API Documentation][api] to explore all available methods and their usage.
 
 {% endhint %}
 

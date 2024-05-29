@@ -8,13 +8,15 @@
 
 ## Overview
 
-Tracking the transaction history of your vaults is important for accountability and understanding users staking, unstaking, minting and other activities. With the OPUS Pool SDK, you can fetch detailed transaction history, which includes up to 1000 transactions associated with a given vault.
+Tracking the transaction history of your vaults is important for accountability and to understand user staking, unstaking, minting, and other activities. With the OPUS Pool SDK, you can fetch detailed transaction history which includes up to 1,000 transactions associated with a given vault.
 
 This section will guide you through fetching and displaying this transaction history.
 
 ## Initializing the Pool and Fetching Transaction History
 
-To start, we need to initialize the `OpusPool` in the same manner as we did previously. Then, we’ll use the `getTransactionsHistory` method provided by the SDK to retrieve the transaction history. The relevant code and more detailed explanations can be found [here][get-transactions-history-usage].
+To start, we need to initialize the `OpusPool` in the same manner as we did previously. Then, we’ll use the `getTransactionsHistory` method provided by the SDK to retrieve the transaction history. 
+
+The relevant code and more detailed explanations can be found [here][get-transactions-history-usage].
 
 **Here’s how you can write the code snippet for this process:**
 
@@ -39,7 +41,9 @@ console.log(transactionHistory);
 // ]
 ```
 
-The `getTransactionsHistory` method returns an array of `VaultTransaction` objects. Each of these objects contains details about individual transactions. Here’s a breakdown of the parameters in a `VaultTransaction` object:
+The `getTransactionsHistory` method returns an array of `VaultTransaction` objects. Each of these objects contains details about individual transactions. 
+
+**Here’s a breakdown of the parameters in a `VaultTransaction` object:**
 
 -   **`vault` (Hex)**: The address of the vault that the user interacted with.
 -   **`when` (Date)**: The date and time of the transaction.
