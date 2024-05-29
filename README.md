@@ -24,4 +24,4 @@ Source code of the demo can be found [on Github](https://github.com/chorusOne/op
 
 ## HOW TO
 
-Read through the [practical guide](./book/guide/0-introduction.md) to understand the key steps, or the [API docs](./book/docs/classes/OpusPool.md)
+Read through the [practical guide](./book/guide/0-prerequisites.md) to understand the key steps, or the [API docs](./book/docs/classes/OpusPool.md)
