@@ -15,3 +15,7 @@ Returns up to 1000 of the most recent transactions of the current user associate
 `Promise`\<[`VaultTransaction`](../../../interfaces/VaultTransaction.md)[]\>
 
 A promise that resolves to an array of transactions corresponding to the given vaults
+
+**`See`**
+
+[Transaction History](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/7-transaction-history)

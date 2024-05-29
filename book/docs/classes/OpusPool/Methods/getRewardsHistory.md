@@ -18,3 +18,7 @@ Retrieves the vault rewards history for a given user
 `Promise`\<[`RewardsDataPoint`](../../../interfaces/RewardsDataPoint.md)[]\>
 
 An array of daily rewards amount data points
+
+**`See`**
+
+[Rewards History](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/8-rewards-history) for more information

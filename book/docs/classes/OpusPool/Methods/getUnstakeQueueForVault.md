@@ -15,3 +15,7 @@ Retrieves the unstake queue for a vault, including the user's position in the qu
 `Promise`\<[`UnstakeQueueItem`](../../../interfaces/UnstakeQueueItem.md)[]\>
 
 A promise that resolves to an array of queue items
+
+**`See`**
+
+[Fetching the Unstake Queue](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/4-unstaking#fetching-the-unstake-queue) for more information

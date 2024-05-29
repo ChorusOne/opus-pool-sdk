@@ -50,6 +50,8 @@ export {
  * This class serves as the main entry point for the OPUS Pool SDK. It provides methods to interact with the Stakewise V3
  * vaults, leveraging Chorus One’s MEV research to enhance staking returns. It enables vault and token operations,
  * facilitating integration into Ethereum-based applications.
+ *
+ * @see [Opus Pool SDK Documentation](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/)
  */
 export class OpusPool {
     /** Currently connected wallet address */
@@ -67,6 +69,8 @@ export class OpusPool {
      * @param params.rpcUrl - An RPC URL to interact with. If not provided, a default public node will be used. Optional
      *
      * @returns An instance of OpusPool
+     *
+     * @see [Installation](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/1-installation-and-setup#installation) for more information
      */
     constructor(params: { address: Hex; network: Networks; rpcUrl?: string }) {
         const network = params.network;
@@ -81,6 +85,8 @@ export class OpusPool {
      * @param vaults - An array of vault addresses to query the details for
      *
      * @returns A promise that resolves to an array of vault details corresponding to the given vaults
+     *
+     * @see [Fetching Vault Details](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/2-fetching-vault-details) for more information
      */
     async getVaultDetails(vaults: Hex[]): Promise<VaultDetails[]> {
         return vaultDetails(this, vaults);
@@ -92,6 +98,8 @@ export class OpusPool {
      * @param vaults - An array of vault addresses to query the interactions for
      *
      * @returns A promise that resolves to an array of transactions corresponding to the given vaults
+     *
+     * @see [Transaction History](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/7-transaction-history)
      */
     async getTransactionsHistory(vaults: Hex[]): Promise<VaultTransaction[]> {
         return transactionsHistory(this, vaults);
@@ -111,6 +119,8 @@ export class OpusPool {
      * @param params.referrer - An address of the referrer. Optional
      *
      * @returns A promise that resolves to a transaction data object
+     *
+     * @see [Staking](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/3-staking) for more information
      */
     async buildStakeTransaction(params: Parameters<typeof stake>[1]): Promise<StakeTransactionData> {
         return stake(this, params);
@@ -129,6 +139,8 @@ export class OpusPool {
      * @param params.amount - An amount of ETH to unstake, denominated in wei
      *
      * @returns A promise that resolves to a transaction data object
+     *
+     * @see [Unstaking](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/4-unstaking) for more information
      */
     async buildUnstakeTransaction(params: Parameters<typeof unstake>[1]): Promise<UnstakeTransactionData> {
         return unstake(this, params);
@@ -140,6 +152,8 @@ export class OpusPool {
      * @param vault - A vault address
      *
      * @returns A promise that resolves to an array of queue items
+     *
+     * @see [Fetching the Unstake Queue](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/4-unstaking#fetching-the-unstake-queue) for more information
      */
     async getUnstakeQueueForVault(vault: Hex): Promise<Array<UnstakeQueueItem>> {
         return getUnstakeQueue(this, vault);
@@ -158,6 +172,8 @@ export class OpusPool {
      * @param params.queueItems - An array of queue items to withdraw (see `getUnstakeQueueForVault`)
      *
      * @returns A promise that resolves to a transaction data object
+     *
+     * @see [Unstaking](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/4-unstaking) for more information
      */
     async buildWithdrawUnstakedTransaction(params: {
         vault: Hex;
@@ -175,6 +191,8 @@ export class OpusPool {
      * @param params.to - An end date for the rewards retrieval query
      *
      * @returns An array of daily rewards amount data points
+     *
+     * @see [Rewards History](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/8-rewards-history) for more information
      */
     async getRewardsHistory(params: Parameters<typeof rewardsHistory>[1]): Promise<Array<RewardsDataPoint>> {
         return rewardsHistory(this, params);
@@ -194,6 +212,8 @@ export class OpusPool {
      * @param params.referrer - An address of the referrer. Optional
      *
      * @returns A promise that resolves to a transaction data object
+     *
+     * @see [Minting osETH](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/5-minting-os-eth) for more information
      */
     async buildMintTransaction(params: Parameters<typeof mintOsToken>[1]): Promise<MintTransactionData> {
         return mintOsToken(this, params);
@@ -205,6 +225,8 @@ export class OpusPool {
      * @param vault - A vault address
      *
      * @returns A promise that resolves to the max amount of osTokens that can be minted
+     *
+     * @see [Checking Minting Limits](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/5-minting-os-eth#checking-minting-limits) for more information
      */
     async getMaxMintForVault(vault: Hex): Promise<bigint> {
         return getMaxMint(this, vault);
@@ -217,6 +239,8 @@ export class OpusPool {
      * @param stakedAssets - Amount of ETH staked by the user
      *
      * @returns A promise that resolves to the position health
+     *
+     * @see [Calculating Health Factor for Minting](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/5-minting-os-eth#calculating-health-factor-for-minting) for more information
      */
     async getHealthFactorForUser(mintedAssets: bigint, stakedAssets: bigint): Promise<OsTokenPositionHealth> {
         return getHealthFactor(this, mintedAssets, stakedAssets);
@@ -228,6 +252,8 @@ export class OpusPool {
      * @param vault - A vault address
      *
      * @returns A promise that resolves to an object with the balance in ETH and the balance in vault tokens
+     *
+     * @see [Calculating Health Factor for Minting](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/5-minting-os-eth#calculating-health-factor-for-minting) for more information
      */
     async getStakeBalanceForUser(vault: Hex): Promise<StakeBalanceReturnType> {
         return getStakeBalance(this, vault);
@@ -239,6 +265,8 @@ export class OpusPool {
      * @param vault - A vault address
      *
      * @returns A promise that resolves to the osToken position data for the vault
+     *
+     * @see [Calculating Health Factor for Minting](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/5-minting-os-eth#calculating-health-factor-for-minting) for more information
      */
     async getOsTokenPositionForVault(vault: Hex): Promise<OsTokenPositionReturnType> {
         return getOsTokenPosition(this, vault);
@@ -250,6 +278,7 @@ export class OpusPool {
      * @param vault - A vault address
      *
      * @returns A promise that resolves to the max amount of ETH that can be unstaked
+     * @see [Determining Unstaking Limits](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/4-unstaking#determining-unstaking-limits) for more information
      */
     async getMaxUnstakeForUserForVault(vault: Hex): Promise<bigint> {
         return getMaxWithdraw(this, vault);
@@ -268,6 +297,8 @@ export class OpusPool {
      * @param params.vault - A vault address
      *
      * @returns A promise that resolves to a transaction data object
+     *
+     * @see [Burning osETH](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/6-burning-os-eth) for more information
      */
     async buildBurnTransaction(params: Parameters<typeof burn>[1]): Promise<BurnTransactionData> {
         return burn(this, params);

@@ -24,3 +24,7 @@ A promise that resolves to a transaction data object
 Integrations should use their preferred wallet interface to broadcast the transaction via RPC nodes of
 their choice. This method is stateless and only generates transaction bytes, leaving the signing and broadcasting up to
 the code integrating the SDK
+
+**`See`**
+
+[Staking](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/3-staking) for more information
