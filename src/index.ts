@@ -149,6 +149,15 @@ export class OpusPool {
     /**
      * Retrieves the unstake queue for a vault, including the user's position in the queue and shares waiting to be unstaked
      *
+     * After initiating an unstake request using the `buildUnstakeTransaction` method, assets are placed into an unstake
+     * queue.
+     *
+     * The `getUnstakeQueueForVault` method allows users to query the queue to check the current state of their unstake
+     * requests, including their position in the queue, the amount of shares that are pending unstaking, the date and
+     * time of the request, and whether the assets are withdrawable.
+     *
+     * To prepare the transaction for withdrawing these assets, use the `buildWithdrawUnstakedTransaction` method.
+     *
      * @param vault - A vault address
      *
      * @returns A promise that resolves to an array of queue items
@@ -162,9 +171,19 @@ export class OpusPool {
     /**
      * Generates transaction data to withdraw from the unstake queue
      *
+     * This method is the final step in the unstaking process. Once assets in the unstake
+     * queue have reached a withdrawable state (as determined by the `getUnstakeQueueForVault` method),
+     * the `buildWithdrawUnstakedTransaction` method prepares the transaction data necessary
+     * for transferring these assets back into the user's wallet.
+     *
+     * The unstake transaction effectively moves the user's assets into an unstake queue where they remain until they
+     * become eligible for withdrawal. This queue is a safeguard mechanism that ensures the liquidity and stability of
+     * the vault by managing the flow of assets. To check the status of these assets, use the `getUnstakeQueueForVault`
+     * method.
+     *
      * @remarks
-     * Integrations should use their preferred wallet interface to broadcast the transaction via RPC nodes of
-     * their choice. This method is stateless and only generates transaction bytes, leaving the signing and broadcasting up to
+     * Integrations should use their preferred wallet interface to broadcast the transaction via RPC nodes of their
+     * choice. This method is stateless and only generates transaction bytes, leaving the signing and broadcasting up to
      * the code integrating the SDK
      *
      * @param params - Parameters for building the transaction
@@ -234,6 +253,14 @@ export class OpusPool {
 
     /**
      * Retrieves the vault position health for the user
+     *
+     * Position health tracks the value of osETH minted relative to the user's staked ETH in the vault.
+     * Healthy positions have well-collateralized osETH. Factors affecting position health include
+     * yield discrepancies, fee structures, attestation performance, and validator activation delays.
+     *
+     * Risky positions may enter redemption processes, while unhealthy positions are subject to
+     * liquidation. This method calculates the health based on the minted osTokens (osETH) and the
+     * staked ETH, helping users manage their staking strategy and mitigate risks.
      *
      * @param mintedAssets - Amount of osTokens minted by the user
      * @param stakedAssets - Amount of ETH staked by the user
