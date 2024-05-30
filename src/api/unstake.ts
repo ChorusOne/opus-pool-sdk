@@ -27,7 +27,7 @@ export default async function unstake(
     let gas: bigint;
 
     if (isCollateralized) {
-        // This branch of logic is invoked when the stake locked in Vault
+        // This branch of logic is invoked when the stake locked in vault
         // is collateralized in form of beacon chain validators
         tx = encodeFunctionData({
             abi: VaultABI,
@@ -49,7 +49,7 @@ export default async function unstake(
             gas = BigInt(200000);
         }
     } else {
-        // This branch of logic is invoked when the stake locked in Vault
+        // This branch of logic is invoked when the stake locked in vault
         // does not actually power any validators
         tx = encodeFunctionData({
             abi: VaultABI,

@@ -1,37 +1,31 @@
 import { Hex } from 'viem';
 
 /**
- * A transaction for staking ETH
- * @typedef {Object} StakeTransactionData
- * @property {Hex} transaction - Hex-encoded transaction call data
- * @property {bigint} gasEstimation - Gas estimation
- * @property {bigint} amount - Amount of the ETH staked or unstaked
- * @property {bigint} maxPriorityFeePerGas - Max priority fee per gas to use for network
- * @property {bigint} maxFeePerGas - Max fee per gas to use for network
+ * A transaction for staking ETH.
  */
 export interface StakeTransactionData {
     /**
-     * @const Hex-encoded transaction call data
+     * Hex-encoded transaction call data.
      */
     transaction: Hex;
 
     /**
-     * @const Gas estimation
+     * Gas estimation for the transaction.
      */
     gasEstimation: bigint;
 
     /**
-     * @const Amount of the ETH staked or unstaked
+     * Amount of the ETH staked in the transaction.
      */
     amount: bigint;
 
     /**
-     * @const Max priority fee per gas to use for network
+     * Max priority fee per gas to use for the network.
      */
     maxPriorityFeePerGas: bigint;
 
     /**
-     * @const Max fee per gas to use for network
+     * Max fee per gas to use for the network.
      */
     maxFeePerGas: bigint;
 }

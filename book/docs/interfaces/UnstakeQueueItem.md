@@ -1,6 +1,6 @@
 # Interface: UnstakeQueueItem
 
-Unstake queue item. Used when retrieving the unstake queue or withdrawing from it.
+Represents an item in the unstake queue. Used for retrieving the unstake queue or withdrawing from it.
 
 ## Properties
 
@@ -8,9 +8,7 @@ Unstake queue item. Used when retrieving the unstake queue or withdrawing from i
 
 • `Optional` **exitQueueIndex**: `bigint`
 
-**`Const`**
-
-Index of the unstake queue item
+The index of the unstake queue item.
 
 ___
 
@@ -18,9 +16,7 @@ ___
 
 • **positionTicket**: `bigint`
 
-**`Const`**
-
-Unique identifier of the unstake queue item
+The unique identifier of the unstake queue item.
 
 ___
 
@@ -28,9 +24,7 @@ ___
 
 • **when**: `Date`
 
-**`Const`**
-
-Date and time when the item was added to the queue
+The date and time when the item was added to the queue.
 
 ___
 
@@ -38,9 +32,7 @@ ___
 
 • **isWithdrawable**: `boolean`
 
-**`Const`**
-
-Shows if the asset is withdrawable
+Indicates whether the asset is withdrawable.
 
 ___
 
@@ -48,9 +40,7 @@ ___
 
 • **totalShares**: `bigint`
 
-**`Const`**
-
-Total amount of assets in shares
+The total amount of assets in shares.
 
 ___
 
@@ -58,9 +48,7 @@ ___
 
 • **totalAssets**: `bigint`
 
-**`Const`**
-
-Total amount of assets in tokens
+The total amount of assets in ETH.
 
 ___
 
@@ -68,9 +56,7 @@ ___
 
 • **leftShares**: `bigint`
 
-**`Const`**
-
-Amount of assets in shares that cannot be withdrawn
+The amount of assets in shares that cannot be withdrawn.
 
 ___
 
@@ -78,9 +64,7 @@ ___
 
 • **leftAssets**: `bigint`
 
-**`Const`**
-
-Amount of assets in tokens that cannot be withdrawn
+The amount of assets in ETH that cannot be withdrawn.
 
 ___
 
@@ -88,9 +72,7 @@ ___
 
 • **withdrawableShares**: `bigint`
 
-**`Const`**
-
-Amount of assets in shares that can be withdrawn
+The amount of assets in shares that can be withdrawn.
 
 ___
 
@@ -98,6 +80,4 @@ ___
 
 • **withdrawableAssets**: `bigint`
 
-**`Const`**
-
-Amount of assets in tokens that can be withdrawn
+The amount of assets in ETH that can be withdrawn.

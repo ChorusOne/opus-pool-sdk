@@ -41,7 +41,7 @@ Let’s break down what each parameter in the `OpusPool` initialization represen
 
 -   **`address` (Hex)**: This represents the the currently connected user’s wallet address. Note that the pool solution must be re-initialized with the new user address if a different wallet is connected.
 
--   **`network` (Networks)**: Specifies the network to be used, which can be Holesky, Ethereum.
+-   **`network` (Networks)**: Specifies the network to be used, which can be Ethereum or Holesky.
 
 -   **`rpcUrl` (string, optional)**: An optional parameter specifying the RPC URL to interact with the blockchain. If not defined, a public node will be used.
 

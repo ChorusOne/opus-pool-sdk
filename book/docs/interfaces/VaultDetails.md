@@ -1,6 +1,6 @@
 # Interface: VaultDetails
 
-Provides details in regards to given Vault in the system
+Provides details about a specific vault in the system.
 
 ## Properties
 
@@ -8,9 +8,7 @@ Provides details in regards to given Vault in the system
 
 • **address**: \`0x$\{string}\`
 
-**`Const`**
-
-Address of Vault to use
+The address of the vault.
 
 ___
 
@@ -18,9 +16,7 @@ ___
 
 • **name**: `string`
 
-**`Const`**
-
-A human-readable string identifier of a Vault
+A human-readable string identifier for the vault.
 
 ___
 
@@ -28,9 +24,7 @@ ___
 
 • **description**: `string`
 
-**`Const`**
-
-Vault description, as set by Chorus One
+A description of the vault.
 
 ___
 
@@ -38,9 +32,7 @@ ___
 
 • **logoUrl**: `string`
 
-**`Const`**
-
-Vault logotype that can be shown in UI
+The URL of the vault's logo, which can be displayed in the UI.
 
 ___
 
@@ -48,9 +40,7 @@ ___
 
 • **tvl**: `bigint`
 
-**`Const`**
-
-Total value of assets locked in Gwei
+The total value of assets locked in the vault, denominated in wei.
 
 ___
 
@@ -58,9 +48,7 @@ ___
 
 • **apy**: `number`
 
-**`Const`**
-
-Average yield percentage in given Vault derived from historical data
+The average annual yield percentage for the vault, based on historical data.
 
 ___
 
@@ -68,6 +56,4 @@ ___
 
 • **balance**: `bigint`
 
-**`Const`**
-
-Current balance of connected address in a given Vault
+The current balance of the connected address in the vault, denominated in wei.

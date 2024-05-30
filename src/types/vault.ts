@@ -1,35 +1,35 @@
-import { Hex } from "viem";
+import { Hex } from 'viem';
 
 /**
- * Provides details in regards to given Vault in the system
+ * Provides details about a specific vault in the system.
  */
 export interface VaultDetails {
     /**
-     * @const Address of Vault to use
+     * The address of the vault.
      */
     address: Hex;
     /**
-     * @const A human-readable string identifier of a Vault
+     * A human-readable string identifier for the vault.
      */
     name: string;
     /**
-     * @const Vault description, as set by Chorus One
+     * A description of the vault.
      */
     description: string;
     /**
-     * @const Vault logotype that can be shown in UI
+     * The URL of the vault's logo, which can be displayed in the UI.
      */
     logoUrl: string;
     /**
-     * @const Total value of assets locked in Gwei
+     * The total value of assets locked in the vault, denominated in wei.
      */
     tvl: bigint;
     /**
-     * @const Average yield percentage in given Vault derived from historical data
+     * The average annual yield percentage for the vault, based on historical data.
      */
     apy: number;
     /**
-     * @const Current balance of connected address in a given Vault
+     * The current balance of the connected address in the vault, denominated in wei.
      */
     balance: bigint;
 }

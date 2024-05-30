@@ -1,26 +1,26 @@
 import { Hex } from 'viem';
 
 /**
- * A transaction for minting osTokens
+ * A transaction for burning osTokens
  */
 export interface BurnTransactionData {
     /**
-     * @const Hex-encoded transaction call data
+     * Hex-encoded transaction call data
      */
     transaction: Hex;
 
     /**
-     * @const Gas estimation
+     * Gas estimation for the transaction.
      */
     gasEstimation: bigint;
 
     /**
-     * @const Max priority fee per gas to use for network
+     * Max priority fee per gas to use for the network.
      */
     maxPriorityFeePerGas: bigint;
 
     /**
-     * @const Max fee per gas to use for network
+     * Max fee per gas to use for the network.
      */
     maxFeePerGas: bigint;
 }

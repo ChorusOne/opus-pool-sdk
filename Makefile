@@ -35,6 +35,7 @@ doc:
 	# Used for building only OpusPool(with TOC)
 	npm run doc:opuspool
 	cp -r docs/classes/OpusPool.md book/docs/classes/OpusPool.md
+	python split_opus_pool.py
 
 # Runs local Gitbook instance
 #

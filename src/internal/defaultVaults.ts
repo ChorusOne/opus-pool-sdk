@@ -3,9 +3,13 @@ import { Networks } from '../types/enums';
 
 /**
  * Retrieves the default vaults for the given network
- * @param network The network to retrieve the default vaults for.
- * Supported values are `Networks.Holesky` and `Networks.Ethereum`
- * @returns An array of default vaults
+ *
+ * @param network - Network configuration (Networks.Ethereum or Networks.Holesky)
+ *
+ * @returns An array of default vault addresses
+ *
+ * @see [Using Vaults with OPUS Pool SDK](https://chorus-one.gitbook.io/opus-pool-sdk-1.0/build-your-staking-dapp/1-installation-and-setup#using-vaults-with-opus-pool-sdk) for more information
+ *
  */
 export function getDefaultVaults(network: Networks): Array<Hex> {
     switch (network) {

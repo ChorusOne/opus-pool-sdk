@@ -1,6 +1,6 @@
 # Interface: RewardsDataPoint
 
-Single atomic rewards point for a particular date
+Represents a single atomic rewards point for a specific date.
 
 ## Properties
 
@@ -8,26 +8,20 @@ Single atomic rewards point for a particular date
 
 • **when**: `Date`
 
-**`Const`**
+The date when the rewards were received.
 
-A reference date for the rewards received
-
----
+___
 
 ### amount
 
 • **amount**: `bigint`
 
-**`Const`**
+The amount of rewards received, in wei.
 
-Amount of rewards received in wei
-
----
+___
 
 ### vault
 
 • **vault**: \`0x$\{string}\`
 
-**`Const`**
-
-Address of the vault that generated the rewards
+The address of the vault that generated the rewards.
