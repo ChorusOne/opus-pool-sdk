@@ -4,6 +4,14 @@
 
 Retrieves the vault position health for the user
 
+Position health tracks the value of osETH minted relative to the user's staked ETH in the vault.
+Healthy positions have well-collateralized osETH. Factors affecting position health include
+yield discrepancies, fee structures, attestation performance, and validator activation delays.
+
+Risky positions may enter redemption processes, while unhealthy positions are subject to
+liquidation. This method calculates the health based on the minted osTokens (osETH) and the
+staked ETH, helping users manage their staking strategy and mitigate risks.
+
 #### Parameters
 
 | Name | Type | Description |

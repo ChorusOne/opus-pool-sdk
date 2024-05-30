@@ -14,6 +14,10 @@ from:
 
 Risky positions may enter redemption processes, while positions deemed unhealthy are subject to liquidation.
 
+**`See`**
+
+[Stakewise documentation](https://docs.stakewise.io/protocol-overview-in-depth/oseth#position-health) for more details
+
 ## Enumeration Members
 
 ### Healthy

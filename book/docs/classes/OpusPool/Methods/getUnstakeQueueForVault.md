@@ -4,6 +4,15 @@
 
 Retrieves the unstake queue for a vault, including the user's position in the queue and shares waiting to be unstaked
 
+After initiating an unstake request using the `buildUnstakeTransaction` method, assets are placed into an unstake
+queue.
+
+The `getUnstakeQueueForVault` method allows users to query the queue to check the current state of their unstake
+requests, including their position in the queue, the amount of shares that are pending unstaking, the date and
+time of the request, and whether the assets are withdrawable.
+
+To prepare the transaction for withdrawing these assets, use the `buildWithdrawUnstakedTransaction` method.
+
 #### Parameters
 
 | Name | Type | Description |

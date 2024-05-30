@@ -116,7 +116,9 @@ export class OpusPool {
      * @param params - Parameters for building the transaction
      * @param params.vault - A vault address
      * @param params.amount - An amount of ETH to deposit, denominated in wei
-     * @param params.referrer - (Optional) The address of the referrer. This is used for tracking the source of the transaction
+     * @param params.referrer - (Optional) The address of the referrer. This is used to track the origin of
+     * transactions, providing insights into which sources or campaigns are driving activity. This can be useful for
+     * analytics and optimizing user acquisition strategies.
      *
      * @returns A promise that resolves to a transaction data object
      *
@@ -129,9 +131,14 @@ export class OpusPool {
     /**
      * Generates unstake transaction data to withdraw from the chosen vault
      *
+     * The unstake transaction effectively moves the user's assets into an unstake queue where they remain until they
+     * become eligible for withdrawal. This queue is a safeguard mechanism that ensures the liquidity and stability of
+     * the vault by managing the flow of assets. To check the status of these assets, use the `getUnstakeQueueForVault`
+     * method.
+     *
      * @remarks
-     * Integrations should use their preferred wallet interface to broadcast the transaction via RPC nodes of
-     * their choice. This method is stateless and only generates transaction bytes, leaving the signing and broadcasting up to
+     * Integrations should use their preferred wallet interface to broadcast the transaction via RPC nodes of their
+     * choice. This method is stateless and only generates transaction bytes, leaving the signing and broadcasting up to
      * the code integrating the SDK
      *
      * @param params - Parameters for building the transaction
@@ -175,11 +182,6 @@ export class OpusPool {
      * queue have reached a withdrawable state (as determined by the `getUnstakeQueueForVault` method),
      * the `buildWithdrawUnstakedTransaction` method prepares the transaction data necessary
      * for transferring these assets back into the user's wallet.
-     *
-     * The unstake transaction effectively moves the user's assets into an unstake queue where they remain until they
-     * become eligible for withdrawal. This queue is a safeguard mechanism that ensures the liquidity and stability of
-     * the vault by managing the flow of assets. To check the status of these assets, use the `getUnstakeQueueForVault`
-     * method.
      *
      * @remarks
      * Integrations should use their preferred wallet interface to broadcast the transaction via RPC nodes of their
@@ -228,7 +230,9 @@ export class OpusPool {
      * @param params - Parameters for building the transaction
      * @param params.shares - An amount of shares to be minted
      * @param params.vault - A vault address
-     * @param params.referrer - (Optional) The address of the referrer. This is used for tracking the source of the transaction
+     * @param params.referrer - (Optional) The address of the referrer. This is used to track the origin of
+     * transactions, providing insights into which sources or campaigns are driving activity. This can be useful for
+     * analytics and optimizing user acquisition strategies.
      *
      * @returns A promise that resolves to a transaction data object
      *

@@ -20,6 +20,9 @@ content = re.sub(r'\n___\n', '\n', content)
 # Fix markdown URLs by adding '../../' prefix
 content = re.sub(r'\(([^)]+\.md)\)', r'(../../\1)', content)
 
+# Fix Hex values
+content = re.sub(r'\\`0x\$\\{string}\\`', '`Hex`', content)
+
 
 # Create a dictionary to store section contents
 sections = re.split(r'\n## ', content)

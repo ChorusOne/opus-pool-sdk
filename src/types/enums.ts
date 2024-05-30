@@ -49,6 +49,8 @@ export enum VaultActionType {
  * - Losses due to maximal extractable value (MEV) strategies.
  *
  * Risky positions may enter redemption processes, while positions deemed unhealthy are subject to liquidation.
+ *
+ * @see [Stakewise documentation](https://docs.stakewise.io/protocol-overview-in-depth/oseth#position-health) for more details
  */
 
 export enum OsTokenPositionHealth {

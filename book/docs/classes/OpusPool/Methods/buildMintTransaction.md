@@ -11,7 +11,7 @@ Generates a mint transaction to mint osTokens from the chosen vault
 | `params` | `Object` | Parameters for building the transaction |
 | `params.shares` | `bigint` | An amount of shares to be minted |
 | `params.vault` | `Hex` | A vault address |
-| `params.referrer?` | `Hex` | An address of the referrer. Optional |
+| `params.referrer?` | `Hex` | (Optional) The address of the referrer. This is used to track the origin of transactions, providing insights into which sources or campaigns are driving activity. This can be useful for analytics and optimizing user acquisition strategies. |
 
 #### Returns
 

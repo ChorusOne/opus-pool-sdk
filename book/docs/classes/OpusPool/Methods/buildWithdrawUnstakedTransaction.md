@@ -4,6 +4,11 @@
 
 Generates transaction data to withdraw from the unstake queue
 
+This method is the final step in the unstaking process. Once assets in the unstake
+queue have reached a withdrawable state (as determined by the `getUnstakeQueueForVault` method),
+the `buildWithdrawUnstakedTransaction` method prepares the transaction data necessary
+for transferring these assets back into the user's wallet.
+
 #### Parameters
 
 | Name | Type | Description |
@@ -20,8 +25,8 @@ A promise that resolves to a transaction data object
 
 **`Remarks`**
 
-Integrations should use their preferred wallet interface to broadcast the transaction via RPC nodes of
-their choice. This method is stateless and only generates transaction bytes, leaving the signing and broadcasting up to
+Integrations should use their preferred wallet interface to broadcast the transaction via RPC nodes of their
+choice. This method is stateless and only generates transaction bytes, leaving the signing and broadcasting up to
 the code integrating the SDK
 
 **`See`**
