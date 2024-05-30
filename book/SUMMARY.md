@@ -20,8 +20,7 @@
 
 -   [OpusPool](docs/classes/OpusPool.md)
 
-    -   Constructor
-        -   [constructor](docs/classes/OpusPool/Constructor/constructor.md)
+    -   [Constructor](docs/classes/OpusPool/Constructor/constructor.md)
     -   Properties
         -   [userAccount](docs/classes/OpusPool/Properties/userAccount.md)
     -   Methods
