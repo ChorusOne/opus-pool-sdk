@@ -66,7 +66,7 @@ export class OpusPool {
      * @param params.address - An address of the currently connected user wallet. If the user connects to a different wallet,
      * OpusPool must be re-instantiated with a new user address
      * @param params.network - Network configuration (Networks.Ethereum or Networks.Holesky)
-     * @param params.rpcUrl - An RPC URL to interact with. If not provided, a default public node will be used. Optional
+     * @param params.rpcUrl - (Optional) An RPC URL to interact with. If not provided, a default public node will be used
      *
      * @returns An instance of OpusPool
      *
@@ -116,7 +116,7 @@ export class OpusPool {
      * @param params - Parameters for building the transaction
      * @param params.vault - A vault address
      * @param params.amount - An amount of ETH to deposit, denominated in wei
-     * @param params.referrer - An address of the referrer. Optional
+     * @param params.referrer - (Optional) The address of the referrer. This is used for tracking the source of the transaction
      *
      * @returns A promise that resolves to a transaction data object
      *
@@ -209,7 +209,7 @@ export class OpusPool {
      * @param params - Parameters for building the transaction
      * @param params.shares - An amount of shares to be minted
      * @param params.vault - A vault address
-     * @param params.referrer - An address of the referrer. Optional
+     * @param params.referrer - (Optional) The address of the referrer. This is used for tracking the source of the transaction
      *
      * @returns A promise that resolves to a transaction data object
      *
