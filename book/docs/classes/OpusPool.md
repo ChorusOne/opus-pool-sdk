@@ -10,6 +10,10 @@ facilitating integration into Ethereum-based applications.
 
 ## Table of contents
 
+### Constructor
+
+-   [constructor](OpusPool/Constructor/constructor.md)
+
 ### Properties
 
 -   [userAccount](OpusPool/Properties/userAccount.md)
