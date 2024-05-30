@@ -9,7 +9,7 @@ customer in that vault
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `vaults` | \`0x$\{string}\`[] | An array of vault addresses to query the details for |
+| `vaults` | `Hex`[] | An array of vault addresses to query the details for |
 
 #### Returns
 

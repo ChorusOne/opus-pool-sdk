@@ -9,7 +9,7 @@ Generates unstake transaction data to withdraw from the chosen vault
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `params` | `Object` | Parameters for building the transaction |
-| `params.vault` | \`0x$\{string}\` | A vault address |
+| `params.vault` | `Hex` | A vault address |
 | `params.amount` | `bigint` | An amount of ETH to unstake, denominated in wei |
 
 #### Returns

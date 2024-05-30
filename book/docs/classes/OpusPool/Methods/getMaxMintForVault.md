@@ -8,7 +8,7 @@ Retrieves the maximum amount of osTokens that can be minted by the user
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `vault` | \`0x$\{string}\` | A vault address |
+| `vault` | `Hex` | A vault address |
 
 #### Returns
 

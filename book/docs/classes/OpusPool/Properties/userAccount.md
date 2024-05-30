@@ -1,5 +1,5 @@
 ### userAccount
 
-• **userAccount**: \`0x$\{string}\`
+• **userAccount**: `Hex`
 
 Currently connected wallet address

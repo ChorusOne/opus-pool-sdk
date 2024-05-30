@@ -8,7 +8,7 @@ Returns up to 1000 of the most recent transactions of the current user associate
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `vaults` | \`0x$\{string}\`[] | An array of vault addresses to query the interactions for |
+| `vaults` | `Hex`[] | An array of vault addresses to query the interactions for |
 
 #### Returns
 

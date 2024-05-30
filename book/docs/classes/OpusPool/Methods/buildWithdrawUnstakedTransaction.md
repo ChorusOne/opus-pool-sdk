@@ -9,7 +9,7 @@ Generates transaction data to withdraw from the unstake queue
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `params` | `Object` | Parameters for building the transaction |
-| `params.vault` | \`0x$\{string}\` | A vault address |
+| `params.vault` | `Hex` | A vault address |
 | `params.queueItems` | [`UnstakeQueueItem`](../../../interfaces/UnstakeQueueItem.md)[] | An array of queue items to withdraw (see `getUnstakeQueueForVault`) |
 
 #### Returns

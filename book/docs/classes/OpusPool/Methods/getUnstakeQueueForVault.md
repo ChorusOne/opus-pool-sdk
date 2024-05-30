@@ -8,7 +8,7 @@ Retrieves the unstake queue for a vault, including the user's position in the qu
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `vault` | \`0x$\{string}\` | A vault address |
+| `vault` | `Hex` | A vault address |
 
 #### Returns
 

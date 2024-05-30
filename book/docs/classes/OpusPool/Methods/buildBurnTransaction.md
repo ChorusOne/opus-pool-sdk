@@ -10,7 +10,7 @@ Generates a burn transaction to burn osTokens from the chosen vault
 | :------ | :------ | :------ |
 | `params` | `Object` | Parameters for building the transaction |
 | `params.shares` | `bigint` | An amount of shares to be burned |
-| `params.vault` | \`0x$\{string}\` | A vault address |
+| `params.vault` | `Hex` | A vault address |
 
 #### Returns
 

@@ -8,7 +8,7 @@ Retrieves the stake balance for the user in the vault
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `vault` | \`0x$\{string}\` | A vault address |
+| `vault` | `Hex` | A vault address |
 
 #### Returns
 

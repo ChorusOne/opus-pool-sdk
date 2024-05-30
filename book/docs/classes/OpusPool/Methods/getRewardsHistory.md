@@ -11,7 +11,7 @@ Retrieves the vault rewards history for a given user
 | `params` | `Object` | Parameters for the rewards history query |
 | `params.from` | `Date` | A starting date for the rewards retrieval query |
 | `params.to` | `Date` | An end date for the rewards retrieval query |
-| `params.vault` | \`0x$\{string}\` | An address of the vault to retrieve rewards for |
+| `params.vault` | `Hex` | An address of the vault to retrieve rewards for |
 
 #### Returns
 

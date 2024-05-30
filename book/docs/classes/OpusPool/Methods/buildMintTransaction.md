@@ -10,8 +10,8 @@ Generates a mint transaction to mint osTokens from the chosen vault
 | :------ | :------ | :------ |
 | `params` | `Object` | Parameters for building the transaction |
 | `params.shares` | `bigint` | An amount of shares to be minted |
-| `params.vault` | \`0x$\{string}\` | A vault address |
-| `params.referrer?` | \`0x$\{string}\` | An address of the referrer. Optional |
+| `params.vault` | `Hex` | A vault address |
+| `params.referrer?` | `Hex` | An address of the referrer. Optional |
 
 #### Returns
 

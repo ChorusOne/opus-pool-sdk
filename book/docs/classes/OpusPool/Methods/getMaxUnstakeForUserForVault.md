@@ -8,7 +8,7 @@ Retrieves the maximum amount of ETH that can be unstaked
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `vault` | \`0x$\{string}\` | A vault address |
+| `vault` | `Hex` | A vault address |
 
 #### Returns
 
