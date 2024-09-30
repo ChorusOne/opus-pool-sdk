@@ -1,10 +1,6 @@
 name: Node.js CI
 
-on:
-    push:
-    schedule:
-        # Runs at 00:00 (midnight) UTC every day
-        - cron: '0 0 * * *'
+on: [push]
 
 jobs:
     build:
