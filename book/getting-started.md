@@ -1,5 +1,16 @@
 ## OPUS Pool SDK
 
+{% hint style="warning" %}
+
+## 🔔 Notice: Migration to Chorus One SDK
+
+The OPUS Pool SDK has been integrated into the [Chorus One SDK](https://chorus-one.gitbook.io/sdk). We recommend all users migrate to the new SDK, which supports multiple networks (Ethereum, Solana, NEAR, and more) and offers enhanced signing options with fireblocks, ledger and local signing.
+Visit the [Chorus One SDK Documentation](https://github.com/ChorusOne/chorus-one-sdk) for more details.
+
+**Please note**: The OPUS Pool SDK will no longer receive new updates or releases but will remain available for legacy use.
+
+{% endhint %}
+
 [OPUS Pool SDK](https://www.npmjs.com/package/@chorus-one/opus-pool) provides
 a programmatic interface to deliver integration of
 non-custodial staking on Ethereum networks.
